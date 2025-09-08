@@ -1,0 +1,23 @@
+Table users {
+  id int [pk]
+  first_name varchar
+  last_name varchar
+  email varchar
+}
+
+Table books {
+  id int [pk]
+  title varchar
+  user_id int [ref: > users.id]
+}
+
+Table categories {
+  id int [pk]
+  name varchar
+  user_id int [ref: > users.id]
+}
+
+Table book_categories {
+  book_id int [pk, ref: > books.id]
+  category_id int [pk, ref: > categories.id]
+}
