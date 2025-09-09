@@ -15,7 +15,7 @@ interface TabsProps {
 
 export function Tabs({ items }: TabsProps) {
   return (
-    <div className="flex w-full h-16 border-b border-stone-300">
+    <div className="flex w-full h-16 min-h-16 max-h-16 border-b border-stone-300">
       {items.map(item => (
         <Tab
           key={item.id}
@@ -44,7 +44,7 @@ function Tab({ Icon, onClick, title, isActive }: TabProps) {
       className={cx(
         `
           flex flex-col gap-2 justify-end
-          items-center flex-1 text-xs 
+          items-center flex-1 text-xs
           cursor-pointer hover:bg-stone-200
         `,
         isActive ? "text-blue-600" : "text-stone-600",

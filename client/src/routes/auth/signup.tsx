@@ -59,7 +59,7 @@ function RouteComponent() {
   })
 
   return (
-    <div className="flex flex-col flex-1 w-full px-4 gap-6 overflow-y-auto">
+    <div className="flex flex-col flex-1 w-full px-4 gap-6">
       <form.AppField name="firstName">
         {field => <field.SimpleText label="نام:" />}
       </form.AppField>
