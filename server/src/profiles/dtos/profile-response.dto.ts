@@ -12,4 +12,7 @@ export class ProfileResponseDto {
 
   @Expose()
   location?: string | null
+
+  @Expose()
+  userId: number | null
 }

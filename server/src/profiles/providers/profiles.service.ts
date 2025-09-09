@@ -1,4 +1,9 @@
 import { Injectable } from "@nestjs/common"
 
 @Injectable()
-export class ProfilesService {}
+export class ProfilesService {
+  constructor(
+    // @InjectRepository(Profile)
+    // private readonly profilesRepo: Repository<Profile>,
+  ) {}
+}

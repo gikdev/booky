@@ -6,6 +6,7 @@ import {
   Entity,
   OneToOne,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from "typeorm"
 
@@ -45,4 +46,7 @@ export class Profile {
 
   @OneToOne(() => User, user => user.profile)
   user: User
+
+  @RelationId((profile: Profile) => profile.user)
+  userId: number
 }

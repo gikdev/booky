@@ -2,14 +2,7 @@ import { Injectable } from "@nestjs/common"
 import { Repository } from "typeorm"
 import { User } from "../user.entity"
 import { InjectRepository } from "@nestjs/typeorm"
-import { plainToInstance } from "class-transformer"
-import { UserResponseDto } from "../dtos/user-response.dto"
 import { CreateUserDto } from "../dtos/create-user.dto"
-import { UserWithProfileResponseDto } from "../dtos/user-with-profile-response.dto"
-
-interface FindAllProps {
-  includeProfile?: boolean
-}
 
 @Injectable()
 export class UsersService {
@@ -18,27 +11,22 @@ export class UsersService {
     private readonly usersRepo: Repository<User>,
   ) {}
 
-  async findAll({ includeProfile = false }: FindAllProps) {
+  async findAll() {
     const allUsers = await this.usersRepo.find({
-      relations: {
-        profile: includeProfile,
-      },
+      relations: { profile: true },
     })
 
-    return plainToInstance(
-      includeProfile ? UserWithProfileResponseDto : UserResponseDto,
-      allUsers,
-      {
-        excludeExtraneousValues: true,
-      },
-    )
+    return allUsers
+  }
+
+  async findOneById(id: User['id']) {
+    const user = await this.usersRepo.findOneBy({id})
+    return user
   }
 
   async create(createUserDto: CreateUserDto) {
     const newUser = this.usersRepo.create(createUserDto)
     await this.usersRepo.save(newUser)
-    return plainToInstance(UserResponseDto, newUser, {
-      excludeExtraneousValues: true,
-    })
+    return newUser
   }
 }

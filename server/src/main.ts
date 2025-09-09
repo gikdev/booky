@@ -38,7 +38,7 @@ async function bootstrap() {
     "/api/reference",
     apiReference({
       content: doc,
-      theme: "elysiajs",
+      theme: "deepSpace",
       layout: "classic",
     }),
   )
