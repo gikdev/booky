@@ -2,8 +2,7 @@ import { Injectable } from "@nestjs/common"
 
 @Injectable()
 export class ProfilesService {
-  constructor(
-    // @InjectRepository(Profile)
-    // private readonly profilesRepo: Repository<Profile>,
-  ) {}
+  constructor() // @InjectRepository(Profile)
+  // private readonly profilesRepo: Repository<Profile>,
+  {}
 }

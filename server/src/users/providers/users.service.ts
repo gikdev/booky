@@ -19,8 +19,8 @@ export class UsersService {
     return allUsers
   }
 
-  async findOneById(id: User['id']) {
-    const user = await this.usersRepo.findOneBy({id})
+  async findOneById(id: User["id"]) {
+    const user = await this.usersRepo.findOneBy({ id })
     return user
   }
 

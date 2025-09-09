@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from "@nestjs/common"
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from "@nestjs/common"
 import { CreateUserDto } from "./dtos/create-user.dto"
 import { UsersService } from "./providers/users.service"
 import { plainToInstance } from "class-transformer"
@@ -22,9 +29,7 @@ export class UsersController {
 
   @ApiOperation({ summary: "Get a user by ID" })
   @Get("/:id")
-  async getUserById(
-    @Param("id", ParseIntPipe) id: User['id']
-  ) {
+  async getUserById(@Param("id", ParseIntPipe) id: User["id"]) {
     const user = await this.usersService.findOneById(id)
 
     return plainToInstance(UserWithProfileResponseDto, user, {
