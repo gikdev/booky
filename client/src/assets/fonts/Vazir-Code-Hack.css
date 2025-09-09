@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Vazir Code Hack";
+  src:
+    url("Vazir-Code-Hack.woff2") format("woff2-variations"),
+    url("Vazir-Code-Hack.woff") format("woff-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  font-variation-settings: "wght" var(--font-weight, 400);
+}
+
+/* Alternative declaration for broader browser support */
+@font-face {
+  font-family: "Vazir Code Hack";
+  src:
+    url("Vazir-Code-Hack.woff2") format("woff2"),
+    url("Vazir-Code-Hack.woff") format("woff");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

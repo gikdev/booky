@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "../assets/fonts/Lahzeh.css";
+@import "../assets/fonts/Vazir-Code-Hack.css";
+
+@theme inline {
+  --font-main: "Lahzeh Variable", "Vazirmatn", sans-serif;
+  --font-code: "Vazir Code Hack", "Vazirmatn", sans-serif;
+}

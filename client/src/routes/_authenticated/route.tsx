@@ -1,5 +1,5 @@
-import { useAuthStore } from "#/shared/auth"
 import { createFileRoute, redirect } from "@tanstack/react-router"
+import { useAuthStore } from "#/shared/auth"
 
 export const Route = createFileRoute("/_authenticated")({
   component: RouteComponent,
