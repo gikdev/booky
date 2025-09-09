@@ -14,7 +14,7 @@ export const Route = createFileRoute("/auth")({
 
 function RouteComponent() {
   return (
-    <div className="flex-1 flex flex-col py-4 gap-8 items-center">
+    <div className="flex-1 flex flex-col py-4 gap-8 items-center overflow-y-auto">
       <img src="/images/logo-full.png" alt="" className="w-max" />
 
       <div className="flex flex-col gap-2 text-center">

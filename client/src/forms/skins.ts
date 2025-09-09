@@ -7,6 +7,9 @@ export const btn = cva({
     active:scale-95      disabled:active:scale-100
     cursor-pointer       disabled:cursor-not-allowed
     [&_svg]:text-[1.5em] disabled:opacity-50
+
+    outline-0            focus:outline-2
+    outline-blue-500 outline-offset-2
   `,
   variants: {
     mode: {
@@ -92,5 +95,52 @@ export const btn = cva({
     intent: "neutral",
     mode: "outline",
     isIcon: false,
+  },
+})
+
+export const smallMsg = cva({
+  base: "text-xs",
+  variants: {
+    intent: {
+      success: "text-green-600",
+      error: "text-red-600",
+      neutral: "text-stone-600",
+    },
+  },
+  defaultVariants: {
+    intent: "neutral",
+  },
+})
+
+export const fieldWithLabelContainer = cva({
+  base: "flex flex-col gap-1",
+})
+
+export const inputField = cva({
+  base: `
+    min-h-14 p-4 rounded-lg bg-stone-200
+    focus:bg-stone-300 text-stone-900
+    placeholder:text-stone-600 
+
+    outline-blue-500 outline-offset-2
+    focus:outline-2 
+    
+    disabled:text-slate-600
+    disabled:bg-slate-400
+    
+    cursor-text     disabled:cursor-not-allowed
+
+    w-full
+    disabled:opacity-50
+    transition-all
+  `,
+  variants: {
+    isMultiline: {
+      false: null,
+      true: "min-h-28",
+    },
+  },
+  defaultVariants: {
+    isMultiline: false,
   },
 })
