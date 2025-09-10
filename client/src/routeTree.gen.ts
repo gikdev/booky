@@ -8,80 +8,80 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root"
-import { Route as AuthenticatedIndexRouteImport } from "./routes/_authenticated/index"
-import { Route as AuthenticatedRouteRouteImport } from "./routes/_authenticated/route"
-import { Route as AuthLoginRouteImport } from "./routes/auth/login"
-import { Route as AuthRouteRouteImport } from "./routes/auth/route"
-import { Route as AuthSignupRouteImport } from "./routes/auth/signup"
-import { Route as IntroRouteImport } from "./routes/intro"
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IntroRouteImport } from './routes/intro'
+import { Route as AuthRouteRouteImport } from './routes/auth/route'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthSignupRouteImport } from './routes/auth/signup'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AuthenticatedbooksIndexRouteImport } from './routes/_authenticated/(books)/index'
 
 const IntroRoute = IntroRouteImport.update({
-  id: "/intro",
-  path: "/intro",
+  id: '/intro',
+  path: '/intro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
-  id: "/auth",
-  path: "/auth",
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: "/_authenticated",
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
-  id: "/signup",
-  path: "/signup",
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => AuthRouteRoute,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: "/login",
-  path: "/login",
+  id: '/login',
+  path: '/login',
   getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthenticatedbooksIndexRoute = AuthenticatedbooksIndexRouteImport.update({
+  id: '/(books)/',
+  path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  "/auth": typeof AuthRouteRouteWithChildren
-  "/intro": typeof IntroRoute
-  "/auth/login": typeof AuthLoginRoute
-  "/auth/signup": typeof AuthSignupRoute
-  "/": typeof AuthenticatedIndexRoute
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/intro': typeof IntroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/': typeof AuthenticatedbooksIndexRoute
 }
 export interface FileRoutesByTo {
-  "/auth": typeof AuthRouteRouteWithChildren
-  "/intro": typeof IntroRoute
-  "/auth/login": typeof AuthLoginRoute
-  "/auth/signup": typeof AuthSignupRoute
-  "/": typeof AuthenticatedIndexRoute
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/intro': typeof IntroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/': typeof AuthenticatedbooksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  "/_authenticated": typeof AuthenticatedRouteRouteWithChildren
-  "/auth": typeof AuthRouteRouteWithChildren
-  "/intro": typeof IntroRoute
-  "/auth/login": typeof AuthLoginRoute
-  "/auth/signup": typeof AuthSignupRoute
-  "/_authenticated/": typeof AuthenticatedIndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/intro': typeof IntroRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/_authenticated/(books)/': typeof AuthenticatedbooksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/auth" | "/intro" | "/auth/login" | "/auth/signup" | "/"
+  fullPaths: '/auth' | '/intro' | '/auth/login' | '/auth/signup' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: "/auth" | "/intro" | "/auth/login" | "/auth/signup" | "/"
+  to: '/auth' | '/intro' | '/auth/login' | '/auth/signup' | '/'
   id:
-    | "__root__"
-    | "/_authenticated"
-    | "/auth"
-    | "/intro"
-    | "/auth/login"
-    | "/auth/signup"
-    | "/_authenticated/"
+    | '__root__'
+    | '/_authenticated'
+    | '/auth'
+    | '/intro'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/_authenticated/(books)/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -90,59 +90,59 @@ export interface RootRouteChildren {
   IntroRoute: typeof IntroRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/intro": {
-      id: "/intro"
-      path: "/intro"
-      fullPath: "/intro"
+    '/intro': {
+      id: '/intro'
+      path: '/intro'
+      fullPath: '/intro'
       preLoaderRoute: typeof IntroRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/auth": {
-      id: "/auth"
-      path: "/auth"
-      fullPath: "/auth"
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_authenticated": {
-      id: "/_authenticated"
-      path: ""
-      fullPath: ""
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_authenticated/": {
-      id: "/_authenticated/"
-      path: "/"
-      fullPath: "/"
-      preLoaderRoute: typeof AuthenticatedIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    "/auth/signup": {
-      id: "/auth/signup"
-      path: "/signup"
-      fullPath: "/auth/signup"
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/signup'
+      fullPath: '/auth/signup'
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    "/auth/login": {
-      id: "/auth/login"
-      path: "/login"
-      fullPath: "/auth/login"
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/login'
+      fullPath: '/auth/login'
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
+    }
+    '/_authenticated/(books)/': {
+      id: '/_authenticated/(books)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedbooksIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedbooksIndexRoute: typeof AuthenticatedbooksIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedbooksIndexRoute: AuthenticatedbooksIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

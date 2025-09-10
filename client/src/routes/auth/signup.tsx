@@ -1,5 +1,5 @@
 import { UserPlusIcon } from "@phosphor-icons/react"
-import { createFileRoute, useLocation, useRouter } from "@tanstack/react-router"
+import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { z } from "zod"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
@@ -39,22 +39,17 @@ const defaultValues: SignupFormValues = {
 
 function RouteComponent() {
   const router = useRouter()
-  const { search } = useLocation()
 
   const form = useAppForm({
     defaultValues,
     validators: {
-      onChange: SignupFormSchema,
+      // onChange: SignupFormSchema,
     },
     onSubmit: async ({ value }) => {
       // pretending to submit...
       console.log(value)
 
-      if ("redirect" in search && typeof search.redirect === "string") {
-        router.history.push(search.redirect)
-      } else {
-        router.history.push("/")
-      }
+      router.history.push("/")
     },
   })
 
