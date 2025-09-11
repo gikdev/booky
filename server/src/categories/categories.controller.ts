@@ -1,9 +1,21 @@
-import { Body, Controller, Get, Post } from "@nestjs/common"
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Put,
+} from "@nestjs/common"
 import { CategoriesService } from "./providers/categories.service"
 import { plainToInstance } from "class-transformer"
 import { CategoryResponseDto } from "./dtos/category-response.dto"
 import { CreateCategoryDto } from "./dtos/create-category.dto"
 import { ApiOperation } from "@nestjs/swagger"
+import { UpdateCategoryDto } from "./dtos/update-category.dto"
+import { PatchCategoryDto } from "./dtos/patch-category.dto"
 
 @Controller("categories")
 export class CategoriesController {
@@ -18,11 +30,59 @@ export class CategoriesController {
     })
   }
 
+  @ApiOperation({ summary: "Get category by ID" })
+  @Get("/:id")
+  async getCategoryById(@Param("id", ParseIntPipe) id: number) {
+    const category = await this.categoriesService.findOneById(id)
+    return plainToInstance(CategoryResponseDto, category, {
+      excludeExtraneousValues: true,
+    })
+  }
+
   @ApiOperation({ summary: "Create a category" })
   @Post()
   async createNewCategory(@Body() createCategoryDto: CreateCategoryDto) {
     const newCategory = await this.categoriesService.create(createCategoryDto)
     return plainToInstance(CategoryResponseDto, newCategory, {
+      excludeExtraneousValues: true,
+    })
+  }
+
+  @ApiOperation({ summary: "Update category by ID" })
+  @Put("/:id")
+  async updateCategoryById(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+  ) {
+    const updatedCategory = await this.categoriesService.update(
+      id,
+      updateCategoryDto,
+    )
+    return plainToInstance(CategoryResponseDto, updatedCategory, {
+      excludeExtraneousValues: true,
+    })
+  }
+
+  @ApiOperation({ summary: "Patch category by ID" })
+  @Patch("/:id")
+  async patchCategoryById(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() patchCategoryDto: PatchCategoryDto,
+  ) {
+    const patchedCategory = await this.categoriesService.patch(
+      id,
+      patchCategoryDto,
+    )
+    return plainToInstance(CategoryResponseDto, patchedCategory, {
+      excludeExtraneousValues: true,
+    })
+  }
+
+  @ApiOperation({ summary: "Delete category by ID" })
+  @Delete("/:id")
+  async removeCategoryById(@Param("id", ParseIntPipe) id: number) {
+    const removedCategory = await this.categoriesService.remove(id)
+    return plainToInstance(CategoryResponseDto, removedCategory, {
       excludeExtraneousValues: true,
     })
   }

@@ -27,7 +27,7 @@ export class UsersController {
     })
   }
 
-  @ApiOperation({ summary: "Get a user by ID" })
+  @ApiOperation({ summary: "Get user by ID" })
   @Get("/:id")
   async getUserById(@Param("id", ParseIntPipe) id: User["id"]) {
     const user = await this.usersService.findOneById(id)
@@ -37,7 +37,7 @@ export class UsersController {
     })
   }
 
-  @ApiOperation({ summary: "Create a new user" })
+  @ApiOperation({ summary: "Create a user" })
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
     const newUser = await this.usersService.create(createUserDto)

@@ -30,7 +30,7 @@ export class BooksController {
     })
   }
 
-  @ApiOperation({ summary: "Get a book by ID" })
+  @ApiOperation({ summary: "Get book by ID" })
   @Get("/:id")
   async getBookById(@Param("id", ParseIntPipe) id: number) {
     const book = await this.booksService.findOneById(id)
@@ -48,7 +48,7 @@ export class BooksController {
     })
   }
 
-  @ApiOperation({ summary: "Update a book by ID" })
+  @ApiOperation({ summary: "Update book by ID" })
   @Put("/:id")
   async updateBookById(
     @Param("id", ParseIntPipe) id: number,
@@ -60,7 +60,7 @@ export class BooksController {
     })
   }
 
-  @ApiOperation({ summary: "Patch a book by ID" })
+  @ApiOperation({ summary: "Patch book by ID" })
   @Patch("/:id")
   async patchBookById(
     @Param("id", ParseIntPipe) id: number,
@@ -72,7 +72,7 @@ export class BooksController {
     })
   }
 
-  @ApiOperation({ summary: "Delete a book by ID" })
+  @ApiOperation({ summary: "Delete book by ID" })
   @Delete("/:id")
   async removeBookById(@Param("id", ParseIntPipe) id: number) {
     const removedBook = await this.booksService.remove(id)

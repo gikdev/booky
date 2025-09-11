@@ -30,6 +30,13 @@ export class Category {
   })
   description?: string
 
+  @Column({
+    type: "char",
+    length: 6,
+    nullable: true,
+  })
+  color?: string
+
   @CreateDateColumn()
   createdAt: Date
 
