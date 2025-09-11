@@ -11,14 +11,14 @@ export class BookResponseDto {
   author: string
 
   @Expose()
-  description?: string | null
+  description: string | null
 
   @Expose()
-  language?: string | null
+  language: string | null
 
   @Expose()
-  pages?: number | null
+  pages: number | null
 
   @Expose()
-  color?: string | null
+  color: string | null
 }

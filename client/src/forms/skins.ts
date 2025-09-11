@@ -39,10 +39,16 @@ export const btn = cva({
       true: null,
     },
     size: {
+      sm: "rounded-xl py-2 gap-2 min-h-12",
       md: "rounded-2xl py-4 gap-2 min-h-14",
     },
   },
   compoundVariants: [
+    {
+      isIcon: true,
+      size: "sm",
+      className: "px-2 w-12",
+    },
     {
       isIcon: false,
       size: "md",
@@ -57,18 +63,18 @@ export const btn = cva({
       intent: "neutral",
       mode: "text",
       className: `
-        text-stone-400
-        hover:text-stone-300
-        hover:bg-stone-400/10
+        text-stone-600
+        hover:text-stone-900
+        hover:bg-stone-600/10
       `,
     },
     {
       intent: "danger",
       mode: "text",
       className: `
-        text-danger-400
-        hover:text-danger-300
-        hover:bg-danger-400/10
+        text-red-600
+        hover:text-red-900
+        hover:bg-red-600/10
       `,
     },
     {

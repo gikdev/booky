@@ -15,6 +15,10 @@ export class BooksService {
     return await this.booksRepo.find()
   }
 
+  async findOneById(id: Book['id']) {
+    return await this.booksRepo.findOneBy({id})
+  }
+
   async create(createBookDto: CreateBookDto) {
     const newBook = this.booksRepo.create(createBookDto)
     await this.booksRepo.save(newBook)

@@ -1,15 +1,15 @@
 import { CaretLeftIcon } from "@phosphor-icons/react"
+import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
+import {
+  type BookResponseDto,
+  booksControllerGetAllBooksOptions,
+} from "#/api-client"
 import { contentContainer, page } from "#/shared/skins"
 import { AppBottomTabs } from "../-AppBottomTabs"
 import { NavBar } from "../-Navbar"
-import { useQuery } from "@tanstack/react-query"
-import {
-  booksControllerGetAllBooksOptions,
-  type BookResponseDto,
-} from "#/api-client"
 
-export const Route = createFileRoute("/_authenticated/(books)/")({
+export const Route = createFileRoute("/_authenticated/books/")({
   component: RouteComponent,
 })
 
@@ -45,12 +45,13 @@ interface BookItemProps {
   color: BookResponseDto["color"]
 }
 
-function BookItem({ title, color }: BookItemProps) {
+function BookItem({ title, color, bookId }: BookItemProps) {
   color = color || "000000"
 
   return (
     <Link
-      to="/"
+      to="/books/$bookId"
+      params={{ bookId: bookId.toString() }}
       className="
         py-2 px-4 gap-4 flex justify-center
         items-center min-h-14 bg-stone-100

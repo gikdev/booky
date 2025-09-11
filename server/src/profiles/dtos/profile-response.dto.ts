@@ -5,13 +5,13 @@ export class ProfileResponseDto {
   id: number
 
   @Expose()
-  bio?: string | null
+  bio: string | null
 
   @Expose()
-  birthdate?: Date | null
+  birthdate: Date | null
 
   @Expose()
-  location?: string | null
+  location: string | null
 
   @Expose()
   userId: number | null

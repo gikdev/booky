@@ -8,7 +8,7 @@ export class UserResponseDto {
   firstName: string
 
   @Expose()
-  lastName?: string | null
+  lastName: string | null
 
   @Expose()
   email: string

@@ -14,7 +14,8 @@ import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as AuthenticatedbooksIndexRouteImport } from './routes/_authenticated/(books)/index'
+import { Route as AuthenticatedBooksIndexRouteImport } from './routes/_authenticated/books/index'
+import { Route as AuthenticatedBooksBookIdRouteImport } from './routes/_authenticated/books/$bookId'
 
 const IntroRoute = IntroRouteImport.update({
   id: '/intro',
@@ -40,25 +41,33 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-const AuthenticatedbooksIndexRoute = AuthenticatedbooksIndexRouteImport.update({
-  id: '/(books)/',
-  path: '/',
+const AuthenticatedBooksIndexRoute = AuthenticatedBooksIndexRouteImport.update({
+  id: '/books/',
+  path: '/books/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedBooksBookIdRoute =
+  AuthenticatedBooksBookIdRouteImport.update({
+    id: '/books/$bookId',
+    path: '/books/$bookId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteRouteWithChildren
   '/intro': typeof IntroRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
-  '/': typeof AuthenticatedbooksIndexRoute
+  '/books/$bookId': typeof AuthenticatedBooksBookIdRoute
+  '/books': typeof AuthenticatedBooksIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRouteRouteWithChildren
   '/intro': typeof IntroRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
-  '/': typeof AuthenticatedbooksIndexRoute
+  '/books/$bookId': typeof AuthenticatedBooksBookIdRoute
+  '/books': typeof AuthenticatedBooksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -67,13 +76,26 @@ export interface FileRoutesById {
   '/intro': typeof IntroRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
-  '/_authenticated/(books)/': typeof AuthenticatedbooksIndexRoute
+  '/_authenticated/books/$bookId': typeof AuthenticatedBooksBookIdRoute
+  '/_authenticated/books/': typeof AuthenticatedBooksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/auth' | '/intro' | '/auth/login' | '/auth/signup' | '/'
+  fullPaths:
+    | '/auth'
+    | '/intro'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/books/$bookId'
+    | '/books'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/intro' | '/auth/login' | '/auth/signup' | '/'
+  to:
+    | '/auth'
+    | '/intro'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/books/$bookId'
+    | '/books'
   id:
     | '__root__'
     | '/_authenticated'
@@ -81,7 +103,8 @@ export interface FileRouteTypes {
     | '/intro'
     | '/auth/login'
     | '/auth/signup'
-    | '/_authenticated/(books)/'
+    | '/_authenticated/books/$bookId'
+    | '/_authenticated/books/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -127,22 +150,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    '/_authenticated/(books)/': {
-      id: '/_authenticated/(books)/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedbooksIndexRouteImport
+    '/_authenticated/books/': {
+      id: '/_authenticated/books/'
+      path: '/books'
+      fullPath: '/books'
+      preLoaderRoute: typeof AuthenticatedBooksIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/books/$bookId': {
+      id: '/_authenticated/books/$bookId'
+      path: '/books/$bookId'
+      fullPath: '/books/$bookId'
+      preLoaderRoute: typeof AuthenticatedBooksBookIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedbooksIndexRoute: typeof AuthenticatedbooksIndexRoute
+  AuthenticatedBooksBookIdRoute: typeof AuthenticatedBooksBookIdRoute
+  AuthenticatedBooksIndexRoute: typeof AuthenticatedBooksIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedbooksIndexRoute: AuthenticatedbooksIndexRoute,
+  AuthenticatedBooksBookIdRoute: AuthenticatedBooksBookIdRoute,
+  AuthenticatedBooksIndexRoute: AuthenticatedBooksIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

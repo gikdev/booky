@@ -4,3 +4,16 @@ export const page = cva({ base: "flex flex-col flex-1" })
 export const contentContainer = cva({
   base: "flex flex-col flex-1 overflow-y-auto",
 })
+
+export const tag = cva({
+  base: "flex items-center gap-2 py-1.5 ps-4 pe-4 bg-stone-200 rounded-sm text-xs",
+  variants: {
+    hasIcon: {
+      false: null,
+      true: "pe-2 [&_svg]:text-[18px]",
+    },
+  },
+  defaultVariants: {
+    hasIcon: false,
+  },
+})

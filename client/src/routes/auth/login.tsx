@@ -34,7 +34,7 @@ function RouteComponent() {
       console.log(value)
 
       useAuthStore.setState({ isAuthenticated: true })
-      router.history.push("/")
+      router.history.push("/books")
     },
   })
 
