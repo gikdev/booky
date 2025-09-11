@@ -1,16 +1,18 @@
 import { CaretRightIcon } from "@phosphor-icons/react"
+import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
+import { categoriesControllerGetAllCategoriesOptions } from "#/api-client"
 import { contentContainer, iconItem, page } from "#/shared/skins"
 import { NavBar } from "../../-Navbar"
-import { useQuery } from "@tanstack/react-query"
-import { categoriesControllerGetAllCategoriesOptions } from "#/api-client"
 
 export const Route = createFileRoute("/_authenticated/profile/categories/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const {data:categories=[]} = useQuery(categoriesControllerGetAllCategoriesOptions())
+  const { data: categories = [] } = useQuery(
+    categoriesControllerGetAllCategoriesOptions(),
+  )
 
   return (
     <div className={page()}>
