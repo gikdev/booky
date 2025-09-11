@@ -1,10 +1,12 @@
 import { Book } from "src/books/book.entity"
+import { User } from "src/users/user.entity"
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm"
@@ -39,4 +41,7 @@ export class Category {
 
   @ManyToMany(() => Book, b => b.categories, { onDelete: "CASCADE" })
   books: Book[]
+
+  @ManyToOne(() => User, u => u.categories, { onDelete: "CASCADE" })
+  owner: User
 }

@@ -49,7 +49,7 @@ export class BooksController {
   }
 
   @ApiOperation({ summary: "Update a book by ID" })
-  @Put()
+  @Put("/:id")
   async updateBookById(
     @Param("id", ParseIntPipe) id: number,
     @Body() updateBookDto: UpdateBookDto,
@@ -61,7 +61,7 @@ export class BooksController {
   }
 
   @ApiOperation({ summary: "Patch a book by ID" })
-  @Patch()
+  @Patch("/:id")
   async patchBookById(
     @Param("id", ParseIntPipe) id: number,
     @Body() patchBookDto: PatchBookDto,
@@ -73,7 +73,7 @@ export class BooksController {
   }
 
   @ApiOperation({ summary: "Delete a book by ID" })
-  @Delete()
+  @Delete("/:id")
   async removeBookById(@Param("id", ParseIntPipe) id: number) {
     const removedBook = await this.booksService.remove(id)
     return plainToInstance(BookResponseDto, removedBook, {

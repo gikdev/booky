@@ -1,5 +1,4 @@
 import {
-  IsArray,
   IsInt,
   IsNotEmpty,
   IsOptional,
@@ -8,16 +7,11 @@ import {
   MaxLength,
 } from "class-validator"
 
-export class BaseBookDto {
+export class BaseCategoryDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(256)
   title: string
-
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(256)
-  author: string
 
   @IsString()
   @IsOptional()
@@ -26,22 +20,8 @@ export class BaseBookDto {
 
   @IsString()
   @IsOptional()
-  @Length(2, 2)
-  language?: string
-
-  @IsInt()
-  @IsOptional()
-  pages?: number
-
-  @IsString()
-  @IsOptional()
   @Length(6, 6)
   color?: string
-
-  @IsOptional()
-  @IsArray()
-  @IsInt({ each: true })
-  categoryIds?: number[]
 
   @IsInt()
   @IsNotEmpty()

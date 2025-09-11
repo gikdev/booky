@@ -1,4 +1,5 @@
 import { Category } from "src/categories/category.entity"
+import { User } from "src/users/user.entity"
 import {
   Column,
   CreateDateColumn,
@@ -6,6 +7,7 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm"
@@ -70,4 +72,7 @@ export class Book {
   @ManyToMany(() => Category, c => c.books)
   @JoinTable()
   categories: Category[]
+
+  @ManyToOne(() => User, u => u.books, { onDelete: "CASCADE" })
+  owner: User
 }

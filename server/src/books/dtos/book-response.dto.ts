@@ -1,4 +1,6 @@
-import { Expose } from "class-transformer"
+import { Expose, Type } from "class-transformer"
+import { UserResponseDto } from "src/users/dtos/user-response.dto"
+import { User } from "src/users/user.entity"
 
 export class BookResponseDto {
   @Expose()
@@ -21,4 +23,8 @@ export class BookResponseDto {
 
   @Expose()
   color: string | null
+
+  @Expose()
+  @Type(() => UserResponseDto)
+  owner: UserResponseDto
 }

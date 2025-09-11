@@ -1,3 +1,5 @@
+import { Book } from "src/books/book.entity"
+import { Category } from "src/categories/category.entity"
 import { Profile } from "src/profiles/profile.entity"
 import {
   Column,
@@ -5,6 +7,7 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -59,4 +62,10 @@ export class User {
   })
   @JoinColumn()
   profile?: Profile
+
+  @OneToMany(() => Book, b => b.owner)
+  books?: Book[]
+
+  @OneToMany(() => Category, c => c.owner)
+  categories?: Category[]
 }
