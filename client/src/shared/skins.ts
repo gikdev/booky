@@ -17,3 +17,12 @@ export const tag = cva({
     hasIcon: false,
   },
 })
+
+export const iconItem = cva({
+  base: `
+    flex items-center min-h-14 py-2
+    px-4 gap-4 text-start [&_span]:flex-1
+    [&_svg]:text-[1.5em] hover:bg-stone-200
+    hover:text-stone-900 cursor-pointer
+  `,
+})
