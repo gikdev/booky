@@ -16,6 +16,7 @@ export class BooksService {
     private readonly categoriesService: CategoriesService,
     private readonly usersService: UsersService,
   ) {}
+  
   async findAll() {
     return await this.booksRepo.find({
       relations: { categories: true, owner: true },

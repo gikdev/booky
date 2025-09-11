@@ -49,7 +49,6 @@ export class Book {
   @Column({
     type: "smallint",
     nullable: true,
-    default: 0,
   })
   pages?: number
 
