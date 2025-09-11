@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from "@nestjs/common"
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common"
 import { In, Repository } from "typeorm"
 import { Category } from "../category.entity"
 import { InjectRepository } from "@nestjs/typeorm"
@@ -12,6 +17,7 @@ export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoriesRepo: Repository<Category>,
+    @Inject(forwardRef(() => BooksService))
     private readonly booksService: BooksService,
     private readonly usersService: UsersService,
   ) {}
