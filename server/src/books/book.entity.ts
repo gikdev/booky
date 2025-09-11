@@ -50,7 +50,7 @@ export class Book {
 
   @Column({
     type: "char",
-    length: 7,
+    length: 6,
     nullable: true,
   })
   color?: string

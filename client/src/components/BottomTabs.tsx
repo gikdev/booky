@@ -32,8 +32,9 @@ function BottomTab({ Icon, isSelected, title, url, disabled }: BottomTabProps) {
     `
       flex flex-col gap-1 justify-center
       items-center flex-1 text-xs py-1 px-2
-      cursor-pointer disabled:opacity-50
+      cursor-pointer disabled:cursor-not-allowed
       bg-stone-100 hover:bg-stone-200 disabled:hover:bg-stone-100
+      disabled:opacity-50 
     `,
     isSelected && !disabled ? "text-blue-600 font-bold" : "text-stone-600",
   )

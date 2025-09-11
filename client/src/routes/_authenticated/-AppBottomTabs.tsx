@@ -21,7 +21,7 @@ export function AppBottomTabs() {
         Icon: BookOpenIcon,
         title: "خوانش",
         url: "/" satisfies FileRouteTypes["to"],
-        isSelected: false,
+        isSelected: pathname === "/reading",
         disabled: true,
       },
       {
@@ -30,9 +30,10 @@ export function AppBottomTabs() {
         title: "پروفایل",
         url: "/" satisfies FileRouteTypes["to"],
         isSelected: pathname === "/profile",
+        disabled: true,
       },
     ],
-    [],
+    [pathname],
   )
 
   return <BottomTabs items={items} />

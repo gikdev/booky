@@ -3,25 +3,35 @@ import { createFileRoute, Link } from "@tanstack/react-router"
 import { contentContainer, page } from "#/shared/skins"
 import { AppBottomTabs } from "../-AppBottomTabs"
 import { NavBar } from "../-Navbar"
+import { useQuery } from "@tanstack/react-query"
+import {
+  booksControllerGetAllBooksOptions,
+  type BookResponseDto,
+} from "#/api-client"
 
 export const Route = createFileRoute("/_authenticated/(books)/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const { data: books = [], isSuccess } = useQuery(
+    booksControllerGetAllBooksOptions(),
+  )
+
   return (
     <div className={page()}>
       <NavBar title="کتب" />
 
       <div className={contentContainer()}>
-        <BookItem bookId={0} title="برنامه‌ریزی به روش بولت‌ژورنال" />
-        <BookItem bookId={0} title="The ONE Thing" />
-        <BookItem bookId={0} title="The Concise Mastery" />
-        <BookItem bookId={0} title="Essentialism" />
-        <BookItem bookId={0} title="بی حد و مرز" />
-        <BookItem bookId={0} title="Side Hustle" />
-        <BookItem bookId={0} title="Indistractable" />
-        <BookItem bookId={0} title="Mindset" />
+        {isSuccess &&
+          books.map(b => (
+            <BookItem
+              key={b.id}
+              bookId={b.id}
+              title={b.title}
+              color={b.color}
+            />
+          ))}
       </div>
 
       <AppBottomTabs />
@@ -32,9 +42,12 @@ function RouteComponent() {
 interface BookItemProps {
   bookId: number
   title: string
+  color: BookResponseDto["color"]
 }
 
-function BookItem({ title }: BookItemProps) {
+function BookItem({ title, color }: BookItemProps) {
+  color = color || "000000"
+
   return (
     <Link
       to="/"
@@ -45,12 +58,8 @@ function BookItem({ title }: BookItemProps) {
       "
     >
       <div
-        className="
-        flex justify-center items-center
-        rounded-lg text-blue-600
-        bg-blue-600/20 h-10 w-10
-        font-bold
-      "
+        className="flex justify-center items-center rounded-lg h-10 w-10 font-bold"
+        style={{ color: `#${color}`, backgroundColor: `#${color}33` }}
       >
         {title[0]}
       </div>
