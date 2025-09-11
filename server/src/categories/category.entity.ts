@@ -1,8 +1,10 @@
+import { Book } from "src/books/book.entity"
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm"
@@ -34,4 +36,7 @@ export class Category {
 
   @DeleteDateColumn()
   deletedAt: Date
+
+  @ManyToMany(() => Book, b => b.categories, { onDelete: "CASCADE" })
+  books: Book[]
 }

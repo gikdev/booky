@@ -44,10 +44,7 @@ export class Profile {
   @DeleteDateColumn()
   deletedAt: Date
 
-  @OneToOne(
-    () => User,
-    user => user.profile,
-  )
+  @OneToOne(() => User, user => user.profile)
   user: User
 
   @RelationId((profile: Profile) => profile.user)

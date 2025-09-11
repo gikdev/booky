@@ -1,8 +1,11 @@
+import { Category } from "src/categories/category.entity"
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm"
@@ -63,4 +66,8 @@ export class Book {
 
   @DeleteDateColumn()
   deletedAt: Date
+
+  @ManyToMany(() => Category, c => c.books)
+  @JoinTable()
+  categories: Category[]
 }

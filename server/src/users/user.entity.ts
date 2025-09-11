@@ -53,14 +53,10 @@ export class User {
   @DeleteDateColumn()
   deletedAt: Date
 
-  @OneToOne(
-    () => Profile,
-    profile => profile.user,
-    {
-      cascade: true,
-      nullable: true,
-    },
-  )
+  @OneToOne(() => Profile, profile => profile.user, {
+    cascade: true,
+    nullable: true,
+  })
   @JoinColumn()
   profile?: Profile
 }

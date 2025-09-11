@@ -9,4 +9,7 @@ export class CategoryResponseDto {
 
   @Expose()
   description: string | null
+
+  @Expose()
+  color: string | null
 }
