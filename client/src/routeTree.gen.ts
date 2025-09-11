@@ -16,8 +16,10 @@ import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
 import { Route as AuthenticatedBooksIndexRouteImport } from './routes/_authenticated/books/index'
+import { Route as AuthenticatedBooksNewRouteImport } from './routes/_authenticated/books/new'
 import { Route as AuthenticatedBooksBookIdRouteImport } from './routes/_authenticated/books/$bookId'
 import { Route as AuthenticatedProfileCategoriesIndexRouteImport } from './routes/_authenticated/profile/categories/index'
+import { Route as AuthenticatedProfileCategoriesNewRouteImport } from './routes/_authenticated/profile/categories/new'
 
 const IntroRoute = IntroRouteImport.update({
   id: '/intro',
@@ -54,6 +56,11 @@ const AuthenticatedBooksIndexRoute = AuthenticatedBooksIndexRouteImport.update({
   path: '/books/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedBooksNewRoute = AuthenticatedBooksNewRouteImport.update({
+  id: '/books/new',
+  path: '/books/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedBooksBookIdRoute =
   AuthenticatedBooksBookIdRouteImport.update({
     id: '/books/$bookId',
@@ -66,6 +73,12 @@ const AuthenticatedProfileCategoriesIndexRoute =
     path: '/profile/categories/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedProfileCategoriesNewRoute =
+  AuthenticatedProfileCategoriesNewRouteImport.update({
+    id: '/profile/categories/new',
+    path: '/profile/categories/new',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteRouteWithChildren
@@ -73,8 +86,10 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/books/$bookId': typeof AuthenticatedBooksBookIdRoute
+  '/books/new': typeof AuthenticatedBooksNewRoute
   '/books': typeof AuthenticatedBooksIndexRoute
   '/profile': typeof AuthenticatedProfileIndexRoute
+  '/profile/categories/new': typeof AuthenticatedProfileCategoriesNewRoute
   '/profile/categories': typeof AuthenticatedProfileCategoriesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -83,8 +98,10 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/books/$bookId': typeof AuthenticatedBooksBookIdRoute
+  '/books/new': typeof AuthenticatedBooksNewRoute
   '/books': typeof AuthenticatedBooksIndexRoute
   '/profile': typeof AuthenticatedProfileIndexRoute
+  '/profile/categories/new': typeof AuthenticatedProfileCategoriesNewRoute
   '/profile/categories': typeof AuthenticatedProfileCategoriesIndexRoute
 }
 export interface FileRoutesById {
@@ -95,8 +112,10 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/_authenticated/books/$bookId': typeof AuthenticatedBooksBookIdRoute
+  '/_authenticated/books/new': typeof AuthenticatedBooksNewRoute
   '/_authenticated/books/': typeof AuthenticatedBooksIndexRoute
   '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
+  '/_authenticated/profile/categories/new': typeof AuthenticatedProfileCategoriesNewRoute
   '/_authenticated/profile/categories/': typeof AuthenticatedProfileCategoriesIndexRoute
 }
 export interface FileRouteTypes {
@@ -107,8 +126,10 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/signup'
     | '/books/$bookId'
+    | '/books/new'
     | '/books'
     | '/profile'
+    | '/profile/categories/new'
     | '/profile/categories'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -117,8 +138,10 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/signup'
     | '/books/$bookId'
+    | '/books/new'
     | '/books'
     | '/profile'
+    | '/profile/categories/new'
     | '/profile/categories'
   id:
     | '__root__'
@@ -128,8 +151,10 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/signup'
     | '/_authenticated/books/$bookId'
+    | '/_authenticated/books/new'
     | '/_authenticated/books/'
     | '/_authenticated/profile/'
+    | '/_authenticated/profile/categories/new'
     | '/_authenticated/profile/categories/'
   fileRoutesById: FileRoutesById
 }
@@ -190,6 +215,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBooksIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/books/new': {
+      id: '/_authenticated/books/new'
+      path: '/books/new'
+      fullPath: '/books/new'
+      preLoaderRoute: typeof AuthenticatedBooksNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/books/$bookId': {
       id: '/_authenticated/books/$bookId'
       path: '/books/$bookId'
@@ -204,20 +236,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileCategoriesIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/profile/categories/new': {
+      id: '/_authenticated/profile/categories/new'
+      path: '/profile/categories/new'
+      fullPath: '/profile/categories/new'
+      preLoaderRoute: typeof AuthenticatedProfileCategoriesNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedBooksBookIdRoute: typeof AuthenticatedBooksBookIdRoute
+  AuthenticatedBooksNewRoute: typeof AuthenticatedBooksNewRoute
   AuthenticatedBooksIndexRoute: typeof AuthenticatedBooksIndexRoute
   AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
+  AuthenticatedProfileCategoriesNewRoute: typeof AuthenticatedProfileCategoriesNewRoute
   AuthenticatedProfileCategoriesIndexRoute: typeof AuthenticatedProfileCategoriesIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBooksBookIdRoute: AuthenticatedBooksBookIdRoute,
+  AuthenticatedBooksNewRoute: AuthenticatedBooksNewRoute,
   AuthenticatedBooksIndexRoute: AuthenticatedBooksIndexRoute,
   AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
+  AuthenticatedProfileCategoriesNewRoute:
+    AuthenticatedProfileCategoriesNewRoute,
   AuthenticatedProfileCategoriesIndexRoute:
     AuthenticatedProfileCategoriesIndexRoute,
 }

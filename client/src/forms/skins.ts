@@ -32,6 +32,7 @@ export const btn = cva({
     intent: {
       neutral: null,
       danger: null,
+      success: null,
       brand: null,
     },
     isIcon: {
@@ -85,6 +86,14 @@ export const btn = cva({
         hover:text-stone-100
         bg-stone-800
         hover:bg-stone-700
+      `,
+    },
+    {
+      intent: "success",
+      mode: "contained",
+      className: `
+        bg-emerald-600
+        hover:bg-emerald-700
       `,
     },
     {
