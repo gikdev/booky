@@ -1,7 +1,10 @@
 import * as j from "joi"
 
 export default j.object({
-  NODE_ENV: j.string().valid("development", "test", "production", "staging").default("development"),
+  NODE_ENV: j
+    .string()
+    .valid("development", "test", "production", "staging")
+    .default("development"),
   DB_PORT: j.number().port().required(),
   DB_PASSWORD: j.string().required(),
   DB_HOST: j.string().required(),
