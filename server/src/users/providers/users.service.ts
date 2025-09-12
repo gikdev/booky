@@ -7,6 +7,7 @@ import { Repository } from "typeorm"
 import { User } from "../user.entity"
 import { InjectRepository } from "@nestjs/typeorm"
 import { CreateUserDto } from "../dtos/create-user.dto"
+import { throwConnectToDbException } from "src/shared/exceptions"
 
 @Injectable()
 export class UsersService {
@@ -24,7 +25,18 @@ export class UsersService {
   }
 
   async findOneById(id: User["id"]) {
-    const user = await this.usersRepo.findOneBy({ id })
+    let user: User | null
+
+    try {
+      user = await this.usersRepo.findOneBy({ id })
+    } catch {
+      throwConnectToDbException()
+    }
+
+    if (!user) {
+      throw new BadRequestException(`User with id ${id} doesn't exist`)
+    }
+
     return user
   }
 
@@ -35,11 +47,8 @@ export class UsersService {
       existingUser = await this.usersRepo.findOne({
         where: { email: createUserDto.email },
       })
-    } catch (error) {
-      throw new RequestTimeoutException(
-        "Unable to process your request at the moment, please try later",
-        { description: "Error connecting to the database" },
-      )
+    } catch {
+      throwConnectToDbException()
     }
 
     if (existingUser) {
@@ -48,9 +57,13 @@ export class UsersService {
       )
     }
 
-    const newUser = this.usersRepo.create(createUserDto)
+    let newUser = this.usersRepo.create(createUserDto)
 
-    await this.usersRepo.save(newUser)
+    try {
+      newUser = await this.usersRepo.save(newUser)
+    } catch {
+      throwConnectToDbException()
+    }
 
     return newUser
   }
