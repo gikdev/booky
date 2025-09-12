@@ -8,154 +8,154 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IntroRouteImport } from './routes/intro'
-import { Route as AuthRouteRouteImport } from './routes/auth/route'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthSignupRouteImport } from './routes/auth/signup'
-import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as AuthenticatedProfileIndexRouteImport } from './routes/_authenticated/profile/index'
-import { Route as AuthenticatedBooksIndexRouteImport } from './routes/_authenticated/books/index'
-import { Route as AuthenticatedBooksNewRouteImport } from './routes/_authenticated/books/new'
-import { Route as AuthenticatedBooksBookIdRouteImport } from './routes/_authenticated/books/$bookId'
-import { Route as AuthenticatedProfileCategoriesIndexRouteImport } from './routes/_authenticated/profile/categories/index'
-import { Route as AuthenticatedProfileCategoriesNewRouteImport } from './routes/_authenticated/profile/categories/new'
+import { Route as rootRouteImport } from "./routes/__root"
+import { Route as IntroRouteImport } from "./routes/intro"
+import { Route as AuthRouteRouteImport } from "./routes/auth/route"
+import { Route as AuthenticatedRouteRouteImport } from "./routes/_authenticated/route"
+import { Route as AuthSignupRouteImport } from "./routes/auth/signup"
+import { Route as AuthLoginRouteImport } from "./routes/auth/login"
+import { Route as AuthenticatedProfileIndexRouteImport } from "./routes/_authenticated/profile/index"
+import { Route as AuthenticatedBooksIndexRouteImport } from "./routes/_authenticated/books/index"
+import { Route as AuthenticatedBooksNewRouteImport } from "./routes/_authenticated/books/new"
+import { Route as AuthenticatedBooksBookIdRouteImport } from "./routes/_authenticated/books/$bookId"
+import { Route as AuthenticatedProfileCategoriesIndexRouteImport } from "./routes/_authenticated/profile/categories/index"
+import { Route as AuthenticatedProfileCategoriesNewRouteImport } from "./routes/_authenticated/profile/categories/new"
 
 const IntroRoute = IntroRouteImport.update({
-  id: '/intro',
-  path: '/intro',
+  id: "/intro",
+  path: "/intro",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+  id: "/auth",
+  path: "/auth",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+  id: "/_authenticated",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
+  id: "/signup",
+  path: "/signup",
   getParentRoute: () => AuthRouteRoute,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+  id: "/login",
+  path: "/login",
   getParentRoute: () => AuthRouteRoute,
 } as any)
 const AuthenticatedProfileIndexRoute =
   AuthenticatedProfileIndexRouteImport.update({
-    id: '/profile/',
-    path: '/profile/',
+    id: "/profile/",
+    path: "/profile/",
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedBooksIndexRoute = AuthenticatedBooksIndexRouteImport.update({
-  id: '/books/',
-  path: '/books/',
+  id: "/books/",
+  path: "/books/",
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedBooksNewRoute = AuthenticatedBooksNewRouteImport.update({
-  id: '/books/new',
-  path: '/books/new',
+  id: "/books/new",
+  path: "/books/new",
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedBooksBookIdRoute =
   AuthenticatedBooksBookIdRouteImport.update({
-    id: '/books/$bookId',
-    path: '/books/$bookId',
+    id: "/books/$bookId",
+    path: "/books/$bookId",
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedProfileCategoriesIndexRoute =
   AuthenticatedProfileCategoriesIndexRouteImport.update({
-    id: '/profile/categories/',
-    path: '/profile/categories/',
+    id: "/profile/categories/",
+    path: "/profile/categories/",
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedProfileCategoriesNewRoute =
   AuthenticatedProfileCategoriesNewRouteImport.update({
-    id: '/profile/categories/new',
-    path: '/profile/categories/new',
+    id: "/profile/categories/new",
+    path: "/profile/categories/new",
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/intro': typeof IntroRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/signup': typeof AuthSignupRoute
-  '/books/$bookId': typeof AuthenticatedBooksBookIdRoute
-  '/books/new': typeof AuthenticatedBooksNewRoute
-  '/books': typeof AuthenticatedBooksIndexRoute
-  '/profile': typeof AuthenticatedProfileIndexRoute
-  '/profile/categories/new': typeof AuthenticatedProfileCategoriesNewRoute
-  '/profile/categories': typeof AuthenticatedProfileCategoriesIndexRoute
+  "/auth": typeof AuthRouteRouteWithChildren
+  "/intro": typeof IntroRoute
+  "/auth/login": typeof AuthLoginRoute
+  "/auth/signup": typeof AuthSignupRoute
+  "/books/$bookId": typeof AuthenticatedBooksBookIdRoute
+  "/books/new": typeof AuthenticatedBooksNewRoute
+  "/books": typeof AuthenticatedBooksIndexRoute
+  "/profile": typeof AuthenticatedProfileIndexRoute
+  "/profile/categories/new": typeof AuthenticatedProfileCategoriesNewRoute
+  "/profile/categories": typeof AuthenticatedProfileCategoriesIndexRoute
 }
 export interface FileRoutesByTo {
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/intro': typeof IntroRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/signup': typeof AuthSignupRoute
-  '/books/$bookId': typeof AuthenticatedBooksBookIdRoute
-  '/books/new': typeof AuthenticatedBooksNewRoute
-  '/books': typeof AuthenticatedBooksIndexRoute
-  '/profile': typeof AuthenticatedProfileIndexRoute
-  '/profile/categories/new': typeof AuthenticatedProfileCategoriesNewRoute
-  '/profile/categories': typeof AuthenticatedProfileCategoriesIndexRoute
+  "/auth": typeof AuthRouteRouteWithChildren
+  "/intro": typeof IntroRoute
+  "/auth/login": typeof AuthLoginRoute
+  "/auth/signup": typeof AuthSignupRoute
+  "/books/$bookId": typeof AuthenticatedBooksBookIdRoute
+  "/books/new": typeof AuthenticatedBooksNewRoute
+  "/books": typeof AuthenticatedBooksIndexRoute
+  "/profile": typeof AuthenticatedProfileIndexRoute
+  "/profile/categories/new": typeof AuthenticatedProfileCategoriesNewRoute
+  "/profile/categories": typeof AuthenticatedProfileCategoriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/intro': typeof IntroRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/signup': typeof AuthSignupRoute
-  '/_authenticated/books/$bookId': typeof AuthenticatedBooksBookIdRoute
-  '/_authenticated/books/new': typeof AuthenticatedBooksNewRoute
-  '/_authenticated/books/': typeof AuthenticatedBooksIndexRoute
-  '/_authenticated/profile/': typeof AuthenticatedProfileIndexRoute
-  '/_authenticated/profile/categories/new': typeof AuthenticatedProfileCategoriesNewRoute
-  '/_authenticated/profile/categories/': typeof AuthenticatedProfileCategoriesIndexRoute
+  "/_authenticated": typeof AuthenticatedRouteRouteWithChildren
+  "/auth": typeof AuthRouteRouteWithChildren
+  "/intro": typeof IntroRoute
+  "/auth/login": typeof AuthLoginRoute
+  "/auth/signup": typeof AuthSignupRoute
+  "/_authenticated/books/$bookId": typeof AuthenticatedBooksBookIdRoute
+  "/_authenticated/books/new": typeof AuthenticatedBooksNewRoute
+  "/_authenticated/books/": typeof AuthenticatedBooksIndexRoute
+  "/_authenticated/profile/": typeof AuthenticatedProfileIndexRoute
+  "/_authenticated/profile/categories/new": typeof AuthenticatedProfileCategoriesNewRoute
+  "/_authenticated/profile/categories/": typeof AuthenticatedProfileCategoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/auth'
-    | '/intro'
-    | '/auth/login'
-    | '/auth/signup'
-    | '/books/$bookId'
-    | '/books/new'
-    | '/books'
-    | '/profile'
-    | '/profile/categories/new'
-    | '/profile/categories'
+    | "/auth"
+    | "/intro"
+    | "/auth/login"
+    | "/auth/signup"
+    | "/books/$bookId"
+    | "/books/new"
+    | "/books"
+    | "/profile"
+    | "/profile/categories/new"
+    | "/profile/categories"
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/auth'
-    | '/intro'
-    | '/auth/login'
-    | '/auth/signup'
-    | '/books/$bookId'
-    | '/books/new'
-    | '/books'
-    | '/profile'
-    | '/profile/categories/new'
-    | '/profile/categories'
+    | "/auth"
+    | "/intro"
+    | "/auth/login"
+    | "/auth/signup"
+    | "/books/$bookId"
+    | "/books/new"
+    | "/books"
+    | "/profile"
+    | "/profile/categories/new"
+    | "/profile/categories"
   id:
-    | '__root__'
-    | '/_authenticated'
-    | '/auth'
-    | '/intro'
-    | '/auth/login'
-    | '/auth/signup'
-    | '/_authenticated/books/$bookId'
-    | '/_authenticated/books/new'
-    | '/_authenticated/books/'
-    | '/_authenticated/profile/'
-    | '/_authenticated/profile/categories/new'
-    | '/_authenticated/profile/categories/'
+    | "__root__"
+    | "/_authenticated"
+    | "/auth"
+    | "/intro"
+    | "/auth/login"
+    | "/auth/signup"
+    | "/_authenticated/books/$bookId"
+    | "/_authenticated/books/new"
+    | "/_authenticated/books/"
+    | "/_authenticated/profile/"
+    | "/_authenticated/profile/categories/new"
+    | "/_authenticated/profile/categories/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,82 +164,82 @@ export interface RootRouteChildren {
   IntroRoute: typeof IntroRoute
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/intro': {
-      id: '/intro'
-      path: '/intro'
-      fullPath: '/intro'
+    "/intro": {
+      id: "/intro"
+      path: "/intro"
+      fullPath: "/intro"
       preLoaderRoute: typeof IntroRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
+    "/auth": {
+      id: "/auth"
+      path: "/auth"
+      fullPath: "/auth"
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: ''
+    "/_authenticated": {
+      id: "/_authenticated"
+      path: ""
+      fullPath: ""
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/signup': {
-      id: '/auth/signup'
-      path: '/signup'
-      fullPath: '/auth/signup'
+    "/auth/signup": {
+      id: "/auth/signup"
+      path: "/signup"
+      fullPath: "/auth/signup"
       preLoaderRoute: typeof AuthSignupRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/login'
-      fullPath: '/auth/login'
+    "/auth/login": {
+      id: "/auth/login"
+      path: "/login"
+      fullPath: "/auth/login"
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    '/_authenticated/profile/': {
-      id: '/_authenticated/profile/'
-      path: '/profile'
-      fullPath: '/profile'
+    "/_authenticated/profile/": {
+      id: "/_authenticated/profile/"
+      path: "/profile"
+      fullPath: "/profile"
       preLoaderRoute: typeof AuthenticatedProfileIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/books/': {
-      id: '/_authenticated/books/'
-      path: '/books'
-      fullPath: '/books'
+    "/_authenticated/books/": {
+      id: "/_authenticated/books/"
+      path: "/books"
+      fullPath: "/books"
       preLoaderRoute: typeof AuthenticatedBooksIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/books/new': {
-      id: '/_authenticated/books/new'
-      path: '/books/new'
-      fullPath: '/books/new'
+    "/_authenticated/books/new": {
+      id: "/_authenticated/books/new"
+      path: "/books/new"
+      fullPath: "/books/new"
       preLoaderRoute: typeof AuthenticatedBooksNewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/books/$bookId': {
-      id: '/_authenticated/books/$bookId'
-      path: '/books/$bookId'
-      fullPath: '/books/$bookId'
+    "/_authenticated/books/$bookId": {
+      id: "/_authenticated/books/$bookId"
+      path: "/books/$bookId"
+      fullPath: "/books/$bookId"
       preLoaderRoute: typeof AuthenticatedBooksBookIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/profile/categories/': {
-      id: '/_authenticated/profile/categories/'
-      path: '/profile/categories'
-      fullPath: '/profile/categories'
+    "/_authenticated/profile/categories/": {
+      id: "/_authenticated/profile/categories/"
+      path: "/profile/categories"
+      fullPath: "/profile/categories"
       preLoaderRoute: typeof AuthenticatedProfileCategoriesIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/profile/categories/new': {
-      id: '/_authenticated/profile/categories/new'
-      path: '/profile/categories/new'
-      fullPath: '/profile/categories/new'
+    "/_authenticated/profile/categories/new": {
+      id: "/_authenticated/profile/categories/new"
+      path: "/profile/categories/new"
+      fullPath: "/profile/categories/new"
       preLoaderRoute: typeof AuthenticatedProfileCategoriesNewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }

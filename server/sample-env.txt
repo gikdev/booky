@@ -1,0 +1,12 @@
+DB_PORT=5432
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_NAME=
+DB_SYNC=true
+DB_AUTOLOAD=true
+
+// .env
+// .env.development
+// .env.production
+// .env.test
