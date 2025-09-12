@@ -8,7 +8,6 @@ import { In, Repository } from "typeorm"
 import { Category } from "../category.entity"
 import { InjectRepository } from "@nestjs/typeorm"
 import { CreateCategoryDto } from "../dtos/create-category.dto"
-import { BooksService } from "src/books/providers/books.service"
 import { UsersService } from "src/users/providers/users.service"
 import { UpdateCategoryDto } from "../dtos/update-category.dto"
 import { PatchCategoryDto } from "../dtos/patch-category.dto"
@@ -18,8 +17,6 @@ export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoriesRepo: Repository<Category>,
-    @Inject(forwardRef(() => BooksService))
-    private readonly booksService: BooksService,
     private readonly usersService: UsersService,
   ) {}
 

@@ -9,11 +9,7 @@ import { UsersModule } from "src/users/users.module"
 @Module({
   controllers: [BooksController],
   providers: [BooksService],
-  imports: [
-    TypeOrmModule.forFeature([Book]),
-    forwardRef(() => CategoriesModule),
-    UsersModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Book]), CategoriesModule, UsersModule],
   exports: [BooksService],
 })
 export class BooksModule {}

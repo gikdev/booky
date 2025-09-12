@@ -1,15 +1,3 @@
-import { IsISO8601, IsOptional, IsString } from "class-validator"
+import { BaseProfileDto } from "./base-profile.dto"
 
-export class CreateProfileDto {
-  @IsString()
-  @IsOptional()
-  bio?: string
-
-  @IsISO8601()
-  @IsOptional()
-  birthdate?: Date
-
-  @IsString()
-  @IsOptional()
-  location?: string
-}
+export class CreateProfileDto extends BaseProfileDto {}

@@ -18,7 +18,6 @@ export class BooksService {
   constructor(
     @InjectRepository(Book)
     private readonly booksRepo: Repository<Book>,
-    @Inject(forwardRef(() => CategoriesService))
     private readonly categoriesService: CategoriesService,
     private readonly usersService: UsersService,
   ) {}
