@@ -1,4 +1,4 @@
-import { RequestTimeoutException } from "@nestjs/common";
+import { RequestTimeoutException } from "@nestjs/common"
 
 export function throwConnectToDbException(): never {
   throw new RequestTimeoutException(

@@ -104,12 +104,18 @@ export class BooksService {
       throw new NotFoundException(
         `User with ID: ${updateBookDto.ownerId} not found`,
       )
+
     book.owner = owner
 
     if (updateBookDto.categoryIds) {
       const categories = await this.categoriesService.findMultipleById(
         updateBookDto.categoryIds,
       )
+
+      if (categories.length !== updateBookDto.categoryIds.length) {
+        throw new NotFoundException(`Some categories not found`)
+      }
+
       book.categories = categories
     }
 
