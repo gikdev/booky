@@ -1,8 +1,8 @@
 import { cva } from "./cx.config"
 
-export const page = cva({ base: "flex flex-col flex-1" })
+export const page = cva({ base: "flex flex-col flex-1 overflow-y-auto" })
 export const contentContainer = cva({
-  base: "flex flex-col flex-1 overflow-y-auto",
+  base: "flex flex-col flex-1 overflow-y-auto h-full",
 })
 
 export const tag = cva({
@@ -10,7 +10,7 @@ export const tag = cva({
   variants: {
     hasIcon: {
       false: null,
-      true: "pe-2 [&_svg]:text-[18px]",
+      true: "ps-2 [&_svg]:text-[18px]",
     },
   },
   defaultVariants: {

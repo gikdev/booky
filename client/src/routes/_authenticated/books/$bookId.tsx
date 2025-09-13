@@ -3,6 +3,7 @@ import {
   CircleNotchIcon,
   FileIcon,
   HeartIcon,
+  TagIcon,
   TranslateIcon,
 } from "@phosphor-icons/react"
 import { useQuery } from "@tanstack/react-query"
@@ -44,6 +45,13 @@ function RouteComponent() {
           <div className="w-full flex flex-wrap gap-2 justify-center">
             <PagesTag pages={book.pages} />
             <LanguageTag language={book.language} />
+
+            {book.categories.map(c => (
+              <div className={tag({ hasIcon: true })} key={c.id}>
+                <TagIcon style={{ color: `#${c.color}` }} weight="fill" />
+                <span>{c.title}</span>
+              </div>
+            ))}
           </div>
 
           <p className="">{book.description}</p>

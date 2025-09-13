@@ -17,6 +17,7 @@ export function Colors({ label, colors }: ColorsProps) {
       <div className="flex gap-2 items-center flex-wrap">
         {colors.map(c => (
           <button
+            key={c}
             type="button"
             style={{ backgroundColor: `#${c}` }}
             onBlur={field.handleBlur}
