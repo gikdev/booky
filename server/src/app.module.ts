@@ -7,6 +7,7 @@ import { UsersModule } from "./users/users.module"
 import { ProfilesModule } from "./profiles/profiles.module"
 import { CategoriesModule } from "./categories/categories.module"
 import { ConfigModule, ConfigService } from "@nestjs/config"
+import { AuthModule } from "./auth/auth.module"
 import appConfig from "./config/app.config"
 import dbConfig from "./config/db.config"
 import envValidation from "./config/env.validation"
@@ -42,6 +43,7 @@ const ENV = process.env.NODE_ENV
     UsersModule,
     ProfilesModule,
     CategoriesModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

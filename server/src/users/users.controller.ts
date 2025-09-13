@@ -10,7 +10,7 @@ import { CreateUserDto } from "./dtos/create-user.dto"
 import { UsersService } from "./providers/users.service"
 import { plainToInstance } from "class-transformer"
 import { UserWithProfileResponseDto } from "./dtos/user-with-profile-response.dto"
-import { ApiOperation } from "@nestjs/swagger"
+import { ApiOperation, ApiParam } from "@nestjs/swagger"
 import { User } from "./user.entity"
 
 @Controller("users")
@@ -28,6 +28,7 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: "Get user by ID" })
+  @ApiParam({ name: "id", required: true, type: Number })
   @Get("/:id")
   async getUserById(@Param("id", ParseIntPipe) id: User["id"]) {
     const user = await this.usersService.findOneById(id)

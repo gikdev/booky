@@ -21,8 +21,16 @@ export class UsersService {
 
   async findOneById(id: User["id"]) {
     const user = await this.usersRepo.findOneBy({ id })
-
     if (!user) throw new BadRequestException(`User with id ${id} doesn't exist`)
+
+    return user
+  }
+
+  async findOneByEmailOrNull(email: User["email"]) {
+    const user = await this.usersRepo.findOne({
+      where: { email },
+      relations: { profile: true },
+    })
 
     return user
   }

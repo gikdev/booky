@@ -16,6 +16,7 @@ import { FloppyDiskBackIcon } from "@phosphor-icons/react"
 import { btn } from "#/forms/skins"
 import { CategoryPickerField } from "./CategoryPickerField"
 import { getLanguageByCode } from "#/shared/helpers"
+import { useAuthStore } from "#/shared/auth"
 
 const onSuccess = () => toast.success("با موفقیت انجام شد!")
 const onError = (err: unknown) => toast.error(parseError(err))
@@ -53,6 +54,7 @@ export function BookForm({
   bookId,
   defaultValues = defaultDefaultValues,
 }: BookFormProps) {
+  const userId = useAuthStore(s => s.userId)
   const { mutate: createBook } = useCreateBookMutation()
   const { mutate: updateBook } = useUpdateBookMutation()
 
@@ -62,9 +64,11 @@ export function BookForm({
       onChange: BookFormSchema,
     },
     onSubmit: async ({ value }) => {
+      if (typeof userId !== "number") return
+
       const body = {
         ...value,
-        ownerId: 1,
+        ownerId: userId,
       }
 
       if (mode === "create")

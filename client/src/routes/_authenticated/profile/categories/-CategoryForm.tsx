@@ -14,6 +14,7 @@ import {
 } from "#/api-client"
 import toast from "react-hot-toast"
 import { colors, parseError } from "#/shared/api"
+import { useAuthStore } from "#/shared/auth"
 
 const onSuccess = () => toast.success("با موفقیت انجام شد!")
 const onError = (err: unknown) => toast.error(parseError(err))
@@ -43,6 +44,7 @@ export function CategoryForm({
   defaultValues = defaultDefaultValues,
   categoryId,
 }: CategoryFormProps) {
+  const userId = useAuthStore(s => s.userId)
   const { mutate: createCategory } = useCreateCategoryMutation()
   const { mutate: updateCategory } = useUpdateCategoryMutation()
 
@@ -52,9 +54,11 @@ export function CategoryForm({
       onChange: CategoryFormSchema,
     },
     onSubmit: async ({ value }) => {
+      if (typeof userId !== "number") return
+
       const body = {
         ...value,
-        ownerId: 1,
+        ownerId: userId,
       }
 
       if (mode === "create")

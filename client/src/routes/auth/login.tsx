@@ -4,6 +4,11 @@ import { z } from "zod"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
 import { useAuthStore } from "#/shared/auth"
+import { useMutation } from "@tanstack/react-query"
+import { authControllerLogInMutation } from "#/api-client"
+import { sha512 } from "js-sha512"
+import toast from "react-hot-toast"
+import { parseError } from "#/shared/api"
 
 export const Route = createFileRoute("/auth/login")({
   component: RouteComponent,
@@ -24,17 +29,32 @@ const defaultValues: LoginFormValues = {
 function RouteComponent() {
   const router = useRouter()
 
+  const { mutate: logIn } = useMutation(authControllerLogInMutation())
+
   const form = useAppForm({
     defaultValues,
     validators: {
-      // onChange: LoginFormSchema,
+      onChange: LoginFormSchema,
     },
-    onSubmit: async ({ value }) => {
-      // pretending to submit...
-      console.log(value)
-
-      useAuthStore.setState({ isAuthenticated: true })
-      router.history.push("/books")
+    onSubmit: ({ value }) => {
+      logIn(
+        {
+          body: {
+            email: value.email,
+            password: sha512(value.password),
+          },
+        },
+        {
+          onError: err => toast.error(parseError(err.message)),
+          onSuccess: data => {
+            const userId = data.id
+            console.log(userId)
+            useAuthStore.setState({ userId })
+            console.log(useAuthStore.getState())
+            router.history.push("/books")
+          },
+        },
+      )
     },
   })
 
