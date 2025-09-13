@@ -1,13 +1,8 @@
-import {
-  BadRequestException,
-  Injectable,
-  RequestTimeoutException,
-} from "@nestjs/common"
+import { BadRequestException, Injectable } from "@nestjs/common"
 import { Repository } from "typeorm"
 import { User } from "../user.entity"
 import { InjectRepository } from "@nestjs/typeorm"
 import { CreateUserDto } from "../dtos/create-user.dto"
-import { throwConnectToDbException } from "src/shared/exceptions"
 
 @Injectable()
 export class UsersService {
@@ -25,45 +20,26 @@ export class UsersService {
   }
 
   async findOneById(id: User["id"]) {
-    let user: User | null
+    const user = await this.usersRepo.findOneBy({ id })
 
-    try {
-      user = await this.usersRepo.findOneBy({ id })
-    } catch {
-      throwConnectToDbException()
-    }
-
-    if (!user) {
-      throw new BadRequestException(`User with id ${id} doesn't exist`)
-    }
+    if (!user) throw new BadRequestException(`User with id ${id} doesn't exist`)
 
     return user
   }
 
   async create(createUserDto: CreateUserDto) {
-    let existingUser: User | null = null
+    const existingUser = await this.usersRepo.findOne({
+      where: { email: createUserDto.email },
+    })
 
-    try {
-      existingUser = await this.usersRepo.findOne({
-        where: { email: createUserDto.email },
-      })
-    } catch {
-      throwConnectToDbException()
-    }
-
-    if (existingUser) {
+    if (existingUser)
       throw new BadRequestException(
         "A user with the provided email exists. Please check your email",
       )
-    }
 
     let newUser = this.usersRepo.create(createUserDto)
 
-    try {
-      newUser = await this.usersRepo.save(newUser)
-    } catch {
-      throwConnectToDbException()
-    }
+    newUser = await this.usersRepo.save(newUser)
 
     return newUser
   }
