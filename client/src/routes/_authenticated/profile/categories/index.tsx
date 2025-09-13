@@ -26,7 +26,10 @@ function RouteComponent() {
       <div className={contentContainer()}>
         {categories.map(c => (
           <button key={c.id} type="button" className={iconItem()}>
-            <div className="h-6 w-6 bg-blue-500 rounded-full" />
+            <div
+              className="h-6 w-6 rounded-2xl"
+              style={{ backgroundColor: `#${c.color}` }}
+            />
             <span>{c.title}</span>
             <CaretRightIcon mirrored />
           </button>
