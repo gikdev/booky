@@ -16,16 +16,17 @@ import {
 import { btn } from "#/forms/skins"
 import { convertToPersianDigits, getLanguageByCode } from "#/shared/helpers"
 import { contentContainer, page, tag } from "#/shared/skins"
-import { NavBar } from "../-Navbar"
+import { NavBar } from "../../-Navbar"
 
-export const Route = createFileRoute("/_authenticated/books/$bookId")({
+export const Route = createFileRoute("/_authenticated/books/$id/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { bookId } = Route.useParams()
+  const { id } = Route.useParams()
+  const bookId = Number(id)
   const { data: book, isSuccess } = useQuery(
-    booksControllerGetBookByIdOptions({ path: { id: Number(bookId) } }),
+    booksControllerGetBookByIdOptions({ path: { id: bookId } }),
   )
 
   return (
@@ -54,7 +55,9 @@ function RouteComponent() {
             ))}
           </div>
 
-          <p className="">{book.description}</p>
+          <p className="text-center" dir="auto">
+            {book.description}
+          </p>
         </div>
       ) : (
         <div className={contentContainer()}>

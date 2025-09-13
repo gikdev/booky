@@ -1,9 +1,9 @@
 import { useAppForm } from "#/forms"
 import { contentContainer } from "#/shared/skins"
 import { FloppyDiskBackIcon } from "@phosphor-icons/react"
-import { colors } from "./-shared"
 import { btn } from "#/forms/skins"
 import {
+  CategoryFormSchema,
   type CategoryFormValues,
   defaultValues as defaultDefaultValues,
 } from "./-shared"
@@ -13,7 +13,7 @@ import {
   categoriesControllerUpdateCategoryByIdMutation,
 } from "#/api-client"
 import toast from "react-hot-toast"
-import { parseError } from "#/shared/api"
+import { colors, parseError } from "#/shared/api"
 
 const onSuccess = () => toast.success("با موفقیت انجام شد!")
 const onError = (err: unknown) => toast.error(parseError(err))
@@ -48,6 +48,9 @@ export function CategoryForm({
 
   const form = useAppForm({
     defaultValues,
+    validators: {
+      onChange: CategoryFormSchema,
+    },
     onSubmit: async ({ value }) => {
       const body = {
         ...value,

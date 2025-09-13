@@ -1,0 +1,28 @@
+import { cx } from "#/shared/cx.config"
+import type { ReactNode } from "react"
+
+interface SheetProps {
+  children: ReactNode
+  onClose: () => void
+  className?: string
+}
+
+export function Sheet({ children, onClose, className }: SheetProps) {
+  return (
+    <div className="fixed inset-0 w-full h-full flex flex-col bg-black/30 z-[2]">
+      <button
+        type="button"
+        className="cursor-pointer flex-1 flex"
+        onClick={onClose}
+      />
+
+      <div className="bg-stone-100">
+        <div className="py-2 flex items-center justify-center">
+          <hr className="w-48 h-1 rounded-sm bg-stone-300 border-none" />
+        </div>
+
+        <div className={cx("", className)}>{children}</div>
+      </div>
+    </div>
+  )
+}

@@ -51,8 +51,8 @@ function BookItem({ title, color, bookId }: BookItemProps) {
 
   return (
     <Link
-      to="/books/$bookId"
-      params={{ bookId: bookId.toString() }}
+      to="/books/$id"
+      params={{ id: bookId.toString() }}
       className="
         py-2 px-4 gap-4 flex justify-center
         items-center min-h-14 bg-stone-100

@@ -1,8 +1,9 @@
-import { contentContainer, page } from "#/shared/skins"
+import { page } from "#/shared/skins"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { NavBar } from "../-Navbar"
 import { CaretLeftIcon } from "@phosphor-icons/react"
 import { btn } from "#/forms/skins"
+import { BookForm } from "./-BookForm"
 
 export const Route = createFileRoute("/_authenticated/books/new")({
   component: RouteComponent,
@@ -13,11 +14,7 @@ function RouteComponent() {
     <div className={page()}>
       <NavBar slotStart={<GoBackBtn />} title="کتاب جدید" />
 
-      <div className={contentContainer()}>
-        {/*  */}
-        {/*  */}
-        {/*  */}
-      </div>
+      <BookForm mode="create" />
     </div>
   )
 }
