@@ -2,7 +2,7 @@ import { QueryClient } from "@tanstack/react-query"
 
 export const queryClient = new QueryClient()
 
-export function parseError(error: unknown, msg?: string) {
+export function parseError(error: unknown, msg?: string): string {
   if (typeof error === "string") {
     try {
       const parsed = JSON.parse(error)
@@ -29,6 +29,8 @@ export function parseError(error: unknown, msg?: string) {
     if ("msg" in error && typeof error.msg === "string") return error.msg
     if ("message" in error && typeof error.message === "string")
       return error.message
+    if ("message" in error && Array.isArray(error.message))
+      return error.message[0]
     if ("name" in error && typeof error.name === "string") return error.name
     if ("title" in error && typeof error.title === "string") return error.title
     if ("status" in error && typeof error.status === "number") {

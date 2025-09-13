@@ -124,6 +124,14 @@ export const btn = cva({
       `,
     },
     {
+      intent: "danger",
+      mode: "contained",
+      className: `
+        bg-red-600
+        hover:bg-red-700
+      `,
+    },
+    {
       intent: "brand",
       mode: "contained",
       className: `
