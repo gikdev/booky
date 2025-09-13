@@ -22,7 +22,7 @@ export const defaultValues: BookFormValues = {
   color: "000000",
   description: "",
   author: "",
-  language: "",
+  language: "fa",
   pages: 0,
   categoryIds: [],
 }

@@ -57,12 +57,16 @@ export function CategoryForm({
         ownerId: 1,
       }
 
-      if (mode === "create") createCategory({ body })
+      if (mode === "create")
+        createCategory({ body }, { onSuccess: () => form.reset() })
       if (mode === "edit" && typeof categoryId === "number") {
-        updateCategory({
-          path: { id: categoryId },
-          body,
-        })
+        updateCategory(
+          {
+            path: { id: categoryId },
+            body,
+          },
+          { onSuccess: () => form.reset() },
+        )
       }
     },
   })

@@ -15,6 +15,7 @@ import {
 import { FloppyDiskBackIcon } from "@phosphor-icons/react"
 import { btn } from "#/forms/skins"
 import { CategoryPickerField } from "./CategoryPickerField"
+import { getLanguageByCode } from "#/shared/helpers"
 
 const onSuccess = () => toast.success("با موفقیت انجام شد!")
 const onError = (err: unknown) => toast.error(parseError(err))
@@ -32,6 +33,14 @@ const useUpdateBookMutation = () =>
     onSuccess,
     onError,
   })
+
+const languageOptions = [
+  { id: "fa", value: "fa", title: getLanguageByCode("fa") },
+  { id: "en", value: "en", title: getLanguageByCode("en") },
+  { id: "ar", value: "ar", title: getLanguageByCode("ar") },
+  { id: "jp", value: "jp", title: getLanguageByCode("jp") },
+  { id: "fr", value: "fr", title: getLanguageByCode("fr") },
+]
 
 interface BookFormProps {
   mode: "create" | "edit"
@@ -58,12 +67,16 @@ export function BookForm({
         ownerId: 1,
       }
 
-      if (mode === "create") createBook({ body })
+      if (mode === "create")
+        createBook({ body }, { onSuccess: () => form.reset() })
       if (mode === "edit" && typeof bookId === "number") {
-        updateBook({
-          path: { id: bookId },
-          body,
-        })
+        updateBook(
+          {
+            path: { id: bookId },
+            body,
+          },
+          { onSuccess: () => form.reset() },
+        )
       }
     },
   })
@@ -79,7 +92,7 @@ export function BookForm({
       </form.AppField>
 
       <form.AppField name="language">
-        {field => <field.SimpleText label="زبان:" />}
+        {field => <field.SimpleSelect label="زبان:" items={languageOptions} />}
       </form.AppField>
 
       <form.AppField name="pages">
