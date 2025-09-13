@@ -22,7 +22,7 @@ export function Colors({ label, colors }: ColorsProps) {
             onBlur={field.handleBlur}
             onClick={() => field.handleChange(c)}
             className={cx(
-              "w-12 h-12",
+              "w-12 h-12 cursor-pointer",
               c === field.state.value
                 ? "rounded-2xl border-2 border-stone-500"
                 : "rounded-lg opacity-50",

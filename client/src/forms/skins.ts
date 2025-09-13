@@ -147,7 +147,6 @@ export const inputField = cva({
 
     w-full
     disabled:opacity-50
-    transition-all
   `,
   variants: {
     isMultiline: {

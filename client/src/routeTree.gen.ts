@@ -20,6 +20,7 @@ import { Route as AuthenticatedBooksNewRouteImport } from "./routes/_authenticat
 import { Route as AuthenticatedBooksBookIdRouteImport } from "./routes/_authenticated/books/$bookId"
 import { Route as AuthenticatedProfileCategoriesIndexRouteImport } from "./routes/_authenticated/profile/categories/index"
 import { Route as AuthenticatedProfileCategoriesNewRouteImport } from "./routes/_authenticated/profile/categories/new"
+import { Route as AuthenticatedProfileCategoriesIdRouteImport } from "./routes/_authenticated/profile/categories/$id"
 
 const IntroRoute = IntroRouteImport.update({
   id: "/intro",
@@ -79,6 +80,12 @@ const AuthenticatedProfileCategoriesNewRoute =
     path: "/profile/categories/new",
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedProfileCategoriesIdRoute =
+  AuthenticatedProfileCategoriesIdRouteImport.update({
+    id: "/profile/categories/$id",
+    path: "/profile/categories/$id",
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   "/auth": typeof AuthRouteRouteWithChildren
@@ -89,6 +96,7 @@ export interface FileRoutesByFullPath {
   "/books/new": typeof AuthenticatedBooksNewRoute
   "/books": typeof AuthenticatedBooksIndexRoute
   "/profile": typeof AuthenticatedProfileIndexRoute
+  "/profile/categories/$id": typeof AuthenticatedProfileCategoriesIdRoute
   "/profile/categories/new": typeof AuthenticatedProfileCategoriesNewRoute
   "/profile/categories": typeof AuthenticatedProfileCategoriesIndexRoute
 }
@@ -101,6 +109,7 @@ export interface FileRoutesByTo {
   "/books/new": typeof AuthenticatedBooksNewRoute
   "/books": typeof AuthenticatedBooksIndexRoute
   "/profile": typeof AuthenticatedProfileIndexRoute
+  "/profile/categories/$id": typeof AuthenticatedProfileCategoriesIdRoute
   "/profile/categories/new": typeof AuthenticatedProfileCategoriesNewRoute
   "/profile/categories": typeof AuthenticatedProfileCategoriesIndexRoute
 }
@@ -115,6 +124,7 @@ export interface FileRoutesById {
   "/_authenticated/books/new": typeof AuthenticatedBooksNewRoute
   "/_authenticated/books/": typeof AuthenticatedBooksIndexRoute
   "/_authenticated/profile/": typeof AuthenticatedProfileIndexRoute
+  "/_authenticated/profile/categories/$id": typeof AuthenticatedProfileCategoriesIdRoute
   "/_authenticated/profile/categories/new": typeof AuthenticatedProfileCategoriesNewRoute
   "/_authenticated/profile/categories/": typeof AuthenticatedProfileCategoriesIndexRoute
 }
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | "/books/new"
     | "/books"
     | "/profile"
+    | "/profile/categories/$id"
     | "/profile/categories/new"
     | "/profile/categories"
   fileRoutesByTo: FileRoutesByTo
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | "/books/new"
     | "/books"
     | "/profile"
+    | "/profile/categories/$id"
     | "/profile/categories/new"
     | "/profile/categories"
   id:
@@ -154,6 +166,7 @@ export interface FileRouteTypes {
     | "/_authenticated/books/new"
     | "/_authenticated/books/"
     | "/_authenticated/profile/"
+    | "/_authenticated/profile/categories/$id"
     | "/_authenticated/profile/categories/new"
     | "/_authenticated/profile/categories/"
   fileRoutesById: FileRoutesById
@@ -243,6 +256,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthenticatedProfileCategoriesNewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    "/_authenticated/profile/categories/$id": {
+      id: "/_authenticated/profile/categories/$id"
+      path: "/profile/categories/$id"
+      fullPath: "/profile/categories/$id"
+      preLoaderRoute: typeof AuthenticatedProfileCategoriesIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -251,6 +271,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBooksNewRoute: typeof AuthenticatedBooksNewRoute
   AuthenticatedBooksIndexRoute: typeof AuthenticatedBooksIndexRoute
   AuthenticatedProfileIndexRoute: typeof AuthenticatedProfileIndexRoute
+  AuthenticatedProfileCategoriesIdRoute: typeof AuthenticatedProfileCategoriesIdRoute
   AuthenticatedProfileCategoriesNewRoute: typeof AuthenticatedProfileCategoriesNewRoute
   AuthenticatedProfileCategoriesIndexRoute: typeof AuthenticatedProfileCategoriesIndexRoute
 }
@@ -260,6 +281,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBooksNewRoute: AuthenticatedBooksNewRoute,
   AuthenticatedBooksIndexRoute: AuthenticatedBooksIndexRoute,
   AuthenticatedProfileIndexRoute: AuthenticatedProfileIndexRoute,
+  AuthenticatedProfileCategoriesIdRoute: AuthenticatedProfileCategoriesIdRoute,
   AuthenticatedProfileCategoriesNewRoute:
     AuthenticatedProfileCategoriesNewRoute,
   AuthenticatedProfileCategoriesIndexRoute:

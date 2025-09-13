@@ -15,12 +15,13 @@ export function SimpleText({
   isMultiline = false,
 }: SimpleTextProps) {
   const field = useFieldContext<string>()
+  const Tag = isMultiline ? "textarea" : "input"
 
   return (
     <div className={fieldWithLabelContainer()}>
       <label htmlFor={field.name}>{label}</label>
 
-      <input
+      <Tag
         id={field.name}
         name={field.name}
         type={type}

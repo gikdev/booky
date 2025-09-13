@@ -25,14 +25,19 @@ function RouteComponent() {
 
       <div className={contentContainer()}>
         {categories.map(c => (
-          <button key={c.id} type="button" className={iconItem()}>
+          <Link
+            key={c.id}
+            className={iconItem()}
+            to="/profile/categories/$id"
+            params={{ id: c.id.toString() }}
+          >
             <div
               className="h-6 w-6 rounded-2xl"
               style={{ backgroundColor: `#${c.color}` }}
             />
             <span>{c.title}</span>
             <CaretRightIcon mirrored />
-          </button>
+          </Link>
         ))}
       </div>
 

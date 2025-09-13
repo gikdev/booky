@@ -3,6 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query"
 import { createRootRoute, Outlet } from "@tanstack/react-router"
 // import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
 import { queryClient } from "../shared/api"
+import { Toaster } from "react-hot-toast"
 
 export const Route = createRootRoute({ component: RootLayout })
 
@@ -12,6 +13,7 @@ function RootLayout() {
       <Outlet />
       {/* <TanStackRouterDevtools /> */}
       {/* <ReactQueryDevtools /> */}
+      <Toaster position="bottom-center" />
     </QueryClientProvider>
   )
 }
