@@ -16,12 +16,14 @@ export function Sheet({ children, onClose, className }: SheetProps) {
         onClick={onClose}
       />
 
-      <div className="bg-stone-100">
+      <div className="bg-stone-100 max-h-[80dvh] flex flex-col">
         <div className="py-2 flex items-center justify-center">
           <hr className="w-48 h-1 rounded-sm bg-stone-300 border-none" />
         </div>
 
-        <div className={cx("", className)}>{children}</div>
+        <div className={cx("overflow-y-auto flex-1", className)}>
+          {children}
+        </div>
       </div>
     </div>
   )

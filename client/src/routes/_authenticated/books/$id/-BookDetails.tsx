@@ -17,9 +17,13 @@ export function BookDetails({ book }: BookDetailsProps) {
     <div className={contentContainer({ className: "gap-4 p-4 items-center" })}>
       <BookAvatar color={book.color || "000000"} letter={book.title[0]} />
 
-      <h1 className="text-2xl font-bold text-stone-900">{book.title}</h1>
+      <h1 dir="auto" className="text-2xl font-bold text-stone-900 text-center">
+        {book.title}
+      </h1>
 
-      <p className="">{book.author}</p>
+      <p className="text-center" dir="auto">
+        {book.author}
+      </p>
 
       <div className="w-full flex flex-wrap gap-2 justify-center">
         <PagesTag pages={book.pages} />
