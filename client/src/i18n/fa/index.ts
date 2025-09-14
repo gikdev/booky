@@ -14,7 +14,7 @@ const fa: Translation = {
   SHOULD_BE_VALID_EMAIL: "ایمیل باید صحیح باشد",
   EMAIL: "ایمیل",
   PASSWORD: "گذرواژه",
-  LOGIN: "ورود", 
+  LOGIN: "ورود",
 }
 
 export default fa

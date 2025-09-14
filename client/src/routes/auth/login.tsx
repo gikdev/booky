@@ -18,7 +18,7 @@ export const Route = createFileRoute("/auth/login")({
 })
 
 function RouteComponent() {
-  const {LL} = useI18nContext()
+  const { LL } = useI18nContext()
   const shouldMirror = useShouldMirror()
   const router = useRouter()
 
