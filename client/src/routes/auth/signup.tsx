@@ -1,6 +1,6 @@
 import { UserPlusIcon } from "@phosphor-icons/react"
 import { createFileRoute, useRouter } from "@tanstack/react-router"
-import { z } from "zod"
+import { z } from "zod/v4"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
 

@@ -1,12 +1,15 @@
 import { ArrowLeftIcon } from "@phosphor-icons/react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { btn } from "#/forms/skins"
+import { useI18nContext } from "#/i18n/i18n-react"
 
 export const Route = createFileRoute("/intro")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const { LL } = useI18nContext()
+
   return (
     <div className="flex flex-col p-4 gap-8 justify-center flex-1 relative">
       <img
@@ -21,24 +24,11 @@ function RouteComponent() {
       />
       <img src="/images/logo-full.png" alt="" className="w-max" />
 
-      <h1 className="text-4xl leading-normal text-gray-90">
-        <span className="font-bold">کتاب</span>
-        <span>‌هات</span>
-        <br />
-        <span>رو خیلی </span>
-        <span className="font-bold">راحت</span>
-        <br />
-        <span className="font-bold text-brand-60">مدیریت </span>
-        <span>کن!</span>
+      <h1 className="text-4xl leading-normal text-gray-90 font-bold">
+        {LL.APP_TAGLINE()}
       </h1>
 
-      <p className="">
-        <span>با بوکی، دیگه خیالت از بابت</span>
-        <br />
-        <span>کتاب‌هایی که داری راحت میشه!</span>
-        <br />
-        <span>آماده هستی که شروع کنیم؟</span>
-      </p>
+      <p className="">{LL.APP_INTRO_DESCRIPTION()}</p>
 
       <Link
         to="/auth/login"
@@ -48,7 +38,7 @@ function RouteComponent() {
           className: "w-full justify-between",
         })}
       >
-        <span>شروع</span>
+        <span>{LL.START()}</span>
         <ArrowLeftIcon weight="fill" />
       </Link>
     </div>

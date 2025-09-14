@@ -1,5 +1,5 @@
 import type { BookResponseDto } from "#/api-client"
-import z from "zod/v4"
+import { z } from "#/i18n/i18nZod"
 
 export const BookFormSchema = z.object({
   title: z.string().min(1, "این ورودی اجباری هست"),
