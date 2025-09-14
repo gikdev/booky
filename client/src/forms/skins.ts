@@ -9,24 +9,24 @@ export const btn = cva({
     [&_svg]:text-[1.5em] disabled:opacity-50
 
     outline-0            focus:outline-2
-    outline-blue-500 outline-offset-2
+    outline-brand-50 outline-offset-2
   `,
   variants: {
     mode: {
       contained: `
         font-bold
-        text-stone-100
-        disabled:text-stone-400
-        disabled:bg-stone-600 
-        disabled:hover:bg-stone-600
+        text-gray-10
+        disabled:text-gray-40
+        disabled:bg-gray-60 
+        disabled:hover:bg-gray-60
       `,
       outline: null,
       text: `
         bg-transparent
-        disabled:text-stone-400
-        disabled:hover:text-stone-400
-        disabled:bg-stone-800 
-        disabled:hover:bg-stone-800
+        disabled:text-gray-40
+        disabled:hover:text-gray-40
+        disabled:bg-gray-80 
+        disabled:hover:bg-gray-80
       `,
     },
     intent: {
@@ -66,8 +66,18 @@ export const btn = cva({
       className: "rounded-xl",
     },
     {
+      mode: "text",
+      size: "md",
+      className: "rounded-xl",
+    },
+    {
       mode: "outline",
       size: "sm",
+      className: "rounded-xl",
+    },
+    {
+      mode: "outline",
+      size: "md",
       className: "rounded-xl",
     },
     {
@@ -79,71 +89,71 @@ export const btn = cva({
       intent: "neutral",
       mode: "text",
       className: `
-        text-stone-600
-        hover:text-stone-900
-        hover:bg-stone-600/10
+        text-gray-60
+        hover:text-gray-90
+        hover:bg-gray-60/10
       `,
     },
     {
       intent: "danger",
       mode: "text",
       className: `
-        text-red-600
-        hover:text-red-900
-        hover:bg-red-600/10
+        text-danger-60
+        hover:text-danger-90
+        hover:bg-danger-60/10
       `,
     },
     {
       intent: "neutral",
       mode: "outline",
       className: `
-        text-stone-600
+        text-gray-60
         border-2
         border-solid
-        border-stone-300
-        hover:bg-stone-300
-        hover:text-stone-900
+        border-gray-30
+        hover:bg-gray-30
+        hover:text-gray-90
       `,
     },
     {
       intent: "neutral",
       mode: "contained",
       className: `
-        text-stone-400
-        hover:text-stone-100
-        bg-stone-800
-        hover:bg-stone-700
+        text-gray-40
+        hover:text-gray-10
+        bg-gray-80
+        hover:bg-gray-70
       `,
     },
     {
       intent: "success",
       mode: "contained",
       className: `
-        bg-emerald-600
-        hover:bg-emerald-700
+        bg-success-60
+        hover:bg-success-70
       `,
     },
     {
       intent: "danger",
       mode: "contained",
       className: `
-        bg-red-600
-        hover:bg-red-700
+        bg-danger-60
+        hover:bg-danger-70
       `,
     },
     {
       intent: "brand",
       mode: "contained",
       className: `
-        bg-blue-600
-        hover:bg-blue-700
+        bg-brand-60
+        hover:bg-brand-70
       `,
     },
   ],
   defaultVariants: {
     size: "md",
     intent: "neutral",
-    mode: "outline",
+    mode: "text",
     isIcon: false,
   },
 })
@@ -152,9 +162,9 @@ export const smallMsg = cva({
   base: "text-xs",
   variants: {
     intent: {
-      success: "text-green-600",
-      error: "text-red-600",
-      neutral: "text-stone-600",
+      success: "text-success-60",
+      error: "text-danger-60",
+      neutral: "text-gray-60",
     },
   },
   defaultVariants: {
@@ -168,15 +178,15 @@ export const fieldWithLabelContainer = cva({
 
 export const inputField = cva({
   base: `
-    min-h-14 p-4 rounded-lg bg-stone-200
-    focus:bg-stone-300 text-stone-900
-    placeholder:text-stone-600 
+    min-h-14 p-4 rounded-lg bg-gray-20
+    focus:bg-gray-30 text-gray-90
+    placeholder:text-gray-60 
 
-    outline-blue-500 outline-offset-2
+    outline-brand-50 outline-offset-2
     focus:outline-2 
     
-    disabled:text-slate-600
-    disabled:bg-slate-400
+    disabled:text-gray-60
+    disabled:bg-gray-40
     
     cursor-text     disabled:cursor-not-allowed
 

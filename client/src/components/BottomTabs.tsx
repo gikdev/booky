@@ -17,7 +17,7 @@ interface TabsProps {
 
 export function BottomTabs({ items }: TabsProps) {
   return (
-    <div className="flex w-full h-16 min-h-16 max-h-16 border-t border-stone-300">
+    <div className="flex w-full h-16 min-h-16 max-h-16 border-t border-gray-30">
       {items.map(item => (
         <BottomTab key={item.id} {...item} />
       ))}
@@ -33,15 +33,15 @@ function BottomTab({ Icon, isSelected, title, url, disabled }: BottomTabProps) {
       flex flex-col gap-1 justify-center
       items-center flex-1 text-xs py-1 px-2
       cursor-pointer disabled:cursor-not-allowed
-      bg-stone-100 hover:bg-stone-200 disabled:hover:bg-stone-100
+      bg-gray-10 hover:bg-gray-20 disabled:hover:bg-gray-10
       disabled:opacity-50 
     `,
-    isSelected && !disabled ? "text-blue-600 font-bold" : "text-stone-600",
+    isSelected && !disabled ? "text-brand-60 font-bold" : "text-gray-60",
   )
 
   const iconContainer = cx(
     "flex py-1 px-4 items-center justify-center rounded-lg",
-    isSelected && !disabled ? "bg-blue-100" : "bg-transparent",
+    isSelected && !disabled ? "bg-brand-10" : "bg-transparent",
   )
 
   const children = (

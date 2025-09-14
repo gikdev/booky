@@ -21,14 +21,14 @@ function RouteComponent() {
       />
       <img src="/images/logo-full.png" alt="" className="w-max" />
 
-      <h1 className="text-4xl leading-normal text-stone-900">
+      <h1 className="text-4xl leading-normal text-gray-90">
         <span className="font-bold">کتاب</span>
         <span>‌هات</span>
         <br />
         <span>رو خیلی </span>
         <span className="font-bold">راحت</span>
         <br />
-        <span className="font-bold text-blue-600">مدیریت </span>
+        <span className="font-bold text-brand-60">مدیریت </span>
         <span>کن!</span>
       </h1>
 

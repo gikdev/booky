@@ -6,7 +6,7 @@ export const contentContainer = cva({
 })
 
 export const tag = cva({
-  base: "flex items-center gap-2 py-1.5 ps-4 pe-4 bg-stone-200 rounded-sm text-xs",
+  base: "flex items-center gap-2 py-1.5 ps-4 pe-4 bg-gray-20 rounded-sm text-xs",
   variants: {
     hasIcon: {
       false: null,
@@ -22,7 +22,7 @@ export const iconItem = cva({
   base: `
     flex items-center min-h-14 py-2
     px-4 gap-4 text-start [&_span]:flex-1
-    [&_svg]:text-[1.5em] hover:bg-stone-200
-    hover:text-stone-900 cursor-pointer
+    [&_svg]:text-[1.5em] hover:bg-gray-20
+    hover:text-gray-90 cursor-pointer
   `,
 })

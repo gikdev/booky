@@ -11,7 +11,7 @@ export function Checkbox({ checked, onChange }: CheckboxProps) {
 
   const className = cx(
     "p-4",
-    checked ? "text-blue-600" : "text-stone-600",
+    checked ? "text-brand-60" : "text-gray-60",
     isInteractive ? "cursor-pointer" : "",
   )
 

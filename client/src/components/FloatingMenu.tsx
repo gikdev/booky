@@ -14,7 +14,7 @@ export function FloatingMenu({ onClose, children, x, y }: FloatingMenuProps) {
       <button className="absolute inset-0 cursor-pointer" onClick={onClose} />
 
       <div
-        className="flex flex-col bg-stone-100 border-2 border-stone-300 rounded-lg absolute z-[3]"
+        className="flex flex-col bg-gray-10 border-2 border-gray-30 rounded-lg absolute z-[3]"
         style={{ top: y, left: x }}
       >
         {children}
@@ -24,5 +24,5 @@ export function FloatingMenu({ onClose, children, x, y }: FloatingMenuProps) {
 }
 
 export const floatingMenuItem = cva({
-  base: "hover:bg-stone-200 cursor-pointer flex items-center p-4 gap-2 [&_svg]:text-[1.5em]",
+  base: "hover:bg-gray-20 cursor-pointer flex items-center p-4 gap-2 [&_svg]:text-[1.5em]",
 })

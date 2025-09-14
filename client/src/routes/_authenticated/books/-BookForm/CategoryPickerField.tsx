@@ -130,7 +130,7 @@ function CategoryItem({ category, checked, onClick }: CategoryItemProps) {
   return (
     <button
       type="button"
-      className="flex items-center hover:bg-stone-200 cursor-pointer rounded-lg"
+      className="flex items-center hover:bg-gray-20 cursor-pointer rounded-lg"
       onClick={onClick}
     >
       <Checkbox checked={checked} />

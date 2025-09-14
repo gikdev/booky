@@ -16,9 +16,9 @@ export function Sheet({ children, onClose, className }: SheetProps) {
         onClick={onClose}
       />
 
-      <div className="bg-stone-100 max-h-[80dvh] flex flex-col">
+      <div className="bg-gray-10 max-h-[80dvh] flex flex-col">
         <div className="py-2 flex items-center justify-center">
-          <hr className="w-48 h-1 rounded-sm bg-stone-300 border-none" />
+          <hr className="w-48 h-1 rounded-sm bg-gray-30 border-none" />
         </div>
 
         <div className={cx("overflow-y-auto flex-1", className)}>

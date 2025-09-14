@@ -25,7 +25,7 @@ export function Colors({ label, colors }: ColorsProps) {
             className={cx(
               "w-12 h-12 cursor-pointer",
               c === field.state.value
-                ? "rounded-2xl border-2 border-stone-500"
+                ? "rounded-2xl border-2 border-gray-50"
                 : "rounded-lg opacity-50",
             )}
           />

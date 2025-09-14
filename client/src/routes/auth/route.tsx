@@ -18,7 +18,7 @@ function RouteComponent() {
       <img src="/images/logo-full.png" alt="" className="w-max" />
 
       <div className="flex flex-col gap-2 text-center">
-        <h1 className="font-bold text-stone-900 text-2xl">به بوکی خوش‌اومدی!</h1>
+        <h1 className="font-bold text-gray-90 text-2xl">به بوکی خوش‌اومدی!</h1>
         <p>همین الان ثبت‌نام کن یا وارد بشو تا شروع کنیم.</p>
       </div>
 

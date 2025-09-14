@@ -41,9 +41,9 @@ export function DeleteBookDialog({ bookId, onClose }: DeleteBookDialogProps) {
         className="absolute inset-0 cursor-pointer"
       />
 
-      <div className="flex flex-col gap-6 p-6 rounded-lg border-2 border-stone-300 bg-stone-100 max-w-120 w-full z-[3]">
+      <div className="flex flex-col gap-6 p-6 rounded-lg border-2 border-gray-30 bg-gray-10 max-w-120 w-full z-[3]">
         <div className="flex flex-col gap-4">
-          <p className="font-bold text-stone-900 text-xl">آیا مطمئن هستی؟</p>
+          <p className="font-bold text-gray-90 text-xl">آیا مطمئن هستی؟</p>
           <p className="">
             واقعا مطمئن هستی که می‌خواهی این آیتم خیلی مهم رو پاک کنی؟ این عمل
             قابل بازگشت نیست!!!

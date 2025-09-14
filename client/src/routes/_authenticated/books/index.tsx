@@ -55,8 +55,8 @@ function BookItem({ title, color, bookId }: BookItemProps) {
       params={{ id: bookId.toString() }}
       className="
         py-2 px-4 gap-4 flex justify-center
-        items-center min-h-14 bg-stone-100
-        hover:bg-stone-200 hover:text-stone-900
+        items-center min-h-14 bg-gray-10
+        hover:bg-gray-20 hover:text-gray-90
       "
     >
       <div
