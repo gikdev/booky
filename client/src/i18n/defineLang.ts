@@ -48,9 +48,34 @@ interface LanguageConfig {
   start: CasedString
   correct: CasedString
   validatingMsg: CasedString
+  doneSuccessfully: CasedString
+  color: CasedString  
+  description: CasedString
+  title: CasedString
+  name: CasedString
+  category: CasedString
+  categories: CasedString
+  newCategory: CasedString
+  manageCategories: CasedString
+  aboutApp: CasedString
+  aboutDeveloper: CasedString
+  books: CasedString
+  reading: CasedString
+  profile: CasedString
+  bookManagementApp: CasedString
+  goalOfApp: CasedString
+  version: CasedString
+  usedTechnologies: CasedString
+  btns: {
+    create: CasedString
+    edit: CasedString
+    close: CasedString
+  }
+
   settingsPage: {
     languageChangeWarning: CasedString
   }
+
   thingShouldBeAtLeastNCharacters: (
     thing: string,
     n: number | string,

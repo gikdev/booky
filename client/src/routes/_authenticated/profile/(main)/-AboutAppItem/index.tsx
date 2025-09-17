@@ -4,6 +4,7 @@ import { iconItem } from "#/shared/skins"
 import { CaretRightIcon, InfoIcon } from "@phosphor-icons/react"
 import { useState } from "react"
 import { TechsGrid } from "./TechsGrid"
+import { t } from "#/i18n"
 
 export function AboutAppItem() {
   const [isOpen, setOpen] = useState(false)
@@ -19,27 +20,26 @@ export function AboutAppItem() {
 const ItemBtn = ({ onClick }: { onClick: () => void }) => (
   <button type="button" className={iconItem()} onClick={onClick}>
     <InfoIcon />
-    <span>درباره برنامه</span>
-    <CaretRightIcon mirrored />
+    <span>{t.aboutApp.capital()}</span>
+    <CaretRightIcon mirrored={t.configIconMirror} />
   </button>
 )
 
 const AboutAppSheet = ({ onClose }: { onClose: () => void }) => (
   <Sheet onClose={onClose} className="flex flex-col gap-4 p-4 items-center">
-    <p>درباره برنامه</p>
+    <p>{t.aboutApp.capital()}</p>
 
     <div className="flex flex-col gap-2 items-center text-center">
       <img src="/images/logo-full.png" alt="" className="max-w-max" />
-      <p>برنامه مدیریت کتاب‌ها</p>
+      <p>{t.bookManagementApp.capital()}</p>
       <p className="text-xs">
-        هدف این برنامه، کمک به شما در مدیریت کتاب‌ها و مطالعه به صورت بهینه‌تر،
-        بهتر و بیشتر هست.
+        {t.goalOfApp.sentence()}
       </p>
-      <p className="text-xs">نسخه برنامه: v1</p>
+      <p className="text-xs">{t.version.sentence()}: v1</p>
     </div>
 
     <div className="flex flex-col gap-2 items-center w-full">
-      <p>تکنولوژی‌های به کار گرفته‌شده:</p>
+      <p>{t.usedTechnologies.sentence()}:</p>
 
       <TechsGrid />
     </div>
@@ -49,7 +49,7 @@ const AboutAppSheet = ({ onClose }: { onClose: () => void }) => (
       onClick={onClose}
       className={btn({ className: "w-full" })}
     >
-      بستن
+      {t.btns.close.capital()}
     </button>
   </Sheet>
 )

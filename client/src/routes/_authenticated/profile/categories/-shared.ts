@@ -1,5 +1,5 @@
 import type { CategoryResponseDto } from "#/api-client"
-import { z } from "#/i18n/i18nZod"
+import { z } from "zod/v4"
 
 export const CategoryFormSchema = z.object({
   title: z.string().min(1, ""),

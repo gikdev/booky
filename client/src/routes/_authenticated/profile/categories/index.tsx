@@ -9,6 +9,7 @@ import { categoriesControllerGetAllCategoriesOptions } from "#/api-client"
 import { contentContainer, iconItem, page } from "#/shared/skins"
 import { NavBar } from "../../-Navbar"
 import { btn } from "#/forms/skins"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/_authenticated/profile/categories/")({
   component: RouteComponent,
@@ -21,7 +22,7 @@ function RouteComponent() {
 
   return (
     <div className={page({ className: "relative" })}>
-      <NavBar title="دسته‌بندی‌ها" slotStart={<GoBackBtn />} />
+      <NavBar title={t.categories.capital()} slotStart={<GoBackBtn />} />
 
       <div className={contentContainer()}>
         {categories.map(c => (
@@ -36,7 +37,7 @@ function RouteComponent() {
               style={{ backgroundColor: `#${c.color}` }}
             />
             <span>{c.title}</span>
-            <CaretRightIcon mirrored />
+            <CaretRightIcon mirrored={t.configIconMirror} />
           </Link>
         ))}
       </div>
@@ -51,7 +52,7 @@ const GoBackBtn = () => (
     to="/profile"
     className={btn({ isIcon: true, size: "sm", mode: "text" })}
   >
-    <CaretLeftIcon mirrored />
+    <CaretLeftIcon mirrored={t.configIconMirror} />
   </Link>
 )
 

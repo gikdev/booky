@@ -11,6 +11,7 @@ import { NavBar } from "../../-Navbar"
 import { ProfileDetails } from "./-ProfileDetails"
 import { AboutAppItem } from "./-AboutAppItem"
 import { AboutDeveloperItem } from "./-AboutDeveloperItem"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/_authenticated/profile/(main)/")({
   component: RouteComponent,
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/_authenticated/profile/(main)/")({
 function RouteComponent() {
   return (
     <div className={page()}>
-      <NavBar title="پروفایل" />
+      <NavBar title={t.profile.capital()} />
 
       <div className={contentContainer()}>
         <ProfileDetails />
@@ -29,8 +30,8 @@ function RouteComponent() {
 
           <button type="button" className={iconItem()}>
             <UserCircleIcon />
-            <span>پروفایل</span>
-            <CaretRightIcon mirrored />
+            <span>{t.profile.capital()}</span>
+            <CaretRightIcon mirrored={t.configIconMirror} />
           </button>
 
           <SettingsItem />
@@ -49,15 +50,15 @@ function RouteComponent() {
 const ManageCategoriesItem = () => (
   <Link to="/profile/categories" className={iconItem()}>
     <TagIcon />
-    <span>مدیریت دسته‌بندی‌ها</span>
-    <CaretRightIcon mirrored />
+    <span>{t.manageCategories.capital()}</span>
+    <CaretRightIcon mirrored={t.configIconMirror} />
   </Link>
 )
 
 const SettingsItem = () => (
   <Link to="/profile/settings" className={iconItem()}>
     <GearIcon />
-    <span>تنظیمات</span>
-    <CaretRightIcon mirrored />
+    <span>{t.settings.capital()}</span>
+    <CaretRightIcon mirrored={t.configIconMirror} />
   </Link>
 )

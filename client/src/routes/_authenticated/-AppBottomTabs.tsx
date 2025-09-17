@@ -3,6 +3,7 @@ import { useLocation } from "@tanstack/react-router"
 import { useMemo } from "react"
 import { type BottomTabItem, BottomTabs } from "#/components/BottomTabs"
 import type { FileRouteTypes } from "#/routeTree.gen"
+import { t } from "#/i18n"
 
 export function AppBottomTabs() {
   const { pathname } = useLocation()
@@ -12,14 +13,14 @@ export function AppBottomTabs() {
       {
         id: "books",
         Icon: BooksIcon,
-        title: "کتب",
+        title: t.books.capital(),
         url: "/books" satisfies FileRouteTypes["to"],
         isSelected: pathname === "/books",
       },
       {
         id: "reading",
         Icon: BookOpenIcon,
-        title: "خوانش",
+        title: t.reading.capital(),
         url: "/books" satisfies FileRouteTypes["to"],
         isSelected: pathname === "/reading",
         disabled: true,
@@ -27,7 +28,7 @@ export function AppBottomTabs() {
       {
         id: "profile",
         Icon: UserCircleIcon,
-        title: "پروفایل",
+        title: t.profile.capital(),
         url: "/profile" satisfies FileRouteTypes["to"],
         isSelected: pathname === "/profile",
       },

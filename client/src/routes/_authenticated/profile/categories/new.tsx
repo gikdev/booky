@@ -4,6 +4,7 @@ import { NavBar } from "../../-Navbar"
 import { btn } from "#/forms/skins"
 import { CaretLeftIcon } from "@phosphor-icons/react"
 import { CategoryForm } from "./-CategoryForm"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/_authenticated/profile/categories/new")({
   component: RouteComponent,
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/_authenticated/profile/categories/new")({
 function RouteComponent() {
   return (
     <div className={page()}>
-      <NavBar title="دسته‌بندی جدید" slotStart={<GoBackBtn />} />
+      <NavBar title={t.newCategory.capital()} slotStart={<GoBackBtn />} />
 
       <CategoryForm mode="create" />
     </div>
@@ -24,6 +25,6 @@ const GoBackBtn = () => (
     to="/profile/categories"
     className={btn({ isIcon: true, size: "sm", mode: "text" })}
   >
-    <CaretLeftIcon mirrored />
+    <CaretLeftIcon mirrored={t.configIconMirror} />
   </Link>
 )

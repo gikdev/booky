@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query"
 import { categoriesControllerGetCategoryByIdOptions } from "#/api-client"
 import { select } from "./-shared"
 import { CategoryForm } from "./-CategoryForm"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/_authenticated/profile/categories/$id")({
   component: RouteComponent,
@@ -21,7 +22,7 @@ function RouteComponent() {
   return (
     <div className={page()}>
       <NavBar
-        title={`دسته‌بندی: ${category?.title || "..."}`}
+        title={`${t.category.sentence()}: ${category?.title || "..."}`}
         slotStart={<GoBackBtn />}
       />
 
@@ -46,6 +47,6 @@ const GoBackBtn = () => (
     to="/profile/categories"
     className={btn({ isIcon: true, size: "sm", mode: "text" })}
   >
-    <CaretLeftIcon mirrored />
+    <CaretLeftIcon mirrored={t.configIconMirror} />
   </Link>
 )

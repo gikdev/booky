@@ -15,8 +15,9 @@ import {
 import toast from "react-hot-toast"
 import { colors, parseError } from "#/shared/api"
 import { useAuthStore } from "#/shared/auth"
+import { t } from "#/i18n"
 
-const onSuccess = () => toast.success("با موفقیت انجام شد!")
+const onSuccess = () => toast.success(t.doneSuccessfully.sentence())
 const onError = (err: unknown) => toast.error(parseError(err))
 
 const useCreateCategoryMutation = () =>
@@ -78,20 +79,20 @@ export function CategoryForm({
   return (
     <div className={contentContainer({ className: "p-4 gap-6" })}>
       <form.AppField name="title">
-        {field => <field.SimpleText label="نام:" />}
+        {field => <field.SimpleText label={t.fieldLabel.required(t.name()).sentence()} />}
       </form.AppField>
 
       <form.AppField name="color">
-        {field => <field.Colors label="رنگ:" colors={colors} />}
+        {field => <field.Colors label={t.fieldLabel.required(t.color()).sentence()} colors={colors} />}
       </form.AppField>
 
       <form.AppField name="description">
-        {field => <field.SimpleText label="توضیحات (اختیاری):" isMultiline />}
+        {field => <field.SimpleText label={t.fieldLabel.optional(t.description()).sentence()} isMultiline />}
       </form.AppField>
 
       <form.AppForm>
         <form.Btn
-          title={mode === "create" ? "ایجاد" : "ویرایش"}
+          title={mode === "create" ? t.btns.create.capital() : t.btns.edit.capital()}
           iconStart={<FloppyDiskBackIcon weight="fill" />}
           className={btn({
             intent: "brand",
