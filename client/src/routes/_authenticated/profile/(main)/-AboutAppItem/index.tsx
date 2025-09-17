@@ -32,9 +32,7 @@ const AboutAppSheet = ({ onClose }: { onClose: () => void }) => (
     <div className="flex flex-col gap-2 items-center text-center">
       <img src="/images/logo-full.png" alt="" className="max-w-max" />
       <p>{t.bookManagementApp.capital()}</p>
-      <p className="text-xs">
-        {t.goalOfApp.sentence()}
-      </p>
+      <p className="text-xs">{t.goalOfApp.sentence()}</p>
       <p className="text-xs">{t.version.sentence()}: v1</p>
     </div>
 

@@ -79,20 +79,36 @@ export function CategoryForm({
   return (
     <div className={contentContainer({ className: "p-4 gap-6" })}>
       <form.AppField name="title">
-        {field => <field.SimpleText label={t.fieldLabel.required(t.name()).sentence()} />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.required(t.name()).sentence()}
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="color">
-        {field => <field.Colors label={t.fieldLabel.required(t.color()).sentence()} colors={colors} />}
+        {field => (
+          <field.Colors
+            label={t.fieldLabel.required(t.color()).sentence()}
+            colors={colors}
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="description">
-        {field => <field.SimpleText label={t.fieldLabel.optional(t.description()).sentence()} isMultiline />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.optional(t.description()).sentence()}
+            isMultiline
+          />
+        )}
       </form.AppField>
 
       <form.AppForm>
         <form.Btn
-          title={mode === "create" ? t.btns.create.capital() : t.btns.edit.capital()}
+          title={
+            mode === "create" ? t.btns.create.capital() : t.btns.edit.capital()
+          }
           iconStart={<FloppyDiskBackIcon weight="fill" />}
           className={btn({
             intent: "brand",

@@ -45,7 +45,9 @@ export const fa = defineLang({
   reading: cased("خوانش"),
   profile: cased("پروفایل"),
   bookManagementApp: cased("برنامه مدیریت کتاب‌ها"),
-  goalOfApp: cased("هدف این برنامه، کمک به شما در مدیریت کتاب‌ها و مطالعه به صورت بهینه‌تر، بهتر و بیشتر هست."),
+  goalOfApp: cased(
+    "هدف این برنامه، کمک به شما در مدیریت کتاب‌ها و مطالعه به صورت بهینه‌تر، بهتر و بیشتر هست.",
+  ),
   usedTechnologies: cased("تکنولوژی‌های به کار گرفته‌شده"),
   version: cased("نسخه"),
   btns: {

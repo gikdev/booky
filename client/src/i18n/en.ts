@@ -39,7 +39,9 @@ export const en = defineLang({
   reading: cased("reading"),
   profile: cased("profile"),
   bookManagementApp: cased("book management app"),
-  goalOfApp: cased("the goal of this app is to help you manage your books and study more, better and faster."),
+  goalOfApp: cased(
+    "the goal of this app is to help you manage your books and study more, better and faster.",
+  ),
   usedTechnologies: cased("technologies used"),
   version: cased("version"),
   btns: {

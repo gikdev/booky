@@ -49,7 +49,7 @@ interface LanguageConfig {
   correct: CasedString
   validatingMsg: CasedString
   doneSuccessfully: CasedString
-  color: CasedString  
+  color: CasedString
   description: CasedString
   title: CasedString
   name: CasedString
