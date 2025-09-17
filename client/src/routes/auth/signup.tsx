@@ -3,6 +3,7 @@ import { createFileRoute, useRouter } from "@tanstack/react-router"
 import { z } from "zod/v4"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/auth/signup")({
   component: RouteComponent,
@@ -10,17 +11,19 @@ export const Route = createFileRoute("/auth/signup")({
 
 const SignupFormSchema = z
   .object({
-    firstName: z.string().min(1, "این ورودی اجباری است"),
+    firstName: z.string().min(1, t.fieldIsRequired.sentence()),
     lastName: z.string(),
-    email: z.email("ایمیل باید صحیح باشه."),
-    password: z.string().min(8, "رمز باید حداقل ۸ کاراکتر باشه"),
-    passwordRepeat: z.string().min(1, "این ورودی اجباری است"),
+    email: z.email(t.shouldBeValidEmail.sentence()),
+    password: z
+      .string()
+      .min(8, t.thingShouldBeAtLeastNCharacters(t.password(), 8).sentence()),
+    passwordRepeat: z.string().min(1, t.fieldIsRequired.sentence()),
     location: z.string(),
-    // birthdate: z.date(),
+    birthdate: z.date(),
     bio: z.string(),
   })
   .refine(val => val.password === val.passwordRepeat, {
-    error: "رمز و تکرار اون یکی نیستن",
+    error: t.appTagline.sentence(),
     path: ["passwordRepeat"],
   })
 
@@ -34,7 +37,7 @@ const defaultValues: SignupFormValues = {
   passwordRepeat: "",
   location: "",
   bio: "",
-  // birthdate: new Date(),
+  birthdate: new Date(),
 }
 
 function RouteComponent() {
@@ -56,40 +59,72 @@ function RouteComponent() {
   return (
     <div className="flex flex-col flex-1 w-full px-4 gap-6">
       <form.AppField name="firstName">
-        {field => <field.SimpleText label="نام:" />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.required(t.firstName()).sentence()}
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="lastName">
-        {field => <field.SimpleText label="نام خانوادگی (اختیاری):" />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.optional(t.lastName()).sentence()}
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="email">
-        {field => <field.SimpleText label="ایمیل:" type="email" />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.required(t.email()).sentence()}
+            type="email"
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="password">
-        {field => <field.SimpleText label="رمز:" type="password" />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.required(t.password()).sentence()}
+            type="password"
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="passwordRepeat">
-        {field => <field.SimpleText label="تکرار رمز:" type="password" />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.required(t.passwordRepeat()).sentence()}
+            type="password"
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="location">
-        {field => <field.SimpleText label="مکان زندگی (اختیاری):" />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.optional(t.residencePlace()).sentence()}
+          />
+        )}
       </form.AppField>
 
       {/* <form.AppField name="birthdate">
-        {field => <field.SimpleText label="تاریخ تولد (اختیاری):" />}
+        {field => <field.SimpleText label={t.fieldLabel.optional(t.birthdate()).sentence()} />}
       </form.AppField> */}
 
       <form.AppField name="bio">
-        {field => <field.SimpleText label="بیوگرافی (اختیاری):" isMultiline />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.optional(t.bio()).sentence()}
+            isMultiline
+          />
+        )}
       </form.AppField>
 
       <form.AppForm>
         <form.Btn
-          title="ثبت‌نام"
+          title={t.register.capital()}
           iconEnd={<UserPlusIcon weight="fill" />}
           className={btn({
             size: "md",

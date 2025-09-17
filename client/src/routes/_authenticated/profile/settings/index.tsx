@@ -1,28 +1,27 @@
-import { CaretLeftIcon } from "@phosphor-icons/react"
+import { CaretLeftIcon, WarningIcon } from "@phosphor-icons/react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { contentContainer, page } from "#/shared/skins"
 import { NavBar } from "../../-Navbar"
-import { btn, fieldWithLabelContainer, inputField } from "#/forms/skins"
+import {
+  btn,
+  fieldWithLabelContainer,
+  inputField,
+  smallMsg,
+} from "#/forms/skins"
 import { Switch } from "#/components/Switch"
 import { useThemeStore } from "#/shared/theme"
-import { useI18nContext } from "#/i18n/i18n-react"
-import type { Locales } from "#/i18n/i18n-types"
-import { loadLocaleAsync } from "#/i18n/i18n-util.async"
 import toast from "react-hot-toast"
-import { parseError } from "#/shared/api"
-import { useState, type ChangeEvent } from "react"
-import { useShouldMirror } from "#/i18n/helpers"
+import type { ChangeEvent } from "react"
+import { languages, t, useI18nStore, type Language } from "#/i18n"
 
 export const Route = createFileRoute("/_authenticated/profile/settings/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { LL } = useI18nContext()
-
   return (
     <div className={page()}>
-      <NavBar title={LL.SETTINGS()} slotStart={<GoBackBtn />} />
+      <NavBar title={t.settings.sentence()} slotStart={<GoBackBtn />} />
 
       <div className={contentContainer({ className: "gap-6 p-4" })}>
         <ThemeToggleField />
@@ -33,20 +32,17 @@ function RouteComponent() {
 }
 
 function GoBackBtn() {
-  const shouldMirror = useShouldMirror()
-
   return (
     <Link
       to="/profile"
       className={btn({ isIcon: true, size: "sm", mode: "text" })}
     >
-      <CaretLeftIcon mirrored={shouldMirror} />
+      <CaretLeftIcon mirrored={t.configIconMirror} />
     </Link>
   )
 }
 
 function ThemeToggleField() {
-  const { LL } = useI18nContext()
   const theme = useThemeStore(s => s.theme)
 
   const toggleTheme = () => useThemeStore.getState().toggleTheme()
@@ -57,7 +53,7 @@ function ThemeToggleField() {
       className="flex items-center justify-between cursor-pointer min-h-14"
       onClick={toggleTheme}
     >
-      <span>{LL.DARK_THEME()}:</span>
+      <span>{t.darkTheme.sentence()}:</span>
 
       <Switch selected={theme === "dark"} />
     </button>
@@ -65,38 +61,37 @@ function ThemeToggleField() {
 }
 
 function SelectLanguageField() {
-  const { locale, setLocale, LL } = useI18nContext()
-  const [isLoading, setLoading] = useState(false)
+  const currentLang = useI18nStore(s => s.currentLang)
+  const setCurrentLang = useI18nStore(s => s.setCurrentLang)
 
   const handleChange = async (e: ChangeEvent<HTMLSelectElement>) => {
-    const newLocale = e.target.value as Locales
+    const newLang = e.target.value
 
-    try {
-      setLoading(true)
-      await loadLocaleAsync(newLocale)
-      setLocale(newLocale)
-    } catch (error) {
-      toast.error(`${parseError(error)}. ${LL.PLEASE_TRY_AGAIN()}`)
-    } finally {
-      setLoading(false)
+    if (languages.includes(newLang as Language)) {
+      setCurrentLang(newLang as Language)
+      location.reload()
+    } else {
+      toast("...")
     }
   }
 
   return (
     <label className={fieldWithLabelContainer()}>
-      <p>{LL.LANGUAGE()}:</p>
+      <p>{t.language()}:</p>
 
       <select
         className={inputField()}
-        value={locale}
-        disabled={isLoading}
+        value={currentLang}
         onChange={handleChange}
       >
         <option value="fa">فارسی</option>
         <option value="en">English</option>
       </select>
 
-      <Link to="/auth/login">login</Link>
+      <p className={smallMsg({ intent: "warning" })}>
+        <WarningIcon size={16} className="inline-block me-1" />
+        <span>{t.settingsPage.languageChangeWarning.sentence()}</span>
+      </p>
     </label>
   )
 }

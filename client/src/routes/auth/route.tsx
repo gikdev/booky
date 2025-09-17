@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-router"
 import { useMemo } from "react"
 import { type TabItem, Tabs } from "#/components/Tabs"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/auth")({
   component: RouteComponent,
@@ -18,8 +19,10 @@ function RouteComponent() {
       <img src="/images/logo-full.png" alt="" className="w-max" />
 
       <div className="flex flex-col gap-2 text-center">
-        <h1 className="font-bold text-gray-90 text-2xl">به بوکی خوش‌اومدی!</h1>
-        <p>همین الان ثبت‌نام کن یا وارد بشو تا شروع کنیم.</p>
+        <h1 className="font-bold text-gray-90 text-2xl">
+          {t.authWelcomeTitle.capital()}
+        </h1>
+        <p>{t.authWelcomeDescription.sentence()}</p>
       </div>
 
       <AuthTabs />
@@ -37,14 +40,14 @@ function AuthTabs() {
       {
         id: "login",
         Icon: SignInIcon,
-        title: "ورود",
+        title: t.login.capital(),
         isActive: pathname === "/auth/login",
         onClick: () => navigate({ to: "/auth/login" }),
       },
       {
         id: "signup",
         Icon: UserPlusIcon,
-        title: "ثبت‌نام",
+        title: t.register.capital(),
         isActive: pathname === "/auth/signup",
         onClick: () => navigate({ to: "/auth/signup" }),
       },

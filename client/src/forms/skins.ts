@@ -164,6 +164,7 @@ export const smallMsg = cva({
     intent: {
       success: "text-success-60",
       error: "text-danger-60",
+      warning: "text-warning-60",
       neutral: "text-gray-60",
     },
   },

@@ -1,15 +1,13 @@
-import { ArrowLeftIcon } from "@phosphor-icons/react"
+import { ArrowRightIcon } from "@phosphor-icons/react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { btn } from "#/forms/skins"
-import { useI18nContext } from "#/i18n/i18n-react"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/intro")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { LL } = useI18nContext()
-
   return (
     <div className="flex flex-col p-4 gap-8 justify-center flex-1 relative">
       <img
@@ -25,10 +23,10 @@ function RouteComponent() {
       <img src="/images/logo-full.png" alt="" className="w-max" />
 
       <h1 className="text-4xl leading-normal text-gray-90 font-bold">
-        {LL.APP_TAGLINE()}
+        {t.appTagline.capital()}
       </h1>
 
-      <p className="">{LL.APP_INTRO_DESCRIPTION()}</p>
+      <p className="">{t.appIntroDescription()}</p>
 
       <Link
         to="/auth/login"
@@ -38,8 +36,8 @@ function RouteComponent() {
           className: "w-full justify-between",
         })}
       >
-        <span>{LL.START()}</span>
-        <ArrowLeftIcon weight="fill" />
+        <span>{t.start.capital()}</span>
+        <ArrowRightIcon weight="fill" mirrored={t.configIconMirror} />
       </Link>
     </div>
   )
