@@ -1,39 +1,89 @@
 import { CaretRightIcon, PlusCircleIcon } from "@phosphor-icons/react"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
+import { useEffect, useState } from "react"
 import {
   type BookResponseDto,
   booksControllerGetAllBooksOptions,
 } from "#/api-client"
-import { contentContainer, page } from "#/shared/skins"
-import { AppBottomTabs } from "../-AppBottomTabs"
-import { NavBar } from "../-Navbar"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
+import { contentContainer, page as pageSkin } from "#/shared/skins"
+import { AppBottomTabs } from "../-AppBottomTabs"
+import { NavBar } from "../-Navbar"
+import {
+  LoadingPaginationControls,
+  PaginationControls,
+} from "./-PaginationControls"
 
 export const Route = createFileRoute("/_authenticated/books/")({
   component: RouteComponent,
 })
 
+const limit = 10
+
+function useBooks(page: number) {
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    queryClient.prefetchQuery(
+      booksControllerGetAllBooksOptions({ query: { limit, page: page + 1 } }),
+    )
+  }, [queryClient, page])
+
+  return useQuery({
+    ...booksControllerGetAllBooksOptions({ query: { limit, page } }),
+    placeholderData: previousData => {
+      return previousData
+    },
+  })
+}
+
 function RouteComponent() {
-  const { data: books = [], isSuccess } = useQuery(
-    booksControllerGetAllBooksOptions(),
-  )
+  const [page, setPage] = useState(1)
+  const { data, isSuccess, isPending, isPlaceholderData } = useBooks(page)
 
   return (
-    <div className={page()}>
+    <div className={pageSkin()}>
       <NavBar title={t.books.capital()} slotEnd={<NewBookBtn />} />
 
-      <div className={contentContainer()}>
-        {isSuccess &&
-          books.map(b => (
-            <BookItem
-              key={b.id}
-              bookId={b.id}
-              title={b.title}
-              color={b.color}
-            />
-          ))}
+      <div
+        className={contentContainer({
+          className: isPlaceholderData ? "opacity-50" : "",
+        })}
+      >
+        <div
+          className={contentContainer({
+            className: isPlaceholderData ? "animate-pulse" : "",
+          })}
+        >
+          {isSuccess &&
+            data.data.map(b => (
+              <BookItem
+                key={b.id}
+                bookId={b.id}
+                title={b.title}
+                color={b.color}
+              />
+            ))}
+        </div>
+
+        {isSuccess && (
+          <PaginationControls
+            currentPage={page}
+            disabled={isPlaceholderData}
+            isFirstPage={data.meta.isFirstPage}
+            onFirstBtnClick={() => setPage(1)}
+            hasPreviousPage={data.meta.hasPreviousPage}
+            onPreviousBtnClick={() => setPage(p => p - 1)}
+            hasNextPage={data.meta.hasNextPage}
+            onNextBtnClick={() => setPage(p => p + 1)}
+            isLastPage={data.meta.isLastPage}
+            onLastBtnClick={() => setPage(data.meta.totalPages)}
+          />
+        )}
+
+        {isPending && <LoadingPaginationControls />}
       </div>
 
       <AppBottomTabs />

@@ -5,13 +5,13 @@ import {
   UserCircleIcon,
 } from "@phosphor-icons/react"
 import { createFileRoute, Link } from "@tanstack/react-router"
+import { t } from "#/i18n"
 import { contentContainer, iconItem, page } from "#/shared/skins"
 import { AppBottomTabs } from "../../-AppBottomTabs"
 import { NavBar } from "../../-Navbar"
-import { ProfileDetails } from "./-ProfileDetails"
 import { AboutAppItem } from "./-AboutAppItem"
 import { AboutDeveloperItem } from "./-AboutDeveloperItem"
-import { t } from "#/i18n"
+import { ProfileDetails } from "./-ProfileDetails"
 
 export const Route = createFileRoute("/_authenticated/profile/(main)/")({
   component: RouteComponent,

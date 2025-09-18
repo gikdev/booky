@@ -68,10 +68,10 @@ export class Book {
   @DeleteDateColumn()
   deletedAt: Date
 
-  @ManyToMany(() => Category, c => c.books)
+  @ManyToMany(() => Category, c => c.books, { eager: true })
   @JoinTable()
   categories: Category[]
 
-  @ManyToOne(() => User, u => u.books, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, u => u.books, { onDelete: "CASCADE", eager: true })
   owner: User
 }

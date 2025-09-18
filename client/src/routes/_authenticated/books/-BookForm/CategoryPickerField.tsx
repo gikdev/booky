@@ -1,13 +1,13 @@
-import {
-  categoriesControllerGetAllCategoriesOptions,
-  type CategoryResponseDto,
-} from "#/api-client"
-import { useQuery } from "@tanstack/react-query"
 import { CircleNotchIcon, EyedropperIcon } from "@phosphor-icons/react"
-import { btn, fieldWithLabelContainer } from "#/forms/skins"
+import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
-import { Sheet } from "#/components/Sheet"
+import {
+  type CategoryResponseDto,
+  categoriesControllerGetAllCategoriesOptions,
+} from "#/api-client"
 import { Checkbox } from "#/components/Checkbox"
+import { Sheet } from "#/components/Sheet"
+import { btn, fieldWithLabelContainer } from "#/forms/skins"
 import { t } from "#/i18n"
 
 interface CategoryPickerFieldProps {

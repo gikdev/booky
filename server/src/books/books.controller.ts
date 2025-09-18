@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
 } from "@nestjs/common"
 import { BooksService } from "./providers/books.service"
 import { ApiOperation } from "@nestjs/swagger"
@@ -16,6 +17,8 @@ import { plainToInstance } from "class-transformer"
 import { BookResponseDto } from "./dtos/book-response.dto"
 import { UpdateBookDto } from "./dtos/update-book.dto"
 import { PatchBookDto } from "./dtos/patch-book.dto"
+import { BooksQueryDto } from "./dtos/books-query.dto"
+import { BooksResponseDto } from "./dtos/books-response.dto"
 
 @Controller("books")
 export class BooksController {
@@ -23,9 +26,9 @@ export class BooksController {
 
   @ApiOperation({ summary: "Get all books" })
   @Get()
-  async getAllBooks() {
-    const allBooks = await this.booksService.findAll()
-    return plainToInstance(BookResponseDto, allBooks, {
+  async getAllBooks(@Query() booksQueryDto: BooksQueryDto) {
+    const allBooks = await this.booksService.findAll(booksQueryDto)
+    return plainToInstance(BooksResponseDto, allBooks, {
       excludeExtraneousValues: true,
     })
   }

@@ -1,21 +1,21 @@
-import { useAppForm } from "#/forms"
-import { contentContainer } from "#/shared/skins"
 import { FloppyDiskBackIcon } from "@phosphor-icons/react"
+import { useMutation } from "@tanstack/react-query"
+import toast from "react-hot-toast"
+import {
+  categoriesControllerCreateNewCategoryMutation,
+  categoriesControllerUpdateCategoryByIdMutation,
+} from "#/api-client"
+import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
+import { t } from "#/i18n"
+import { colors, parseError } from "#/shared/api"
+import { useAuthStore } from "#/shared/auth"
+import { contentContainer } from "#/shared/skins"
 import {
   CategoryFormSchema,
   type CategoryFormValues,
   defaultValues as defaultDefaultValues,
 } from "./-shared"
-import { useMutation } from "@tanstack/react-query"
-import {
-  categoriesControllerCreateNewCategoryMutation,
-  categoriesControllerUpdateCategoryByIdMutation,
-} from "#/api-client"
-import toast from "react-hot-toast"
-import { colors, parseError } from "#/shared/api"
-import { useAuthStore } from "#/shared/auth"
-import { t } from "#/i18n"
 
 const onSuccess = () => toast.success(t.doneSuccessfully.sentence())
 const onError = (err: unknown) => toast.error(parseError(err))

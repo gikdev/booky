@@ -1,10 +1,10 @@
-import { page } from "#/shared/skins"
-import { createFileRoute, Link } from "@tanstack/react-router"
-import { NavBar } from "../-Navbar"
 import { CaretLeftIcon } from "@phosphor-icons/react"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { btn } from "#/forms/skins"
-import { BookForm } from "./-BookForm"
 import { t } from "#/i18n"
+import { page } from "#/shared/skins"
+import { NavBar } from "../-Navbar"
+import { BookForm } from "./-BookForm"
 
 export const Route = createFileRoute("/_authenticated/books/new")({
   component: RouteComponent,

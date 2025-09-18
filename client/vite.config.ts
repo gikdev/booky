@@ -12,6 +12,10 @@ export default defineConfig({
       autoCodeSplitting: true,
       semicolons: false,
       quoteStyle: "double",
+      routeTreeFileHeader: [
+        "/** biome-ignore-all assist/source/organizeImports: this file is generated! */",
+        "/** biome-ignore-all lint/suspicious/noExplicitAny: this file is generated! */",
+      ],
     }),
     react(),
     tailwindcss(),

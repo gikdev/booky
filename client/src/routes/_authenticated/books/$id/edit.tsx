@@ -1,13 +1,13 @@
-import { btn } from "#/forms/skins"
-import { page } from "#/shared/skins"
 import { CaretLeftIcon } from "@phosphor-icons/react"
-import { createFileRoute, Link } from "@tanstack/react-router"
-import { BookForm } from "../-BookForm"
-import { NavBar } from "../../-Navbar"
 import { useQuery } from "@tanstack/react-query"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { booksControllerGetBookByIdOptions } from "#/api-client"
-import { select } from "../-shared"
+import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
+import { page } from "#/shared/skins"
+import { NavBar } from "../../-Navbar"
+import { BookForm } from "../-BookForm"
+import { select } from "../-shared"
 
 export const Route = createFileRoute("/_authenticated/books/$id/edit")({
   component: RouteComponent,

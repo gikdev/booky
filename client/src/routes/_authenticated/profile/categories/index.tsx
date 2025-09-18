@@ -6,10 +6,10 @@ import {
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { categoriesControllerGetAllCategoriesOptions } from "#/api-client"
-import { contentContainer, iconItem, page } from "#/shared/skins"
-import { NavBar } from "../../-Navbar"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
+import { contentContainer, iconItem, page } from "#/shared/skins"
+import { NavBar } from "../../-Navbar"
 
 export const Route = createFileRoute("/_authenticated/profile/categories/")({
   component: RouteComponent,

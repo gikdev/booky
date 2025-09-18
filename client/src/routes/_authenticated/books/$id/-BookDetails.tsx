@@ -1,3 +1,9 @@
+import {
+  CircleNotchIcon,
+  FileIcon,
+  TagIcon,
+  TranslateIcon,
+} from "@phosphor-icons/react"
 import type { BookResponseDto } from "#/api-client"
 import { t } from "#/i18n"
 import {
@@ -5,12 +11,6 @@ import {
   getLanguageByCode,
 } from "#/shared/helpers"
 import { contentContainer, tag } from "#/shared/skins"
-import {
-  CircleNotchIcon,
-  FileIcon,
-  TagIcon,
-  TranslateIcon,
-} from "@phosphor-icons/react"
 
 interface BookDetailsProps {
   book: BookResponseDto

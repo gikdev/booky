@@ -8,6 +8,7 @@ import { ProfilesModule } from "./profiles/profiles.module"
 import { CategoriesModule } from "./categories/categories.module"
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { AuthModule } from "./auth/auth.module"
+import { PaginationModule } from "./common/pagination/pagination.module"
 import appConfig from "./config/app.config"
 import dbConfig from "./config/db.config"
 import envValidation from "./config/env.validation"
@@ -44,6 +45,7 @@ const ENV = process.env.NODE_ENV
     ProfilesModule,
     CategoriesModule,
     AuthModule,
+    PaginationModule,
   ],
 })
 export class AppModule {}

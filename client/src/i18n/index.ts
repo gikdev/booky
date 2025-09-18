@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import { fa } from "./fa"
 import { en } from "./en"
+import { fa } from "./fa"
 
 export const languages = ["en", "fa"] as const
 export type Language = (typeof languages)[number]

@@ -1,9 +1,9 @@
-import {
-  usersControllerGetUserByIdOptions,
-  type UserWithProfileResponseDto,
-} from "#/api-client"
 import { useQuery } from "@tanstack/react-query"
 import { create } from "zustand"
+import {
+  type UserWithProfileResponseDto,
+  usersControllerGetUserByIdOptions,
+} from "#/api-client"
 
 interface AuthStore {
   userId: UserWithProfileResponseDto["id"] | null

@@ -1,10 +1,10 @@
-import { page } from "#/shared/skins"
-import { createFileRoute, Link } from "@tanstack/react-router"
-import { NavBar } from "../../-Navbar"
-import { btn } from "#/forms/skins"
 import { CaretLeftIcon } from "@phosphor-icons/react"
-import { CategoryForm } from "./-CategoryForm"
+import { createFileRoute, Link } from "@tanstack/react-router"
+import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
+import { page } from "#/shared/skins"
+import { NavBar } from "../../-Navbar"
+import { CategoryForm } from "./-CategoryForm"
 
 export const Route = createFileRoute("/_authenticated/profile/categories/new")({
   component: RouteComponent,

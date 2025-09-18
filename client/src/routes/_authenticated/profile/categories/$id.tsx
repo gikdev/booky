@@ -1,13 +1,13 @@
-import { page } from "#/shared/skins"
-import { createFileRoute, Link } from "@tanstack/react-router"
-import { NavBar } from "../../-Navbar"
-import { btn } from "#/forms/skins"
 import { CaretLeftIcon } from "@phosphor-icons/react"
 import { useQuery } from "@tanstack/react-query"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { categoriesControllerGetCategoryByIdOptions } from "#/api-client"
-import { select } from "./-shared"
-import { CategoryForm } from "./-CategoryForm"
+import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
+import { page } from "#/shared/skins"
+import { NavBar } from "../../-Navbar"
+import { CategoryForm } from "./-CategoryForm"
+import { select } from "./-shared"
 
 export const Route = createFileRoute("/_authenticated/profile/categories/$id")({
   component: RouteComponent,

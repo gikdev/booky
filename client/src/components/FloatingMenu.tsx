@@ -1,5 +1,5 @@
-import { cva } from "#/shared/cx.config"
 import type { ReactNode } from "react"
+import { cva } from "#/shared/cx.config"
 
 interface FloatingMenuProps {
   x: number
@@ -18,7 +18,11 @@ export function FloatingMenu({
 }: FloatingMenuProps) {
   return (
     <div className="fixed inset-0 h-full w-full bg-black/20 z-[2]">
-      <button className="absolute inset-0 cursor-pointer" onClick={onClose} />
+      <button
+        className="absolute inset-0 cursor-pointer"
+        onClick={onClose}
+        type="button"
+      />
 
       <div
         className="flex flex-col bg-gray-10 border-2 border-gray-30 rounded-lg absolute z-[3]"

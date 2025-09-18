@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common"
+import { Injectable, NotFoundException } from "@nestjs/common"
 import { In, Repository } from "typeorm"
 import { Category } from "../category.entity"
 import { InjectRepository } from "@nestjs/typeorm"

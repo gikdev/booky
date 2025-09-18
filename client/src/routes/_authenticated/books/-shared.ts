@@ -1,6 +1,6 @@
+import { z } from "zod/v4"
 import type { BookResponseDto } from "#/api-client"
 import { t } from "#/i18n"
-import { z } from "zod/v4"
 
 export const BookFormSchema = z.object({
   title: z.string().min(1, t.fieldIsRequired.sentence()),

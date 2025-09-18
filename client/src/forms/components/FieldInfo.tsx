@@ -1,8 +1,8 @@
 import { CheckIcon, CircleNotchIcon, XIcon } from "@phosphor-icons/react"
 import type { AnyFieldApi } from "@tanstack/react-form"
+import { t } from "#/i18n"
 import { parseError } from "#/shared/api"
 import { smallMsg } from "../skins"
-import { t } from "#/i18n"
 
 export function FieldInfo({ field }: { field: AnyFieldApi }) {
   const { isValid, isValidating } = field.state.meta

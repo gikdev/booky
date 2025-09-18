@@ -1,9 +1,9 @@
+import { CaretRightIcon, GlobeIcon, InfoIcon } from "@phosphor-icons/react"
+import { useState } from "react"
 import { Sheet } from "#/components/Sheet"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
 import { iconItem } from "#/shared/skins"
-import { CaretRightIcon, GlobeIcon, InfoIcon } from "@phosphor-icons/react"
-import { useState } from "react"
 
 export function AboutDeveloperItem() {
   const [isOpen, setOpen] = useState(false)

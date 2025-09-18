@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common"
+import { Injectable, NotFoundException } from "@nestjs/common"
 import { Repository } from "typeorm"
 import { Book } from "../book.entity"
 import { InjectRepository } from "@nestjs/typeorm"
@@ -12,6 +7,9 @@ import { UpdateBookDto } from "../dtos/update-book.dto"
 import { PatchBookDto } from "../dtos/patch-book.dto"
 import { CategoriesService } from "src/categories/providers/categories.service"
 import { UsersService } from "src/users/providers/users.service"
+import { BooksQueryDto } from "../dtos/books-query.dto"
+import { PaginationProvider } from "src/common/pagination/providers/pagination.provider"
+import { Paginated } from "src/common/pagination/interfaces/paginated.interface"
 
 @Injectable()
 export class BooksService {
@@ -20,12 +18,16 @@ export class BooksService {
     private readonly booksRepo: Repository<Book>,
     private readonly categoriesService: CategoriesService,
     private readonly usersService: UsersService,
+    private readonly paginationProvider: PaginationProvider,
   ) {}
 
-  async findAll() {
-    return await this.booksRepo.find({
-      relations: { categories: true, owner: true },
-    })
+  async findAll(booksQueryDto: BooksQueryDto): Promise<Paginated<Book>> {
+    const items = await this.paginationProvider.paginateQuery(
+      { limit: booksQueryDto.limit, page: booksQueryDto.page },
+      this.booksRepo,
+    )
+
+    return items
   }
 
   async findOneById(id: Book["id"]) {

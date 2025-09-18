@@ -1,5 +1,5 @@
-import { t } from "#/i18n"
 import { QueryClient } from "@tanstack/react-query"
+import { t } from "#/i18n"
 
 export const queryClient = new QueryClient()
 

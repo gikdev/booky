@@ -3,13 +3,13 @@ import {
   PencilSimpleIcon,
   TrashIcon,
 } from "@phosphor-icons/react"
-import { useState, type MouseEventHandler } from "react"
-import { btn } from "#/forms/skins"
-import { FloatingMenu, floatingMenuItem } from "#/components/FloatingMenu"
 import { Link } from "@tanstack/react-router"
+import { type MouseEventHandler, useState } from "react"
+import { FloatingMenu, floatingMenuItem } from "#/components/FloatingMenu"
+import { btn } from "#/forms/skins"
+import { t } from "#/i18n"
 import { Route } from "../.."
 import { DeleteBookDialog } from "./DeleteBookDialog"
-import { t } from "#/i18n"
 
 type MenuState = false | { x: number; y: number }
 

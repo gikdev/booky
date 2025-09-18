@@ -1,10 +1,10 @@
-import { Sheet } from "#/components/Sheet"
-import { btn } from "#/forms/skins"
-import { iconItem } from "#/shared/skins"
 import { CaretRightIcon, InfoIcon } from "@phosphor-icons/react"
 import { useState } from "react"
-import { TechsGrid } from "./TechsGrid"
+import { Sheet } from "#/components/Sheet"
+import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
+import { iconItem } from "#/shared/skins"
+import { TechsGrid } from "./TechsGrid"
 
 export function AboutAppItem() {
   const [isOpen, setOpen] = useState(false)

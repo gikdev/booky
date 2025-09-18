@@ -2,8 +2,8 @@ import { BookOpenIcon, BooksIcon, UserCircleIcon } from "@phosphor-icons/react"
 import { useLocation } from "@tanstack/react-router"
 import { useMemo } from "react"
 import { type BottomTabItem, BottomTabs } from "#/components/BottomTabs"
-import type { FileRouteTypes } from "#/routeTree.gen"
 import { t } from "#/i18n"
+import type { FileRouteTypes } from "#/routeTree.gen"
 
 export function AppBottomTabs() {
   const { pathname } = useLocation()

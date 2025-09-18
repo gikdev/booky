@@ -1,5 +1,5 @@
-import { cva } from "#/shared/cx.config"
 import type { ReactNode } from "react"
+import { cva } from "#/shared/cx.config"
 
 interface SwitchProps {
   disabled?: boolean

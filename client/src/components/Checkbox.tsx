@@ -1,5 +1,5 @@
-import { cx } from "#/shared/cx.config"
 import { CheckSquareIcon, SquareIcon } from "@phosphor-icons/react"
+import { cx } from "#/shared/cx.config"
 
 interface CheckboxProps {
   checked: boolean

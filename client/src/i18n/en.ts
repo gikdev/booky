@@ -1,4 +1,4 @@
-import { ss, defineLang } from "./defineLang.js"
+import { defineLang, ss } from "./defineLang.js"
 
 export const en = defineLang({
   aboutApp: ss("about app"),

@@ -1,12 +1,12 @@
 import { QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { createRootRoute, Outlet } from "@tanstack/react-router"
+import type { PropsWithChildren } from "react"
+import { Toaster } from "react-hot-toast"
+import { t, useI18nStore } from "#/i18n"
+import { useThemeStore } from "#/shared/theme"
 // import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
 import { queryClient } from "../shared/api"
-import { Toaster } from "react-hot-toast"
-import type { PropsWithChildren } from "react"
-import { useThemeStore } from "#/shared/theme"
-import { t, useI18nStore } from "#/i18n"
 
 export const Route = createRootRoute({ component: RootLayout })
 

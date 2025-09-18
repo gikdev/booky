@@ -1,9 +1,9 @@
 import { CaretLeftIcon } from "@phosphor-icons/react"
 import { Link } from "@tanstack/react-router"
 import { btn } from "#/forms/skins"
+import { t } from "#/i18n"
 import { NavBar } from "#/routes/_authenticated/-Navbar"
 import { MoreOptionsBtn } from "./MoreOptionsBtn"
-import { t } from "#/i18n"
 
 export function BookDetailsNavBar() {
   return (

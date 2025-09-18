@@ -1,18 +1,18 @@
 import { CaretLeftIcon, WarningIcon } from "@phosphor-icons/react"
 import { createFileRoute, Link } from "@tanstack/react-router"
-import { contentContainer, page } from "#/shared/skins"
-import { NavBar } from "../../-Navbar"
+import type { ChangeEvent } from "react"
+import toast from "react-hot-toast"
+import { Switch } from "#/components/Switch"
 import {
   btn,
   fieldWithLabelContainer,
   inputField,
   smallMsg,
 } from "#/forms/skins"
-import { Switch } from "#/components/Switch"
+import { type Language, languages, t, useI18nStore } from "#/i18n"
+import { contentContainer, page } from "#/shared/skins"
 import { useThemeStore } from "#/shared/theme"
-import toast from "react-hot-toast"
-import type { ChangeEvent } from "react"
-import { languages, t, useI18nStore, type Language } from "#/i18n"
+import { NavBar } from "../../-Navbar"
 
 export const Route = createFileRoute("/_authenticated/profile/settings/")({
   component: RouteComponent,
