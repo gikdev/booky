@@ -1,14 +1,23 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+} from "@nestjs/common"
 import { Repository } from "typeorm"
 import { User } from "../user.entity"
 import { InjectRepository } from "@nestjs/typeorm"
 import { CreateUserDto } from "../dtos/create-user.dto"
+import { HashingProvider } from "src/auth/providers/hashing.provider"
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepo: Repository<User>,
+
+    @Inject(forwardRef(() => HashingProvider))
+    private readonly hashingProvider: HashingProvider,
   ) {}
 
   async findAll() {
@@ -45,7 +54,10 @@ export class UsersService {
         "A user with the provided email exists. Please check your email",
       )
 
-    let newUser = this.usersRepo.create(createUserDto)
+    let newUser = this.usersRepo.create({
+      ...createUserDto,
+      password: await this.hashingProvider.hashPassword(createUserDto.password),
+    })
 
     newUser = await this.usersRepo.save(newUser)
 

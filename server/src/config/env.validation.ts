@@ -12,4 +12,8 @@ export default j.object({
   DB_USER: j.string().required(),
   DB_SYNC: j.boolean().required(),
   DB_AUTOLOAD: j.boolean().required(),
+  JWT_SECRET: j.string().required(),
+  JWT_TOKEN_AUDIENCE: j.string().required(),
+  JWT_TOKEN_ISSUER: j.string().required(),
+  JWT_ACCESS_TOKEN_TTL: j.number().required(),
 })
