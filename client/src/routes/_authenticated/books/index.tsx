@@ -1,4 +1,8 @@
-import { CaretRightIcon, PlusCircleIcon } from "@phosphor-icons/react"
+import {
+  BooksIcon,
+  CaretRightIcon,
+  PlusCircleIcon,
+} from "@phosphor-icons/react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
@@ -6,15 +10,15 @@ import {
   type BookResponseDto,
   booksControllerGetAllBooksOptions,
 } from "#/api-client"
+import {
+  LoadingPaginationControls,
+  PaginationControls,
+} from "#/components/PaginationControls"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
 import { contentContainer, page as pageSkin } from "#/shared/skins"
 import { AppBottomTabs } from "../-AppBottomTabs"
 import { NavBar } from "../-Navbar"
-import {
-  LoadingPaginationControls,
-  PaginationControls,
-} from "./-PaginationControls"
 
 export const Route = createFileRoute("/_authenticated/books/")({
   component: RouteComponent,
@@ -22,20 +26,19 @@ export const Route = createFileRoute("/_authenticated/books/")({
 
 const limit = 10
 
-function useBooks(page: number) {
+function useBooks(page: number, prefetchNextPage = false) {
   const queryClient = useQueryClient()
 
   useEffect(() => {
+    if (!prefetchNextPage) return
     queryClient.prefetchQuery(
       booksControllerGetAllBooksOptions({ query: { limit, page: page + 1 } }),
     )
-  }, [queryClient, page])
+  }, [queryClient, page, prefetchNextPage])
 
   return useQuery({
     ...booksControllerGetAllBooksOptions({ query: { limit, page } }),
-    placeholderData: previousData => {
-      return previousData
-    },
+    placeholderData: previousData => previousData,
   })
 }
 
@@ -43,30 +46,25 @@ function RouteComponent() {
   const [page, setPage] = useState(1)
   const { data, isSuccess, isPending, isPlaceholderData } = useBooks(page)
 
+  const mainSectionStyle = contentContainer({
+    className: isPlaceholderData && "opacity-50",
+  })
+
+  const booksListSectionStyle = contentContainer({
+    className: isPlaceholderData && "animate-pulse",
+  })
+
   return (
     <div className={pageSkin()}>
       <NavBar title={t.books.capital()} slotEnd={<NewBookBtn />} />
 
-      <div
-        className={contentContainer({
-          className: isPlaceholderData ? "opacity-50" : "",
-        })}
-      >
-        <div
-          className={contentContainer({
-            className: isPlaceholderData ? "animate-pulse" : "",
-          })}
-        >
-          {isSuccess &&
-            data.data.map(b => (
-              <BookItem
-                key={b.id}
-                bookId={b.id}
-                title={b.title}
-                color={b.color}
-              />
-            ))}
-        </div>
+      <div className={mainSectionStyle}>
+        {isSuccess &&
+          (data.meta.totalItems === 0 ? (
+            <NoBooksSection />
+          ) : (
+            <BooksList books={data.data} className={booksListSectionStyle} />
+          ))}
 
         {isSuccess && (
           <PaginationControls
@@ -90,6 +88,19 @@ function RouteComponent() {
     </div>
   )
 }
+
+interface BooksListProps {
+  className: string
+  books: BookResponseDto[]
+}
+
+const BooksList = ({ books, className }: BooksListProps) => (
+  <div className={className}>
+    {books.map(b => (
+      <BookItem key={b.id} bookId={b.id} title={b.title} color={b.color} />
+    ))}
+  </div>
+)
 
 interface BookItemProps {
   bookId: number
@@ -133,4 +144,18 @@ const NewBookBtn = () => (
   >
     <PlusCircleIcon />
   </Link>
+)
+
+const NoBooksSection = () => (
+  <div
+    className={contentContainer({ className: "items-center justify-center" })}
+  >
+    <div className="flex flex-col items-center p-4 gap-4 text-center">
+      <BooksIcon size={160} weight="duotone" className="text-brand-50" />
+      <p className="font-bold text-gray-90 text-2xl">
+        {t.noBooksSectionTitle.capital()}
+      </p>
+      <p>{t.noBooksSectionDescription}</p>
+    </div>
+  </div>
 )

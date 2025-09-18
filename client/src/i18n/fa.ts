@@ -68,6 +68,9 @@ export const fa = defineLang({
   version: ss("نسخه"),
   visitDeveloperWebsite: ss("مشاهده وب‌سایت سازنده"),
   generalErrorMsg: ss("یه مشکلی پیش اومده"),
+  noBooksSectionTitle: ss("فعلا کتابی نداری!"),
+  noBooksSectionDescription:
+    "هنوز کتابی نداری که بهت نمایش بدیم. برای شروع یه دونه کتاب جدید اضافه کن!",
   unAuthorizedErrorMsg: ss(
     "دسترسی نامعتبر هست، لطفا از حساب خارج شده و دوباره وارد شوید",
   ),

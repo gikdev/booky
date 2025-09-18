@@ -71,6 +71,9 @@ export const en = defineLang({
   version: ss("version"),
   visitDeveloperWebsite: ss("visit developer website"),
   generalErrorMsg: ss("An error occured."),
+  noBooksSectionTitle: ss("no books for now!"),
+  noBooksSectionDescription:
+    "You currently do NOT have any books for us to show. To start, add a new book.",
   btns: {
     cancel: ss("cancel"),
     create: ss("create"),

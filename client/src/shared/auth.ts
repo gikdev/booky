@@ -23,6 +23,7 @@ export function useIsUserAuthenticated() {
 export function useCurrentUserQuery() {
   const userId = useAuthStore(s => s.userId)
   return useQuery({
+    // biome-ignore lint/style/noNonNullAssertion: the `enabled` property makes sure that userId is a NUMBER!
     ...usersControllerGetUserByIdOptions({ path: { id: userId! } }),
     enabled: typeof userId === "number",
   })

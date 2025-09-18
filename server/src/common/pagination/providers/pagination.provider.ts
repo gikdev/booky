@@ -32,12 +32,15 @@ export class PaginationProvider {
     // Calculating page number
     const totalItems = await repo.count()
     const totalPages = Math.ceil(totalItems / limit)
-    const hasNextPage = page !== totalPages
-    const hasPreviousPage = page !== 1
-    const nextPage = hasNextPage ? page + 1 : page
-    const previousPage = hasPreviousPage ? page - 1 : page
+
     const isFirstPage = page === 1
     const isLastPage = page === totalPages
+
+    const hasPreviousPage = page > 1
+    const hasNextPage = page < totalPages
+
+    const previousPage = hasPreviousPage ? page - 1 : 1
+    const nextPage = hasNextPage ? page + 1 : totalPages
 
     const finalResponse: Paginated<T> = {
       data: items,

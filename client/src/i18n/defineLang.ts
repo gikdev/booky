@@ -84,6 +84,8 @@ interface LanguageConfig {
   visitDeveloperWebsite: SuperString
   generalErrorMsg: SuperString
   unAuthorizedErrorMsg: SuperString
+  noBooksSectionTitle: SuperString
+  noBooksSectionDescription: string
   btns: {
     cancel: SuperString
     create: SuperString
