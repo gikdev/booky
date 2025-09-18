@@ -1,5 +1,9 @@
 import type { BookResponseDto } from "#/api-client"
-import { convertToPersianDigits, getLanguageByCode } from "#/shared/helpers"
+import { t } from "#/i18n"
+import {
+  convertToPersianDigitsIfPersian,
+  getLanguageByCode,
+} from "#/shared/helpers"
 import { contentContainer, tag } from "#/shared/skins"
 import {
   CircleNotchIcon,
@@ -56,7 +60,9 @@ const BookAvatar = ({ letter, color }: { letter: string; color: string }) => (
 const PagesTag = ({ pages }: { pages: BookResponseDto["pages"] }) => (
   <div className={tag({ hasIcon: true })}>
     <FileIcon />
-    <span>{convertToPersianDigits((pages ?? 0).toString())} صفحه</span>
+    <span>
+      {convertToPersianDigitsIfPersian(t.nPages(pages ?? 0).sentence())}
+    </span>
   </div>
 )
 

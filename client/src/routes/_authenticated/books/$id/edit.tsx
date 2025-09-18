@@ -7,6 +7,7 @@ import { NavBar } from "../../-Navbar"
 import { useQuery } from "@tanstack/react-query"
 import { booksControllerGetBookByIdOptions } from "#/api-client"
 import { select } from "../-shared"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/_authenticated/books/$id/edit")({
   component: RouteComponent,
@@ -20,7 +21,7 @@ function RouteComponent() {
 
   return (
     <div className={page()}>
-      <NavBar slotStart={<GoBackBtn />} title="کتاب جدید" />
+      <NavBar slotStart={<GoBackBtn />} title={t.editBook.capital()} />
 
       <BookForm mode="edit" bookId={bookId} defaultValues={book} />
     </div>
@@ -36,7 +37,7 @@ function GoBackBtn() {
       params={{ id }}
       className={btn({ isIcon: true, size: "sm", mode: "text" })}
     >
-      <CaretLeftIcon mirrored />
+      <CaretLeftIcon mirrored={t.configIconMirror} />
     </Link>
   )
 }

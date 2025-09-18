@@ -1,3 +1,4 @@
+import { t } from "#/i18n"
 import { QueryClient } from "@tanstack/react-query"
 
 export const queryClient = new QueryClient()
@@ -16,8 +17,7 @@ export function parseError(error: unknown, msg?: string): string {
         if ("title" in parsed && typeof parsed.title === "string")
           return parsed.title
         if ("status" in parsed && typeof parsed.status === "number") {
-          if (parsed.status === 401)
-            return "دسترسی نامعتبر هست، لطفا از حساب خارج شده و دوباره وارد شوید"
+          if (parsed.status === 401) return t.unAuthorizedErrorMsg()
         }
       }
     } catch {
@@ -34,12 +34,11 @@ export function parseError(error: unknown, msg?: string): string {
     if ("name" in error && typeof error.name === "string") return error.name
     if ("title" in error && typeof error.title === "string") return error.title
     if ("status" in error && typeof error.status === "number") {
-      if (error.status === 401)
-        return "دسترسی نامعتبر هست، لطفا از حساب خارج شده و دوباره وارد شوید"
+      if (error.status === 401) return t.unAuthorizedErrorMsg()
     }
   }
 
-  return msg || "خطایی رخ داد!"
+  return msg || t.generalErrorMsg.sentence()
 }
 
 export const colors = [

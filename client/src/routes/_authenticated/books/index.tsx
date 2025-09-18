@@ -1,4 +1,4 @@
-import { CaretLeftIcon, PlusCircleIcon } from "@phosphor-icons/react"
+import { CaretRightIcon, PlusCircleIcon } from "@phosphor-icons/react"
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import {
@@ -9,6 +9,7 @@ import { contentContainer, page } from "#/shared/skins"
 import { AppBottomTabs } from "../-AppBottomTabs"
 import { NavBar } from "../-Navbar"
 import { btn } from "#/forms/skins"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/_authenticated/books/")({
   component: RouteComponent,
@@ -21,7 +22,7 @@ function RouteComponent() {
 
   return (
     <div className={page()}>
-      <NavBar title="کتب" slotEnd={<NewBookBtn />} />
+      <NavBar title={t.books.capital()} slotEnd={<NewBookBtn />} />
 
       <div className={contentContainer()}>
         {isSuccess &&
@@ -70,7 +71,7 @@ function BookItem({ title, color, bookId }: BookItemProps) {
         {title}
       </p>
 
-      <CaretLeftIcon size={24} />
+      <CaretRightIcon size={24} mirrored={t.configIconMirror} />
     </Link>
   )
 }

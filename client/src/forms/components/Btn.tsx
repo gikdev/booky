@@ -1,6 +1,7 @@
 import { CircleNotchIcon, type Icon } from "@phosphor-icons/react"
 import type { ComponentProps, ReactNode } from "react"
 import { useFormContext } from "../shared"
+import { t } from "#/i18n"
 
 interface BtnProps {
   title?: string
@@ -19,7 +20,7 @@ interface BtnProps {
 }
 
 export function Btn({
-  title = "ثبت",
+  title = t.btns.ok(),
   isIconOnly = false,
   iconStart,
   IconStart,
@@ -27,7 +28,7 @@ export function Btn({
   iconEnd,
   className,
   LoadingIcon = CircleNotchIcon,
-  loadingTitle = "در حال بارگذاری...",
+  loadingTitle = t.loading.sentence(),
   btnType = "button",
   onClick,
   testId,

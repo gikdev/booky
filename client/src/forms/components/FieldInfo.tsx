@@ -9,8 +9,8 @@ export function FieldInfo({ field }: { field: AnyFieldApi }) {
   const showError = !isValid
 
   const errorMsg = field.state.meta.errors
-    .map(e => parseError(e, "یه مشکلی پیش اومده"))
-    .join("، ")
+    .map(e => parseError(e, t.generalErrorMsg.sentence()))
+    .join(`${t.configListItemSeparator} `)
 
   if (isValidating)
     return (

@@ -17,8 +17,9 @@ import { btn } from "#/forms/skins"
 import { CategoryPickerField } from "./CategoryPickerField"
 import { getLanguageByCode } from "#/shared/helpers"
 import { useAuthStore } from "#/shared/auth"
+import { t } from "#/i18n"
 
-const onSuccess = () => toast.success("با موفقیت انجام شد!")
+const onSuccess = () => toast.success(t.doneSuccessfully.sentence())
 const onError = (err: unknown) => toast.error(parseError(err))
 
 const useCreateBookMutation = () =>
@@ -88,23 +89,46 @@ export function BookForm({
   return (
     <div className={contentContainer({ className: "p-4 gap-6" })}>
       <form.AppField name="title">
-        {field => <field.SimpleText label="نام:" />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.required(t.name()).sentence()}
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="author">
-        {field => <field.SimpleText label="نویسنده:" />}
+        {field => (
+          <field.SimpleText
+            label={t.fieldLabel.required(t.author()).sentence()}
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="language">
-        {field => <field.SimpleSelect label="زبان:" items={languageOptions} />}
+        {field => (
+          <field.SimpleSelect
+            dir={t.configDir}
+            label={t.fieldLabel.required(t.language()).sentence()}
+            items={languageOptions}
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="pages">
-        {field => <field.SimpleNumber label="تعداد صفحات:" />}
+        {field => (
+          <field.SimpleNumber
+            label={t.fieldLabel.required(t.numberOfPages()).sentence()}
+          />
+        )}
       </form.AppField>
 
       <form.AppField name="color">
-        {field => <field.Colors colors={colors} label="رنگ:" />}
+        {field => (
+          <field.Colors
+            colors={colors}
+            label={t.fieldLabel.required(t.color()).sentence()}
+          />
+        )}
       </form.AppField>
 
       <form.Field name="categoryIds">
@@ -117,12 +141,19 @@ export function BookForm({
       </form.Field>
 
       <form.AppField name="description">
-        {field => <field.SimpleText isMultiline label="توضیحات (اختیاری):" />}
+        {field => (
+          <field.SimpleText
+            isMultiline
+            label={t.fieldLabel.optional(t.description()).sentence()}
+          />
+        )}
       </form.AppField>
 
       <form.AppForm>
         <form.Btn
-          title={mode === "create" ? "ایجاد" : "ویرایش"}
+          title={
+            mode === "create" ? t.btns.create.capital() : t.btns.edit.capital()
+          }
           iconStart={<FloppyDiskBackIcon weight="fill" />}
           className={btn({
             intent: "brand",

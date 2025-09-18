@@ -7,82 +7,107 @@ function sentenceCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function cased(str: string) {
+/** Creates a SuperString */
+export function ss(str: string) {
   const fn = () => str
   fn.capital = () => capitalCase(str)
   fn.sentence = () => sentenceCase(str)
   return fn
 }
 
-type CasedString = ReturnType<typeof cased>
+type SuperString = ReturnType<typeof ss>
 
 export function defineLang(langConfig: LanguageConfig) {
   return langConfig
 }
 
 interface LanguageConfig {
-  appIntroDescription: CasedString
-  appTagline: CasedString
-  authWelcomeDescription: CasedString
-  authWelcomeTitle: CasedString
-  bio: CasedString
-  birthdate: CasedString
+  aboutApp: SuperString
+  aboutDeveloper: SuperString
+  appIntroDescription: SuperString
+  appTagline: SuperString
+  areYouSure: SuperString
+  author: SuperString
+  authWelcomeDescription: SuperString
+  authWelcomeTitle: SuperString
+  bio: SuperString
+  birthdate: SuperString
+  bookManagementApp: SuperString
+  books: SuperString
+  categories: SuperString
+  category: SuperString
+  choose: SuperString
+  color: SuperString
   configDir: "ltr" | "rtl"
   configIconMirror: boolean
-  darkTheme: CasedString
-  email: CasedString
-  fieldIsRequired: CasedString
-  firstName: CasedString
-  residencePlace: CasedString
-  language: CasedString
-  lastName: CasedString
-  login: CasedString
-  optional: CasedString
-  password: CasedString
-  passwordRepeat: CasedString
-  passwordsDoNotMatch: CasedString
-  pleaseTryAgain: CasedString
-  register: CasedString
-  settings: CasedString
-  shouldBeValidEmail: CasedString
-  start: CasedString
-  correct: CasedString
-  validatingMsg: CasedString
-  doneSuccessfully: CasedString
-  color: CasedString
-  description: CasedString
-  title: CasedString
-  name: CasedString
-  category: CasedString
-  categories: CasedString
-  newCategory: CasedString
-  manageCategories: CasedString
-  aboutApp: CasedString
-  aboutDeveloper: CasedString
-  books: CasedString
-  reading: CasedString
-  profile: CasedString
-  bookManagementApp: CasedString
-  goalOfApp: CasedString
-  version: CasedString
-  usedTechnologies: CasedString
+  configListItemSeparator: string
+  correct: SuperString
+  darkTheme: SuperString
+  deleteBook: SuperString
+  description: SuperString
+  details: SuperString
+  developerIntro: SuperString
+  developerName: SuperString
+  doneSuccessfully: SuperString
+  editBook: SuperString
+  email: SuperString
+  fieldIsRequired: SuperString
+  firstName: SuperString
+  goalOfApp: SuperString
+  language: SuperString
+  lastName: SuperString
+  loading: SuperString
+  login: SuperString
+  manageCategories: SuperString
+  name: SuperString
+  newBook: SuperString
+  newCategory: SuperString
+  nPages: (n: number) => SuperString
+  numberOfPages: SuperString
+  optional: SuperString
+  password: SuperString
+  passwordRepeat: SuperString
+  passwordsDoNotMatch: SuperString
+  pleaseTryAgain: SuperString
+  profile: SuperString
+  reading: SuperString
+  register: SuperString
+  residencePlace: SuperString
+  settings: SuperString
+  shouldBeValidEmail: SuperString
+  start: SuperString
+  thisActionIsIrreversible: SuperString
+  title: SuperString
+  usedTechnologies: SuperString
+  validatingMsg: SuperString
+  version: SuperString
+  visitDeveloperWebsite: SuperString
+  generalErrorMsg: SuperString
+  unAuthorizedErrorMsg: SuperString
   btns: {
-    create: CasedString
-    edit: CasedString
-    close: CasedString
+    cancel: SuperString
+    create: SuperString
+    edit: SuperString
+    close: SuperString
+    delete: SuperString
+    ok: SuperString
   }
-
+  languagesName: {
+    fa: SuperString
+    en: SuperString
+    ar: SuperString
+    jp: SuperString
+    fr: SuperString
+  }
   settingsPage: {
-    languageChangeWarning: CasedString
+    languageChangeWarning: SuperString
   }
-
   thingShouldBeAtLeastNCharacters: (
     thing: string,
     n: number | string,
-  ) => CasedString
-
+  ) => SuperString
   fieldLabel: {
-    required: (label: string) => CasedString
-    optional: (label: string) => CasedString
+    required: (label: string) => SuperString
+    optional: (label: string) => SuperString
   }
 }

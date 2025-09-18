@@ -1,18 +1,19 @@
 import type { BookResponseDto } from "#/api-client"
-import { z } from "#/i18n/i18nZod"
+import { t } from "#/i18n"
+import { z } from "zod/v4"
 
 export const BookFormSchema = z.object({
-  title: z.string().min(1, "این ورودی اجباری هست"),
-  author: z.string().min(1, "این ورودی اجباری هست"),
+  title: z.string().min(1, t.fieldIsRequired.sentence()),
+  author: z.string().min(1, t.fieldIsRequired.sentence()),
   description: z.string(),
   color: z
     .string()
-    .min(6, "این ورودی اجباری هست")
-    .max(6, "این ورودی اجباری هست"),
+    .min(6, t.fieldIsRequired.sentence())
+    .max(6, t.fieldIsRequired.sentence()),
   language: z
     .string()
-    .min(2, "این ورودی اجباری هست")
-    .max(2, "این ورودی اجباری هست"),
+    .min(2, t.fieldIsRequired.sentence())
+    .max(2, t.fieldIsRequired.sentence()),
   pages: z.number(),
   categoryIds: z.number().array(),
 })

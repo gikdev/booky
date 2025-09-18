@@ -1,5 +1,6 @@
 import { Sheet } from "#/components/Sheet"
 import { btn } from "#/forms/skins"
+import { t } from "#/i18n"
 import { iconItem } from "#/shared/skins"
 import { CaretRightIcon, GlobeIcon, InfoIcon } from "@phosphor-icons/react"
 import { useState } from "react"
@@ -18,8 +19,8 @@ export function AboutDeveloperItem() {
 const ItemBtn = ({ onClick }: { onClick: () => void }) => (
   <button type="button" className={iconItem()} onClick={onClick}>
     <InfoIcon />
-    <span>درباره سازنده</span>
-    <CaretRightIcon mirrored />
+    <span>{t.aboutDeveloper.capital()}</span>
+    <CaretRightIcon mirrored={t.configIconMirror} />
   </button>
 )
 
@@ -28,14 +29,13 @@ const AboutDeveloperSheet = ({ onClose }: { onClose: () => void }) => (
     onClose={onClose}
     className="flex flex-col gap-4 p-4 items-center text-center"
   >
-    <p>درباره سازنده</p>
+    <p>{t.aboutDeveloper.capital()}</p>
 
-    <p className="text-3xl font-bold text-gray-90">محمدمهدی بهرامی</p>
-
-    <p>
-      توسعه‌دهنده فرانت‌اند (React) با ۱ سال تجربه در ساخت اپلیکیشن‌های وب، با
-      تمرکز بر کیفیت، کدنویسی تمیز و ارائه تجربه کاربری روان و خوب.
+    <p className="text-3xl font-bold text-gray-90">
+      {t.developerName.capital()}
     </p>
+
+    <p>{t.developerIntro()}</p>
 
     <a
       target="_blank"
@@ -47,7 +47,7 @@ const AboutDeveloperSheet = ({ onClose }: { onClose: () => void }) => (
         className: "w-full justify-between",
       })}
     >
-      <span>مشاهده وب‌سایت سازنده</span>
+      <span>{t.visitDeveloperWebsite.capital()}</span>
       <GlobeIcon weight="fill" />
     </a>
 
@@ -56,7 +56,7 @@ const AboutDeveloperSheet = ({ onClose }: { onClose: () => void }) => (
       onClick={onClose}
       className={btn({ className: "w-full" })}
     >
-      بستن
+      {t.btns.close.capital()}
     </button>
   </Sheet>
 )

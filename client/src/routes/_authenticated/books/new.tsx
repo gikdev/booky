@@ -4,6 +4,7 @@ import { NavBar } from "../-Navbar"
 import { CaretLeftIcon } from "@phosphor-icons/react"
 import { btn } from "#/forms/skins"
 import { BookForm } from "./-BookForm"
+import { t } from "#/i18n"
 
 export const Route = createFileRoute("/_authenticated/books/new")({
   component: RouteComponent,
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/_authenticated/books/new")({
 function RouteComponent() {
   return (
     <div className={page()}>
-      <NavBar slotStart={<GoBackBtn />} title="کتاب جدید" />
+      <NavBar slotStart={<GoBackBtn />} title={t.newBook.capital()} />
 
       <BookForm mode="create" />
     </div>
@@ -21,6 +22,6 @@ function RouteComponent() {
 
 const GoBackBtn = () => (
   <Link to="/books" className={btn({ isIcon: true, size: "sm", mode: "text" })}>
-    <CaretLeftIcon mirrored />
+    <CaretLeftIcon mirrored={t.configIconMirror} />
   </Link>
 )

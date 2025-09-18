@@ -1,3 +1,4 @@
+import { t } from "#/i18n"
 import { useFieldContext } from "../shared"
 import { fieldWithLabelContainer, inputField } from "../skins"
 import { FieldInfo } from "./FieldInfo"
@@ -33,7 +34,7 @@ export function SimpleSelect({
         onBlur={field.handleBlur}
         onChange={e => field.handleChange(e.target.value)}
       >
-        <option disabled>انتخاب کن</option>
+        <option disabled>{t.choose.capital()}</option>
 
         {items.map(i => (
           <option key={i.id} value={i.value}>

@@ -8,6 +8,7 @@ import { btn, fieldWithLabelContainer } from "#/forms/skins"
 import { useState } from "react"
 import { Sheet } from "#/components/Sheet"
 import { Checkbox } from "#/components/Checkbox"
+import { t } from "#/i18n"
 
 interface CategoryPickerFieldProps {
   selectedIds: number[]
@@ -26,7 +27,7 @@ export function CategoryPickerField({
 
   return (
     <div className={fieldWithLabelContainer()}>
-      <p>دسته‌بندی‌ها (اختیاری):</p>
+      <p>{t.fieldLabel.optional(t.categories()).sentence()}</p>
 
       <button
         type="button"
@@ -37,12 +38,12 @@ export function CategoryPickerField({
         {status === "pending" ? (
           <>
             <CircleNotchIcon className="animate-spin" />
-            <span>در حال بارگذاری...</span>
+            <span>{t.loading.sentence()}...</span>
           </>
         ) : (
           <>
             <EyedropperIcon />
-            <span>انتخاب کن</span>
+            <span>{t.choose.capital()}</span>
           </>
         )}
       </button>
@@ -61,7 +62,7 @@ export function CategoryPickerField({
         {categories
           ?.filter(c => selectedIds.includes(c.id))
           .map(c => c.title)
-          .join("، ")}
+          .join(`${t.configListItemSeparator} `)}
       </p>
     </div>
   )
@@ -111,7 +112,7 @@ function CategoryPickerSheet({
             className: "w-full",
           })}
         >
-          تایید
+          {t.btns.ok()}
         </button>
       </div>
     </Sheet>

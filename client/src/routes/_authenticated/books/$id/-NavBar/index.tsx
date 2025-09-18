@@ -3,12 +3,13 @@ import { Link } from "@tanstack/react-router"
 import { btn } from "#/forms/skins"
 import { NavBar } from "#/routes/_authenticated/-Navbar"
 import { MoreOptionsBtn } from "./MoreOptionsBtn"
+import { t } from "#/i18n"
 
 export function BookDetailsNavBar() {
   return (
     <NavBar
       slotStart={<GoBackBtn />}
-      title="مشخصات"
+      title={t.details.capital()}
       slotEnd={<MoreOptionsBtn />}
     />
   )
@@ -16,6 +17,6 @@ export function BookDetailsNavBar() {
 
 const GoBackBtn = () => (
   <Link to="/books" className={btn({ isIcon: true, size: "sm", mode: "text" })}>
-    <CaretLeftIcon mirrored />
+    <CaretLeftIcon mirrored={t.configIconMirror} />
   </Link>
 )

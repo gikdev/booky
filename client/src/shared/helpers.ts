@@ -1,13 +1,15 @@
+import { t, useI18nStore } from "#/i18n"
+
 export function getLanguageByCode(langCode: string) {
-  if (langCode === "fa") return "فارسی"
-  if (langCode === "en") return "انگلیسی"
-  if (langCode === "ar") return "عربی"
-  if (langCode === "jp") return "ژاپنی"
-  if (langCode === "fr") return "فرانسوی"
+  if (langCode === "fa") return t.languagesName.fa.capital()
+  if (langCode === "en") return t.languagesName.en.capital()
+  if (langCode === "ar") return t.languagesName.ar.capital()
+  if (langCode === "jp") return t.languagesName.jp.capital()
+  if (langCode === "fr") return t.languagesName.fr.capital()
   return langCode
 }
 
-export function convertToPersianDigits(input: string): string {
+function convertToPersianDigits(input: string): string {
   return input
     .replaceAll("0", "۰")
     .replaceAll("1", "۱")
@@ -19,4 +21,9 @@ export function convertToPersianDigits(input: string): string {
     .replaceAll("7", "۷")
     .replaceAll("8", "۸")
     .replaceAll("9", "۹")
+}
+
+export function convertToPersianDigitsIfPersian(input: string): string {
+  if (useI18nStore.getState().currentLang !== "fa") return input
+  return convertToPersianDigits(input)
 }

@@ -9,8 +9,18 @@ import { FloatingMenu, floatingMenuItem } from "#/components/FloatingMenu"
 import { Link } from "@tanstack/react-router"
 import { Route } from "../.."
 import { DeleteBookDialog } from "./DeleteBookDialog"
+import { t } from "#/i18n"
 
 type MenuState = false | { x: number; y: number }
+
+const FLOATING_MENU_WIDTH = 240
+const BTN_GAP = 4
+
+function calcX(left: number) {
+  const isRTL = t.configDir === "rtl"
+  if (isRTL) return left + BTN_GAP
+  return innerWidth - FLOATING_MENU_WIDTH - BTN_GAP
+}
 
 export function MoreOptionsBtn() {
   const [menuState, setMenuState] = useState<MenuState>(false)
@@ -19,8 +29,10 @@ export function MoreOptionsBtn() {
     const el = e.currentTarget as HTMLButtonElement
     const rect = el.getBoundingClientRect()
 
+    const x = calcX(rect.left)
+
     setMenuState({
-      x: rect.left,
+      x,
       y: rect.bottom + 8,
     })
   }
@@ -31,6 +43,7 @@ export function MoreOptionsBtn() {
 
       {menuState && (
         <FloatingMenu
+          width={FLOATING_MENU_WIDTH}
           x={menuState.x}
           y={menuState.y}
           onClose={() => setMenuState(false)}
@@ -63,7 +76,7 @@ function EditBookItem() {
   return (
     <Link className={floatingMenuItem()} to="/books/$id/edit" params={{ id }}>
       <PencilSimpleIcon />
-      <span>ویرایش کتاب</span>
+      <span>{t.editBook.sentence()}</span>
     </Link>
   )
 }
@@ -81,7 +94,7 @@ function DeleteBookItem() {
         onClick={() => setOpen(true)}
       >
         <TrashIcon />
-        <span>حذف کتاب</span>
+        <span>{t.deleteBook.sentence()}</span>
       </button>
 
       {isOpen && (

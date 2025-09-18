@@ -3,6 +3,7 @@ import {
   type BookResponseDto,
 } from "#/api-client"
 import { btn } from "#/forms/skins"
+import { t } from "#/i18n"
 import { parseError } from "#/shared/api"
 import { useMutation } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
@@ -21,7 +22,7 @@ function useRemoveBookByIdMutation() {
   return useMutation({
     ...booksControllerRemoveBookByIdMutation(),
     onSuccess: () => {
-      toast.success("با موفقیت انجام شد!")
+      toast.success(t.doneSuccessfully.sentence())
       navigate({ to: "/books" })
     },
     onError,
@@ -43,33 +44,32 @@ export function DeleteBookDialog({ bookId, onClose }: DeleteBookDialogProps) {
 
       <div className="flex flex-col gap-6 p-6 rounded-lg border-2 border-gray-30 bg-gray-10 max-w-120 w-full z-[3]">
         <div className="flex flex-col gap-4">
-          <p className="font-bold text-gray-90 text-xl">آیا مطمئن هستی؟</p>
-          <p className="">
-            واقعا مطمئن هستی که می‌خواهی این آیتم خیلی مهم رو پاک کنی؟ این عمل
-            قابل بازگشت نیست!!!
+          <p className="font-bold text-gray-90 text-xl">
+            {t.areYouSure.sentence()}
           </p>
+          <p className="">{t.thisActionIsIrreversible.sentence()}</p>
         </div>
 
         <div className="flex gap-4 justify-end">
           <button
             type="button"
+            onClick={onClose}
             className={btn({
               mode: "text",
             })}
-            onClick={onClose}
           >
-            انصراف
+            {t.btns.cancel.capital()}
           </button>
 
           <button
             type="button"
+            onClick={handleDelete}
             className={btn({
               intent: "danger",
               mode: "contained",
             })}
-            onClick={handleDelete}
           >
-            حذف
+            {t.btns.delete.capital()}
           </button>
         </div>
       </div>

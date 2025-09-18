@@ -84,8 +84,8 @@ function SelectLanguageField() {
         value={currentLang}
         onChange={handleChange}
       >
-        <option value="fa">فارسی</option>
-        <option value="en">English</option>
+        <option value="fa">{t.languagesName.fa.capital()}</option>
+        <option value="en">{t.languagesName.en.capital()}</option>
       </select>
 
       <p className={smallMsg({ intent: "warning" })}>
