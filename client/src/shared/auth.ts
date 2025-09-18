@@ -6,11 +6,13 @@ import {
 } from "#/api-client"
 
 interface AuthStore {
+  accessToken: string | null
   userId: UserWithProfileResponseDto["id"] | null
   setUserId: (userId: UserWithProfileResponseDto["id"] | null) => void
 }
 
 export const useAuthStore = create<AuthStore>()(set => ({
+  accessToken: null,
   userId: null,
   setUserId: userId => set({ userId }),
 }))

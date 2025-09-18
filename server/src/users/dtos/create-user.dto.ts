@@ -1,7 +1,6 @@
 import { Type } from "class-transformer"
 import {
   IsEmail,
-  IsHash,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -26,7 +25,7 @@ export class CreateUserDto {
   @MaxLength(192)
   email: string
 
-  @IsHash("sha512")
+  @IsString()
   @IsNotEmpty()
   password: string
 

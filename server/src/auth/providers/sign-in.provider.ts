@@ -59,6 +59,9 @@ export class SignInProvider {
       },
     )
 
-    return { accessToken }
+    return {
+      userId: user.id,
+      accessToken,
+    }
   }
 }

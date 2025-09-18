@@ -1,11 +1,10 @@
 import { SignInIcon } from "@phosphor-icons/react"
 import { useMutation } from "@tanstack/react-query"
 import { createFileRoute, useRouter } from "@tanstack/react-router"
-import { sha512 } from "js-sha512"
 import { useMemo } from "react"
 import toast from "react-hot-toast"
 import { z } from "zod/v4"
-import { authControllerLogInMutation } from "#/api-client"
+import { authControllerSigninMutation } from "#/api-client"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
@@ -24,7 +23,7 @@ const LoginFormSchema = z.object({
 function RouteComponent() {
   const router = useRouter()
 
-  const { mutate: logIn } = useMutation(authControllerLogInMutation())
+  const { mutate: signIn } = useMutation(authControllerSigninMutation())
 
   type LoginFormValues = z.infer<typeof LoginFormSchema>
 
@@ -42,18 +41,17 @@ function RouteComponent() {
       onChange: LoginFormSchema,
     },
     onSubmit: ({ value }) => {
-      logIn(
+      signIn(
         {
           body: {
             email: value.email,
-            password: sha512(value.password),
+            password: value.password,
           },
         },
         {
           onError: err => toast.error(parseError(err.message)),
-          onSuccess: data => {
-            const userId = data.id
-            useAuthStore.setState({ userId })
+          onSuccess: ({ accessToken, userId }) => {
+            useAuthStore.setState({ userId, accessToken })
             router.history.push("/books")
           },
         },

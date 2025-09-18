@@ -4,6 +4,10 @@ import { z } from "zod/v4"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
+import { useMutation } from "@tanstack/react-query"
+import { usersControllerCreateUserMutation } from "#/api-client"
+import toast from "react-hot-toast"
+import { parseError } from "#/shared/api"
 
 export const Route = createFileRoute("/auth/signup")({
   component: RouteComponent,
@@ -43,16 +47,36 @@ const defaultValues: SignupFormValues = {
 function RouteComponent() {
   const router = useRouter()
 
+  const { mutate: createUser } = useMutation({
+    ...usersControllerCreateUserMutation(),
+    onSuccess() {
+      toast.success(t.doneSuccessfully.sentence())
+      router.history.push("/login")
+    },
+    onError(err) {
+      toast.error(parseError(err))
+    },
+  })
+
   const form = useAppForm({
     defaultValues,
     validators: {
-      // onChange: SignupFormSchema,
+      onChange: SignupFormSchema,
     },
     onSubmit: async ({ value }) => {
-      // pretending to submit...
-      console.log(value)
-
-      router.history.push("/")
+      createUser({
+        body: {
+          email: value.email,
+          firstName: value.firstName,
+          password: value.password,
+          lastName: value.lastName,
+          profile: {
+            bio: value.bio,
+            birthdate: value.birthdate.toISOString(),
+            location: value.location,
+          },
+        },
+      })
     },
   })
 
@@ -109,9 +133,13 @@ function RouteComponent() {
         )}
       </form.AppField>
 
-      {/* <form.AppField name="birthdate">
-        {field => <field.SimpleText label={t.fieldLabel.optional(t.birthdate()).sentence()} />}
-      </form.AppField> */}
+      <form.AppField name="birthdate">
+        {field => (
+          <field.SimpleDate
+            label={t.fieldLabel.optional(t.birthdate()).sentence()}
+          />
+        )}
+      </form.AppField>
 
       <form.AppField name="bio">
         {field => (

@@ -5,6 +5,7 @@ import { plainToInstance } from "class-transformer"
 import { ApiOperation } from "@nestjs/swagger"
 import { UserWithProfileResponseDto } from "src/users/dtos/user-with-profile-response.dto"
 import { SignInDto } from "./dtos/signin.dto"
+import { SignInResponseDto } from "./dtos/signin-response.dto"
 
 @Controller("auth")
 export class AuthController {
@@ -23,6 +24,9 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post("sign-in")
   async signin(@Body() signInDto: SignInDto) {
-    this.authService.signin(signInDto)
+    const result = await this.authService.signin(signInDto)
+    return plainToInstance(SignInResponseDto, result, {
+      excludeExtraneousValues: true,
+    })
   }
 }

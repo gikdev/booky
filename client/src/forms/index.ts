@@ -5,12 +5,14 @@ import { SimpleNumber } from "./components/SimpleNumber"
 import { SimpleSelect } from "./components/SimpleSelect"
 import { SimpleText } from "./components/SimpleText"
 import { fieldContext, formContext } from "./shared"
+import { SimpleDate } from "./components/SimpleDate"
 
 export const { useAppForm } = createFormHook({
   fieldComponents: {
     SimpleNumber,
     SimpleText,
     SimpleSelect,
+    SimpleDate,
     Colors,
   },
   formComponents: {
