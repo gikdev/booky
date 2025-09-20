@@ -1,10 +1,10 @@
 import { Inject, Injectable } from "@nestjs/common"
 import { PaginationQueryDto } from "../dtos/pagination-query.dto"
 import { ObjectLiteral, Repository } from "typeorm"
-import { DEFAULT_PAGINATION_LIMIT, DEFAULT_PAGINATION_PAGE } from "../constants"
 import type { Request } from "express"
 import { REQUEST } from "@nestjs/core"
 import { Paginated } from "../interfaces/paginated.interface"
+import { DEFAULT_PAGINATION_LIMIT, DEFAULT_PAGINATION_PAGE } from "../constants"
 
 @Injectable()
 export class PaginationProvider {

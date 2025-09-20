@@ -12,6 +12,7 @@ import { plainToInstance } from "class-transformer"
 import { UserWithProfileResponseDto } from "./dtos/user-with-profile-response.dto"
 import { ApiOperation, ApiParam } from "@nestjs/swagger"
 import { User } from "./user.entity"
+import { Auth } from "src/auth/decorators/auth.decorator"
 
 @Controller("users")
 export class UsersController {
@@ -40,6 +41,7 @@ export class UsersController {
 
   @ApiOperation({ summary: "Create a user" })
   @Post()
+  @Auth("none")
   async createUser(@Body() createUserDto: CreateUserDto) {
     const newUser = await this.usersService.create(createUserDto)
 
