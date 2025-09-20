@@ -13,6 +13,7 @@ import { UserWithProfileResponseDto } from "./dtos/user-with-profile-response.dt
 import { ApiOperation, ApiParam } from "@nestjs/swagger"
 import { User } from "./user.entity"
 import { Auth } from "src/auth/decorators/auth.decorator"
+import { AuthType } from "src/auth/enums/auth-type.enum"
 
 @Controller("users")
 export class UsersController {
@@ -41,7 +42,7 @@ export class UsersController {
 
   @ApiOperation({ summary: "Create a user" })
   @Post()
-  @Auth("none")
+  @Auth(AuthType.None)
   async createUser(@Body() createUserDto: CreateUserDto) {
     const newUser = await this.usersService.create(createUserDto)
 
