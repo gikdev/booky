@@ -50,8 +50,8 @@ function RouteComponent() {
         },
         {
           onError: err => toast.error(parseError(err.message)),
-          onSuccess: ({ accessToken, userId }) => {
-            useAuthStore.setState({ userId, accessToken })
+          onSuccess: ({ accessToken, refreshToken }) => {
+            useAuthStore.setState({ refreshToken, accessToken })
             router.history.push("/books")
           },
         },

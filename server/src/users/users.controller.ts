@@ -13,7 +13,8 @@ import { UserWithProfileResponseDto } from "./dtos/user-with-profile-response.dt
 import { ApiOperation, ApiParam } from "@nestjs/swagger"
 import { User } from "./user.entity"
 import { Auth } from "src/auth/decorators/auth.decorator"
-import { AuthType } from "src/auth/enums/auth-type.enum"
+import { ActiveUser } from "src/auth/decorators/active-user.decorator"
+import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
 
 @Controller("users")
 export class UsersController {
@@ -29,9 +30,19 @@ export class UsersController {
     })
   }
 
+  @ApiOperation({ summary: "Get the current user" })
+  @Get("me")
+  async getCurrentUser(@ActiveUser() userData: ActiveUserData) {
+    const user = await this.usersService.findOneById(userData.sub)
+
+    return plainToInstance(UserWithProfileResponseDto, user, {
+      excludeExtraneousValues: true,
+    })
+  }
+
   @ApiOperation({ summary: "Get user by ID" })
   @ApiParam({ name: "id", required: true, type: Number })
-  @Get("/:id")
+  @Get(":id")
   async getUserById(@Param("id", ParseIntPipe) id: User["id"]) {
     const user = await this.usersService.findOneById(id)
 
@@ -42,7 +53,7 @@ export class UsersController {
 
   @ApiOperation({ summary: "Create a user" })
   @Post()
-  @Auth(AuthType.None)
+  @Auth("none")
   async createUser(@Body() createUserDto: CreateUserDto) {
     const newUser = await this.usersService.create(createUserDto)
 

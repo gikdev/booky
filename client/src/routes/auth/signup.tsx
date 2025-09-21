@@ -1,12 +1,12 @@
 import { UserPlusIcon } from "@phosphor-icons/react"
+import { useMutation } from "@tanstack/react-query"
 import { createFileRoute, useRouter } from "@tanstack/react-router"
+import toast from "react-hot-toast"
 import { z } from "zod/v4"
+import { usersControllerCreateUserMutation } from "#/api-client"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
-import { useMutation } from "@tanstack/react-query"
-import { usersControllerCreateUserMutation } from "#/api-client"
-import toast from "react-hot-toast"
 import { parseError } from "#/shared/api"
 
 export const Route = createFileRoute("/auth/signup")({

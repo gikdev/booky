@@ -10,6 +10,7 @@ import { Route as rootRouteImport } from "./routes/__root"
 import { Route as IntroRouteImport } from "./routes/intro"
 import { Route as AuthRouteRouteImport } from "./routes/auth/route"
 import { Route as AuthenticatedRouteRouteImport } from "./routes/_authenticated/route"
+import { Route as IndexRouteImport } from "./routes/index"
 import { Route as AuthSignupRouteImport } from "./routes/auth/signup"
 import { Route as AuthLoginRouteImport } from "./routes/auth/login"
 import { Route as AuthenticatedBooksIndexRouteImport } from "./routes/_authenticated/books/index"
@@ -34,6 +35,11 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: "/_authenticated",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
@@ -100,6 +106,7 @@ const AuthenticatedBooksIdEditRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  "/": typeof IndexRoute
   "/auth": typeof AuthRouteRouteWithChildren
   "/intro": typeof IntroRoute
   "/auth/login": typeof AuthLoginRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByFullPath {
   "/profile/settings": typeof AuthenticatedProfileSettingsIndexRoute
 }
 export interface FileRoutesByTo {
+  "/": typeof IndexRoute
   "/auth": typeof AuthRouteRouteWithChildren
   "/intro": typeof IntroRoute
   "/auth/login": typeof AuthLoginRoute
@@ -131,6 +139,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  "/": typeof IndexRoute
   "/_authenticated": typeof AuthenticatedRouteRouteWithChildren
   "/auth": typeof AuthRouteRouteWithChildren
   "/intro": typeof IntroRoute
@@ -149,6 +158,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | "/"
     | "/auth"
     | "/intro"
     | "/auth/login"
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | "/profile/settings"
   fileRoutesByTo: FileRoutesByTo
   to:
+    | "/"
     | "/auth"
     | "/intro"
     | "/auth/login"
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | "/profile/settings"
   id:
     | "__root__"
+    | "/"
     | "/_authenticated"
     | "/auth"
     | "/intro"
@@ -196,6 +208,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   IntroRoute: typeof IntroRoute
@@ -222,6 +235,13 @@ declare module "@tanstack/react-router" {
       path: ""
       fullPath: ""
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/": {
+      id: "/"
+      path: "/"
+      fullPath: "/"
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/auth/signup": {
@@ -349,6 +369,7 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   IntroRoute: IntroRoute,

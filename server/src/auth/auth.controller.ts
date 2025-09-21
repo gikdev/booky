@@ -5,7 +5,6 @@ import { ApiOperation } from "@nestjs/swagger"
 import { SignInDto } from "./dtos/signin.dto"
 import { SignInResponseDto } from "./dtos/signin-response.dto"
 import { Auth } from "./decorators/auth.decorator"
-import { AuthType } from "./enums/auth-type.enum"
 import { RefreshTokenDto } from "./dtos/refresh-token.dto"
 
 @Controller("auth")
@@ -15,7 +14,7 @@ export class AuthController {
   @ApiOperation({ summary: "Sign a user in" })
   @HttpCode(HttpStatus.OK)
   @Post("sign-in")
-  @Auth(AuthType.None)
+  @Auth("none")
   async signin(@Body() signInDto: SignInDto) {
     const result = await this.authService.signin(signInDto)
 
@@ -27,7 +26,7 @@ export class AuthController {
   @ApiOperation({ summary: "Refresh some tokens" })
   @HttpCode(HttpStatus.OK)
   @Post("refresh-tokens")
-  @Auth(AuthType.None)
+  @Auth("none")
   async refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
     const result = await this.authService.refreshTokens(refreshTokenDto)
 
