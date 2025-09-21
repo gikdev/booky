@@ -1,6 +1,5 @@
 import { Expose, Type } from "class-transformer"
 import { CategoryResponseDto } from "src/categories/dtos/category-response.dto"
-import { UserResponseDto } from "src/users/dtos/user-response.dto"
 
 export class BookResponseDto {
   @Expose()
@@ -27,8 +26,4 @@ export class BookResponseDto {
   @Expose()
   @Type(() => CategoryResponseDto)
   categories: CategoryResponseDto[]
-
-  @Expose()
-  @Type(() => UserResponseDto)
-  owner: UserResponseDto
 }

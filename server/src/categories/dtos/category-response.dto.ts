@@ -1,5 +1,4 @@
-import { Expose, Type } from "class-transformer"
-import { UserResponseDto } from "src/users/dtos/user-response.dto"
+import { Expose } from "class-transformer"
 
 export class CategoryResponseDto {
   @Expose()
@@ -13,8 +12,4 @@ export class CategoryResponseDto {
 
   @Expose()
   color: string | null
-
-  @Expose()
-  @Type(() => UserResponseDto)
-  owner: UserResponseDto
 }

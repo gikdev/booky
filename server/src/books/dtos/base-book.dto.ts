@@ -42,8 +42,4 @@ export class BaseBookDto {
   @IsArray()
   @IsInt({ each: true })
   categoryIds?: number[]
-
-  @IsInt()
-  @IsNotEmpty()
-  ownerId: number
 }

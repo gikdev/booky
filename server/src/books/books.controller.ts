@@ -19,6 +19,8 @@ import { UpdateBookDto } from "./dtos/update-book.dto"
 import { PatchBookDto } from "./dtos/patch-book.dto"
 import { BooksQueryDto } from "./dtos/books-query.dto"
 import { BooksResponseDto } from "./dtos/books-response.dto"
+import { ActiveUser } from "src/auth/decorators/active-user.decorator"
+import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
 
 @Controller("books")
 export class BooksController {
@@ -44,8 +46,11 @@ export class BooksController {
 
   @ApiOperation({ summary: "Create a book" })
   @Post()
-  async createNewBook(@Body() createBookDto: CreateBookDto) {
-    const newBook = await this.booksService.create(createBookDto)
+  async createNewBook(
+    @Body() createBookDto: CreateBookDto,
+    @ActiveUser() user: ActiveUserData,
+  ) {
+    const newBook = await this.booksService.create(createBookDto, user)
     return plainToInstance(BookResponseDto, newBook, {
       excludeExtraneousValues: true,
     })

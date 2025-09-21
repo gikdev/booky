@@ -6,6 +6,7 @@ import { CreateCategoryDto } from "../dtos/create-category.dto"
 import { UsersService } from "src/users/providers/users.service"
 import { UpdateCategoryDto } from "../dtos/update-category.dto"
 import { PatchCategoryDto } from "../dtos/patch-category.dto"
+import { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
 
 @Injectable()
 export class CategoriesService {
@@ -16,15 +17,12 @@ export class CategoriesService {
   ) {}
 
   async findAll() {
-    return await this.categoriesRepo.find({
-      relations: { books: true, owner: true },
-    })
+    return await this.categoriesRepo.find()
   }
 
   async findOneById(id: Category["id"]) {
     return await this.categoriesRepo.findOne({
       where: { id },
-      relations: { books: true, owner: true },
     })
   }
 
@@ -34,12 +32,9 @@ export class CategoriesService {
     })
   }
 
-  async create(createCategoryDto: CreateCategoryDto) {
-    const owner = await this.usersService.findOneById(createCategoryDto.ownerId)
-    if (!owner)
-      throw new NotFoundException(
-        `No owner found: ${createCategoryDto.ownerId}`,
-      )
+  async create(createCategoryDto: CreateCategoryDto, user: ActiveUserData) {
+    const owner = await this.usersService.findOneById(user.sub)
+    if (!owner) throw new NotFoundException(`No owner found: ${user.sub}`)
 
     const newCategory = this.categoriesRepo.create({
       ...createCategoryDto,
@@ -59,17 +54,6 @@ export class CategoriesService {
     category.title = patchCategoryDto.title ?? category.title
     category.color = patchCategoryDto.color ?? category.color
 
-    if (patchCategoryDto.ownerId) {
-      const owner = await this.usersService.findOneById(
-        patchCategoryDto.ownerId,
-      )
-      if (!owner)
-        throw new NotFoundException(
-          `User with ID: ${patchCategoryDto.ownerId} not found`,
-        )
-      category.owner = owner
-    }
-
     await this.categoriesRepo.save(category)
     return category
   }
@@ -82,13 +66,6 @@ export class CategoriesService {
     category.description = updateCategoryDto.description
     category.title = updateCategoryDto.title
     category.color = updateCategoryDto.color
-
-    const owner = await this.usersService.findOneById(updateCategoryDto.ownerId)
-    if (!owner)
-      throw new NotFoundException(
-        `User with ID: ${updateCategoryDto.ownerId} not found`,
-      )
-    category.owner = owner
 
     await this.categoriesRepo.save(category)
     return category

@@ -16,6 +16,8 @@ import { CreateCategoryDto } from "./dtos/create-category.dto"
 import { ApiOperation } from "@nestjs/swagger"
 import { UpdateCategoryDto } from "./dtos/update-category.dto"
 import { PatchCategoryDto } from "./dtos/patch-category.dto"
+import { ActiveUser } from "src/auth/decorators/active-user.decorator"
+import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
 
 @Controller("categories")
 export class CategoriesController {
@@ -41,8 +43,14 @@ export class CategoriesController {
 
   @ApiOperation({ summary: "Create a category" })
   @Post()
-  async createNewCategory(@Body() createCategoryDto: CreateCategoryDto) {
-    const newCategory = await this.categoriesService.create(createCategoryDto)
+  async createNewCategory(
+    @Body() createCategoryDto: CreateCategoryDto,
+    @ActiveUser() user: ActiveUserData,
+  ) {
+    const newCategory = await this.categoriesService.create(
+      createCategoryDto,
+      user,
+    )
     return plainToInstance(CategoryResponseDto, newCategory, {
       excludeExtraneousValues: true,
     })

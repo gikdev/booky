@@ -1,5 +1,4 @@
 import {
-  IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -22,8 +21,4 @@ export class BaseCategoryDto {
   @IsOptional()
   @Length(6, 6)
   color?: string
-
-  @IsInt()
-  @IsNotEmpty()
-  ownerId: number
 }

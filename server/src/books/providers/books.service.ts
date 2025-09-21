@@ -10,6 +10,7 @@ import { UsersService } from "src/users/providers/users.service"
 import { BooksQueryDto } from "../dtos/books-query.dto"
 import { PaginationProvider } from "src/common/pagination/providers/pagination.provider"
 import { Paginated } from "src/common/pagination/interfaces/paginated.interface"
+import { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
 
 @Injectable()
 export class BooksService {
@@ -33,11 +34,11 @@ export class BooksService {
   async findOneById(id: Book["id"]) {
     return await this.booksRepo.findOne({
       where: { id },
-      relations: { categories: true, owner: true },
+      relations: { categories: true },
     })
   }
 
-  async create(createBookDto: CreateBookDto) {
+  async create(createBookDto: CreateBookDto, user: ActiveUserData) {
     const newBook = this.booksRepo.create(createBookDto)
 
     if (createBookDto.categoryIds) {
@@ -47,11 +48,9 @@ export class BooksService {
       newBook.categories = categories
     }
 
-    const owner = await this.usersService.findOneById(createBookDto.ownerId)
+    const owner = await this.usersService.findOneById(user.sub)
     if (!owner)
-      throw new NotFoundException(
-        `User with ID: ${createBookDto.ownerId} not found`,
-      )
+      throw new NotFoundException(`User with ID: ${user.sub} not found`)
     newBook.owner = owner
 
     await this.booksRepo.save(newBook)
@@ -68,15 +67,6 @@ export class BooksService {
     book.description = patchBookDto.description ?? book.description
     book.language = patchBookDto.language ?? book.language
     book.pages = patchBookDto.pages ?? book.pages
-
-    if (patchBookDto.ownerId) {
-      const owner = await this.usersService.findOneById(patchBookDto.ownerId)
-      if (!owner)
-        throw new NotFoundException(
-          `User with ID: ${patchBookDto.ownerId} not found`,
-        )
-      book.owner = owner
-    }
 
     if (patchBookDto.categoryIds) {
       const categories = await this.categoriesService.findMultipleById(
@@ -99,14 +89,6 @@ export class BooksService {
     book.description = updateBookDto.description
     book.language = updateBookDto.language
     book.pages = updateBookDto.pages
-
-    const owner = await this.usersService.findOneById(updateBookDto.ownerId)
-    if (!owner)
-      throw new NotFoundException(
-        `User with ID: ${updateBookDto.ownerId} not found`,
-      )
-
-    book.owner = owner
 
     if (updateBookDto.categoryIds) {
       const categories = await this.categoriesService.findMultipleById(
