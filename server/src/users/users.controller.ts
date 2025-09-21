@@ -22,6 +22,7 @@ export class UsersController {
 
   @ApiOperation({ summary: "Get all users" })
   @Get()
+  @Auth("none")
   async getUsers() {
     const users = await this.usersService.findAll()
 
