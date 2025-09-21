@@ -1,30 +1,21 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  UnauthorizedException,
-} from "@nestjs/common"
-import { UsersService } from "src/users/providers/users.service"
-import { LogInDto } from "../dtos/login.dto"
+import { Injectable } from "@nestjs/common"
 import { SignInDto } from "../dtos/signin.dto"
 import { SignInProvider } from "./sign-in.provider"
+import { RefreshTokensProvider } from "./refresh-tokens.provider"
+import { RefreshTokenDto } from "../dtos/refresh-token.dto"
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(forwardRef(() => UsersService))
-    private readonly usersService: UsersService,
     private readonly signInProvider: SignInProvider,
+    private readonly refreshTokensProvider: RefreshTokensProvider,
   ) {}
-
-  async login(logInDto: LogInDto) {
-    const user = await this.usersService.findOneByEmailOrNull(logInDto.email)
-    if (!user || user.password !== logInDto.password)
-      throw new UnauthorizedException("Invalid credentials")
-    return user
-  }
 
   signin(signInDto: SignInDto) {
     return this.signInProvider.signin(signInDto)
+  }
+
+  refreshTokens(refreshTokenDto: RefreshTokenDto) {
+    return this.refreshTokensProvider.refreshTokens(refreshTokenDto)
   }
 }
