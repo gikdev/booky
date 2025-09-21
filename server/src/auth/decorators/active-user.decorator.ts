@@ -5,12 +5,14 @@ import {
 } from "@nestjs/common"
 import { ActiveUserData } from "../interfaces/active-user-data.interface"
 import { REQ_USER_KEY } from "../constants"
+import { AuthenticatedRequest } from "../interfaces/authenticated-request.interface"
 
 export const ActiveUser = createParamDecorator(
   (field: keyof ActiveUserData | undefined, ctx: ExecutionContext) => {
-    const req = ctx.switchToHttp().getRequest()
-    const user: ActiveUserData = req[REQ_USER_KEY]
+    const req = ctx.switchToHttp().getRequest<AuthenticatedRequest>()
+    const user = req[REQ_USER_KEY]
     if (!user) throw new UnauthorizedException()
-    return field ? user?.[field] : user
+    if (field) return user?.[field]
+    return user
   },
 )
