@@ -1,29 +1,21 @@
-import { forwardRef, Inject, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { SignInDto } from "../dtos/sign-in.dto"
 import { SignInProvider } from "./sign-in.provider"
 import { RefreshTokensProvider } from "./refresh-tokens.provider"
 import { RefreshTokenDto } from "../dtos/refresh-token.dto"
-import { SignUpDto } from "../dtos/sign-up.dto"
-import { UsersService } from "src/users/providers/users.service"
+import { CreateUserDto } from "src/users/dtos/create-user.dto"
+import { SignUpProvider } from "./sign-up.provider"
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(forwardRef(() => UsersService))
-    private readonly usersService: UsersService,
     private readonly signInProvider: SignInProvider,
     private readonly refreshTokensProvider: RefreshTokensProvider,
+    private readonly signUpProvider: SignUpProvider,
   ) {}
 
-  async signUp({ createUserDto }: SignUpDto) {
-    const user = await this.usersService.create(createUserDto)
-
-    const tokens = await this.signInProvider.signin({
-      email: createUserDto.email,
-      password: createUserDto.password,
-    })
-
-    return { user, tokens }
+  signUp(createUserDto: CreateUserDto) {
+    return this.signUpProvider.signUp(createUserDto)
   }
 
   signIn(signInDto: SignInDto) {

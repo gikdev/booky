@@ -12,6 +12,7 @@ import { APP_GUARD } from "@nestjs/core"
 import { GenerateTokensProvider } from "./providers/generate-tokens.provider"
 import { RefreshTokensProvider } from "./providers/refresh-tokens.provider"
 import { AuthGuard } from "./guards/auth.guard"
+import { SignUpProvider } from "./providers/sign-up.provider"
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AuthGuard } from "./guards/auth.guard"
     { provide: APP_GUARD, useClass: AuthGuard },
     GenerateTokensProvider,
     RefreshTokensProvider,
+    SignUpProvider,
   ],
 })
 export class AuthModule {}

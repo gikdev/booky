@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 import { createFileRoute, useRouter } from "@tanstack/react-router"
 import toast from "react-hot-toast"
 import { z } from "zod/v4"
-import { usersControllerCreateUserMutation } from "#/api-client"
+import { authControllerSignUpMutation } from "#/api-client"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
@@ -23,11 +23,11 @@ const SignupFormSchema = z
       .min(8, t.thingShouldBeAtLeastNCharacters(t.password(), 8).sentence()),
     passwordRepeat: z.string().min(1, t.fieldIsRequired.sentence()),
     location: z.string(),
-    birthdate: z.date(),
+    birthdate: z.date().nullable(),
     bio: z.string(),
   })
   .refine(val => val.password === val.passwordRepeat, {
-    error: t.appTagline.sentence(),
+    error: t.passwordsDoNotMatch.sentence(),
     path: ["passwordRepeat"],
   })
 
@@ -41,17 +41,18 @@ const defaultValues: SignupFormValues = {
   passwordRepeat: "",
   location: "",
   bio: "",
-  birthdate: new Date(),
+  birthdate: null,
 }
 
 function RouteComponent() {
   const router = useRouter()
 
-  const { mutate: createUser } = useMutation({
-    ...usersControllerCreateUserMutation(),
-    onSuccess() {
+  const { mutate: signUp } = useMutation({
+    ...authControllerSignUpMutation(),
+    onSuccess(data) {
+      console.log(data)
       toast.success(t.doneSuccessfully.sentence())
-      router.history.push("/login")
+      router.history.push("/books")
     },
     onError(err) {
       toast.error(parseError(err))
@@ -64,16 +65,18 @@ function RouteComponent() {
       onChange: SignupFormSchema,
     },
     onSubmit: async ({ value }) => {
-      createUser({
+      signUp({
         body: {
           email: value.email,
           firstName: value.firstName,
           password: value.password,
-          lastName: value.lastName,
+          lastName: value.lastName || undefined,
           profile: {
-            bio: value.bio,
-            birthdate: value.birthdate.toISOString(),
-            location: value.location,
+            bio: value.bio || undefined,
+            birthdate: value.birthdate
+              ? value.birthdate.toISOString()
+              : undefined,
+            location: value.location || undefined,
           },
         },
       })
@@ -136,6 +139,7 @@ function RouteComponent() {
       <form.AppField name="birthdate">
         {field => (
           <field.SimpleDate
+            required={false}
             label={t.fieldLabel.optional(t.birthdate()).sentence()}
           />
         )}

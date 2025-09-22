@@ -1,6 +1,4 @@
 import {
-  forwardRef,
-  Inject,
   Injectable,
   InternalServerErrorException,
   UnauthorizedException,
@@ -13,11 +11,8 @@ import { GenerateTokensProvider } from "./generate-tokens.provider"
 @Injectable()
 export class SignInProvider {
   constructor(
-    @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
-
     private readonly hashingProvider: HashingProvider,
-
     private readonly generateTokensProvider: GenerateTokensProvider,
   ) {}
 
@@ -41,9 +36,8 @@ export class SignInProvider {
 
     if (!isEqual) throw new UnauthorizedException("Incorrect credentials...")
 
-    const { accessToken, refreshToken } =
-      await this.generateTokensProvider.generateTokens(user)
+    const tokens = await this.generateTokensProvider.generateTokens(user)
 
-    return { accessToken, refreshToken }
+    return { tokens, user }
   }
 }

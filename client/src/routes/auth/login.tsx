@@ -1,10 +1,9 @@
 import { SignInIcon } from "@phosphor-icons/react"
 import { useMutation } from "@tanstack/react-query"
 import { createFileRoute, useRouter } from "@tanstack/react-router"
-import { useMemo } from "react"
 import toast from "react-hot-toast"
 import { z } from "zod/v4"
-import { authControllerSigninMutation } from "#/api-client"
+import { authControllerSignInMutation } from "#/api-client"
 import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
@@ -19,21 +18,25 @@ const LoginFormSchema = z.object({
   email: z.email(t.shouldBeValidEmail.sentence()),
   password: z.string().min(1, t.fieldIsRequired.sentence()),
 })
+type LoginFormValues = z.infer<typeof LoginFormSchema>
+
+const defaultValues: LoginFormValues = {
+  email: "",
+  password: "",
+}
 
 function RouteComponent() {
   const router = useRouter()
 
-  const { mutate: signIn } = useMutation(authControllerSigninMutation())
-
-  type LoginFormValues = z.infer<typeof LoginFormSchema>
-
-  const defaultValues: LoginFormValues = useMemo(
-    () => ({
-      email: "",
-      password: "",
-    }),
-    [],
-  )
+  const { mutate: signIn } = useMutation({
+    ...authControllerSignInMutation(),
+    onError: err => toast.error(parseError(err.message)),
+    onSuccess: data => {
+      console.log(data)
+      useAuthStore.setState({})
+      router.history.push("/books")
+    },
+  })
 
   const form = useAppForm({
     defaultValues,
@@ -41,21 +44,12 @@ function RouteComponent() {
       onChange: LoginFormSchema,
     },
     onSubmit: ({ value }) => {
-      signIn(
-        {
-          body: {
-            email: value.email,
-            password: value.password,
-          },
+      signIn({
+        body: {
+          email: value.email,
+          password: value.password,
         },
-        {
-          onError: err => toast.error(parseError(err.message)),
-          onSuccess: ({ accessToken, refreshToken }) => {
-            useAuthStore.setState({ refreshToken, accessToken })
-            router.history.push("/books")
-          },
-        },
-      )
+      })
     },
   })
 

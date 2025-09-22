@@ -5,9 +5,15 @@ import { FieldInfo } from "./FieldInfo"
 interface SimpleDateProps {
   label: string
   dir?: "auto" | "ltr" | "rtl"
+  required?: boolean
 }
-export function SimpleDate({ label, dir = "auto" }: SimpleDateProps) {
-  const field = useFieldContext<Date>()
+
+export function SimpleDate({
+  label,
+  dir = "auto",
+  required = true,
+}: SimpleDateProps) {
+  const field = useFieldContext<Date | null>()
 
   return (
     <div className={fieldWithLabelContainer()}>
@@ -18,10 +24,13 @@ export function SimpleDate({ label, dir = "auto" }: SimpleDateProps) {
         name={field.name}
         type="date"
         dir={dir}
+        required={required}
         className={inputField()}
-        value={field.state.value.toISOString().split("T")[0] ?? ""}
+        value={
+          field.state.value ? field.state.value.toISOString().split("T")[0] : ""
+        }
         onBlur={field.handleBlur}
-        onChange={e => field.handleChange(e.target.valueAsDate || new Date())}
+        onChange={e => field.handleChange(e.target.valueAsDate ?? null)}
       />
 
       <FieldInfo field={field} />
