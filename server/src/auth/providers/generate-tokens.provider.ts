@@ -15,7 +15,7 @@ export class GenerateTokensProvider {
 
   async signToken<T extends Record<string, unknown>>(
     userId: number,
-    expiresIn: number,
+    expiresIn: string,
     payload?: T,
   ) {
     return await this.jwtService.signAsync(

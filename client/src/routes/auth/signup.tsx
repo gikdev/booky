@@ -8,6 +8,7 @@ import { useAppForm } from "#/forms"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
 import { parseError } from "#/shared/api"
+import { useAuthStore } from "#/shared/auth"
 
 export const Route = createFileRoute("/auth/signup")({
   component: RouteComponent,
@@ -50,7 +51,11 @@ function RouteComponent() {
   const { mutate: signUp } = useMutation({
     ...authControllerSignUpMutation(),
     onSuccess(data) {
-      console.log(data)
+      useAuthStore.setState({
+        accessToken: data.tokens.accessToken,
+        refreshToken: data.tokens.refreshToken,
+        userId: data.user.id,
+      })
       toast.success(t.doneSuccessfully.sentence())
       router.history.push("/books")
     },

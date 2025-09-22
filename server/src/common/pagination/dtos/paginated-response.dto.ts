@@ -13,36 +13,24 @@ class PaginationMetaDto {
 
   @Expose()
   totalPages: number
-
-  @Expose()
-  hasPreviousPage: boolean
-
-  @Expose()
-  hasNextPage: boolean
-
-  @Expose()
-  isFirstPage: boolean
-
-  @Expose()
-  isLastPage: boolean
 }
 
-class PaginationLinksDto {
-  @Expose()
-  first: string
+// class PaginationLinksDto {
+//   @Expose()
+//   first: string
 
-  @Expose()
-  last: string
+//   @Expose()
+//   last: string
 
-  @Expose()
-  current: string
+//   @Expose()
+//   current: string
 
-  @Expose()
-  next: string
+//   @Expose()
+//   next: string
 
-  @Expose()
-  previous: string
-}
+//   @Expose()
+//   previous: string
+// }
 
 export abstract class PaginatedResponseDto<T> implements Paginated<T> {
   @Expose()
@@ -53,7 +41,7 @@ export abstract class PaginatedResponseDto<T> implements Paginated<T> {
   @Type(() => PaginationMetaDto)
   meta: PaginationMetaDto
 
-  @Expose()
-  @Type(() => PaginationLinksDto)
-  links: PaginationLinksDto
+  // @Expose()
+  // @Type(() => PaginationLinksDto)
+  // links: PaginationLinksDto
 }

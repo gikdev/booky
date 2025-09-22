@@ -15,6 +15,6 @@ export default j.object({
   JWT_SECRET: j.string().required(),
   JWT_TOKEN_AUDIENCE: j.string().required(),
   JWT_TOKEN_ISSUER: j.string().required(),
-  JWT_ACCESS_TOKEN_TTL: j.number().required(),
-  JWT_REFRESH_TOKEN_TTL: j.number().required(),
+  JWT_ACCESS_TOKEN_TTL: j.string().required(),
+  JWT_REFRESH_TOKEN_TTL: j.string().required(),
 })

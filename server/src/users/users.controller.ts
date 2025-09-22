@@ -8,12 +8,12 @@ import {
 } from "@nestjs/common"
 import { CreateUserDto } from "./dtos/create-user.dto"
 import { UsersService } from "./providers/users.service"
-import { plainToInstance } from "class-transformer"
 import { UserWithProfileResponseDto } from "./dtos/user-with-profile-response.dto"
 import { ApiBearerAuth, ApiOperation, ApiParam } from "@nestjs/swagger"
 import { User } from "./user.entity"
 import { ActiveUser } from "src/auth/decorators/active-user.decorator"
 import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
+import { toDto } from "src/shared/utils"
 
 @Controller("users")
 @ApiBearerAuth("bearer")
@@ -25,9 +25,7 @@ export class UsersController {
   async getUsers() {
     const users = await this.usersService.findAll()
 
-    return plainToInstance(UserWithProfileResponseDto, users, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(UserWithProfileResponseDto, users)
   }
 
   @ApiOperation({ summary: "Get the current user" })
@@ -35,9 +33,7 @@ export class UsersController {
   async getCurrentUser(@ActiveUser() userData: ActiveUserData) {
     const user = await this.usersService.findOneById(userData.sub)
 
-    return plainToInstance(UserWithProfileResponseDto, user, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(UserWithProfileResponseDto, user)
   }
 
   @ApiOperation({ summary: "Get user by ID" })
@@ -46,9 +42,7 @@ export class UsersController {
   async getUserById(@Param("id", ParseIntPipe) id: User["id"]) {
     const user = await this.usersService.findOneById(id)
 
-    return plainToInstance(UserWithProfileResponseDto, user, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(UserWithProfileResponseDto, user)
   }
 
   @ApiOperation({ summary: "Create a user" })
@@ -56,8 +50,6 @@ export class UsersController {
   async createUser(@Body() createUserDto: CreateUserDto) {
     const newUser = await this.usersService.create(createUserDto)
 
-    return plainToInstance(UserWithProfileResponseDto, newUser, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(UserWithProfileResponseDto, newUser)
   }
 }

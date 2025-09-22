@@ -1,9 +1,9 @@
 import { registerAs } from "@nestjs/config"
 
 export const jwtConfig = registerAs("jwt", () => ({
-  secret: process.env.JWT_SECRET,
-  audience: process.env.JWT_TOKEN_AUDIENCE,
-  issuer: process.env.JWT_TOKEN_ISSUER,
-  accessTokenTtl: parseInt(process.env.JWT_ACCESS_TOKEN_TTL ?? "3600", 10),
-  refreshTokenTtl: parseInt(process.env.JWT_REFRESH_TOKEN_TTL ?? "86400", 10),
+  secret: process.env.JWT_SECRET as string, // validation...
+  audience: process.env.JWT_TOKEN_AUDIENCE as string,
+  issuer: process.env.JWT_TOKEN_ISSUER as string, // validation...
+  accessTokenTtl: process.env.JWT_ACCESS_TOKEN_TTL as string, // validation...
+  refreshTokenTtl: process.env.JWT_REFRESH_TOKEN_TTL as string, // validation...
 }))

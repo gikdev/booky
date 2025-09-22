@@ -1,6 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common"
 import { AuthService } from "./providers/auth.service"
-import { plainToInstance } from "class-transformer"
 import { ApiOperation } from "@nestjs/swagger"
 import { SignInDto } from "./dtos/sign-in.dto"
 import { Auth } from "./decorators/auth.decorator"
@@ -8,6 +7,7 @@ import { RefreshTokenDto } from "./dtos/refresh-token.dto"
 import { TokensResponseDto } from "./dtos/tokens-response.dto"
 import { UserAuthResponseDto } from "./dtos/user-auth-response.dto"
 import { CreateUserDto } from "src/users/dtos/create-user.dto"
+import { toDto } from "src/shared/utils"
 
 @Controller("auth")
 @Auth("none")
@@ -20,9 +20,7 @@ export class AuthController {
   async signUp(@Body() createUserDto: CreateUserDto) {
     const result = await this.authService.signUp(createUserDto)
 
-    return plainToInstance(UserAuthResponseDto, result, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(UserAuthResponseDto, result)
   }
 
   @ApiOperation({ summary: "Sign a user in" })
@@ -31,9 +29,7 @@ export class AuthController {
   async signIn(@Body() signInDto: SignInDto) {
     const result = await this.authService.signIn(signInDto)
 
-    return plainToInstance(UserAuthResponseDto, result, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(UserAuthResponseDto, result)
   }
 
   @ApiOperation({ summary: "Refresh some tokens" })
@@ -42,8 +38,6 @@ export class AuthController {
   async refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
     const result = await this.authService.refreshTokens(refreshTokenDto)
 
-    return plainToInstance(TokensResponseDto, result, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(TokensResponseDto, result)
   }
 }

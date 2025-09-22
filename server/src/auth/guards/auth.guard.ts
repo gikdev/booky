@@ -76,7 +76,7 @@ export class AuthGuard implements CanActivate {
       req[REQ_USER_KEY] = payload
     } catch (err) {
       if (err.name === "TokenExpiredError") {
-        throw new UnauthorizedException("Token expired")
+        throw new UnauthorizedException("Token expired [[TOKEN_EXPIRED]]")
       }
       throw new UnauthorizedException("Invalid token")
     }

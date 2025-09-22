@@ -10,7 +10,6 @@ import {
   Put,
 } from "@nestjs/common"
 import { CategoriesService } from "./providers/categories.service"
-import { plainToInstance } from "class-transformer"
 import { CategoryResponseDto } from "./dtos/category-response.dto"
 import { CreateCategoryDto } from "./dtos/create-category.dto"
 import { ApiBearerAuth, ApiOperation } from "@nestjs/swagger"
@@ -18,31 +17,37 @@ import { UpdateCategoryDto } from "./dtos/update-category.dto"
 import { PatchCategoryDto } from "./dtos/patch-category.dto"
 import { ActiveUser } from "src/auth/decorators/active-user.decorator"
 import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
+import { toDto } from "src/shared/utils"
 
 @Controller("categories")
 @ApiBearerAuth("bearer")
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @ApiOperation({ summary: "Get all categories" })
+  @ApiOperation({ summary: "Get all your categories" })
   @Get()
-  async getAllCategories() {
-    const allCategories = await this.categoriesService.findAll()
-    return plainToInstance(CategoryResponseDto, allCategories, {
-      excludeExtraneousValues: true,
-    })
+  async getAllCategories(@ActiveUser() user: ActiveUserData) {
+    const allCategories = await this.categoriesService.findMultipleByOwnerId(
+      user.sub,
+    )
+
+    return toDto(CategoryResponseDto, allCategories)
   }
 
-  @ApiOperation({ summary: "Get category by ID" })
+  @ApiOperation({ summary: "Get your category by ID" })
   @Get("/:id")
-  async getCategoryById(@Param("id", ParseIntPipe) id: number) {
-    const category = await this.categoriesService.findOneById(id)
-    return plainToInstance(CategoryResponseDto, category, {
-      excludeExtraneousValues: true,
-    })
+  async getCategoryById(
+    @Param("id", ParseIntPipe) id: number,
+    @ActiveUser() user: ActiveUserData,
+  ) {
+    const category = await this.categoriesService.findOneByIdAndOwnerId(
+      id,
+      user.sub,
+    )
+    return toDto(CategoryResponseDto, category)
   }
 
-  @ApiOperation({ summary: "Create a category" })
+  @ApiOperation({ summary: "Create a category for yourself" })
   @Post()
   async createNewCategory(
     @Body() createCategoryDto: CreateCategoryDto,
@@ -50,11 +55,9 @@ export class CategoriesController {
   ) {
     const newCategory = await this.categoriesService.create(
       createCategoryDto,
-      user,
+      user.sub,
     )
-    return plainToInstance(CategoryResponseDto, newCategory, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(CategoryResponseDto, newCategory)
   }
 
   @ApiOperation({ summary: "Update category by ID" })
@@ -67,9 +70,7 @@ export class CategoriesController {
       id,
       updateCategoryDto,
     )
-    return plainToInstance(CategoryResponseDto, updatedCategory, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(CategoryResponseDto, updatedCategory)
   }
 
   @ApiOperation({ summary: "Patch category by ID" })
@@ -82,17 +83,13 @@ export class CategoriesController {
       id,
       patchCategoryDto,
     )
-    return plainToInstance(CategoryResponseDto, patchedCategory, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(CategoryResponseDto, patchedCategory)
   }
 
   @ApiOperation({ summary: "Delete category by ID" })
   @Delete("/:id")
   async removeCategoryById(@Param("id", ParseIntPipe) id: number) {
     const removedCategory = await this.categoriesService.remove(id)
-    return plainToInstance(CategoryResponseDto, removedCategory, {
-      excludeExtraneousValues: true,
-    })
+    return toDto(CategoryResponseDto, removedCategory)
   }
 }

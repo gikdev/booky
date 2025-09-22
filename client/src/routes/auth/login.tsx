@@ -32,8 +32,12 @@ function RouteComponent() {
     ...authControllerSignInMutation(),
     onError: err => toast.error(parseError(err.message)),
     onSuccess: data => {
-      console.log(data)
-      useAuthStore.setState({})
+      useAuthStore.setState({
+        accessToken: data.tokens.accessToken,
+        refreshToken: data.tokens.refreshToken,
+        userId: data.user.id,
+      })
+      toast.success(t.doneSuccessfully.sentence())
       router.history.push("/books")
     },
   })

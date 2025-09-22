@@ -57,18 +57,26 @@ export function CategoryForm({
     onSubmit: async ({ value }) => {
       if (typeof userId !== "number") return
 
-      const body = {
-        ...value,
-        ownerId: userId,
-      }
-
       if (mode === "create")
-        createCategory({ body }, { onSuccess: () => form.reset() })
+        createCategory(
+          {
+            body: {
+              title: value.title,
+              color: value.color,
+              description: value.description || undefined,
+            },
+          },
+          { onSuccess: () => form.reset() },
+        )
       if (mode === "edit" && typeof categoryId === "number") {
         updateCategory(
           {
             path: { id: categoryId },
-            body,
+            body: {
+              title: value.title,
+              color: value.color,
+              description: value.description || undefined,
+            },
           },
           { onSuccess: () => form.reset() },
         )

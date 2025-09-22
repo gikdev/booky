@@ -31,26 +31,59 @@ export class BooksService {
     return items
   }
 
+  async findAllByOwnerId(
+    booksQueryDto: BooksQueryDto,
+    ownerId: number,
+  ): Promise<Paginated<Book>> {
+    const items = await this.paginationProvider.paginateQuery(
+      { limit: booksQueryDto.limit, page: booksQueryDto.page },
+      this.booksRepo,
+      { owner: { id: ownerId } },
+    )
+
+    return items
+  }
+
   async findOneById(id: Book["id"]) {
-    return await this.booksRepo.findOne({
+    const book = await this.booksRepo.findOne({
       where: { id },
       relations: { categories: true },
     })
+
+    if (!book)
+      throw new NotFoundException(`Book with ID of ${id} was not found`)
+
+    return book
+  }
+
+  async findOneByIdAndOwnerId(id: Book["id"], ownerId: number) {
+    const book = await this.booksRepo.findOne({
+      relations: { categories: true },
+      where: {
+        id,
+        owner: { id: ownerId },
+      },
+    })
+
+    if (!book)
+      throw new NotFoundException(
+        `Book with (ID of ${id} && owner ID of ${ownerId}) was not found`,
+      )
+
+    return book
   }
 
   async create(createBookDto: CreateBookDto, user: ActiveUserData) {
     const newBook = this.booksRepo.create(createBookDto)
 
     if (createBookDto.categoryIds) {
-      const categories = await this.categoriesService.findMultipleById(
+      const categories = await this.categoriesService.findMultipleByIds(
         createBookDto.categoryIds,
       )
       newBook.categories = categories
     }
 
     const owner = await this.usersService.findOneById(user.sub)
-    if (!owner)
-      throw new NotFoundException(`User with ID: ${user.sub} not found`)
     newBook.owner = owner
 
     await this.booksRepo.save(newBook)
@@ -58,8 +91,7 @@ export class BooksService {
   }
 
   async patch(id: Book["id"], patchBookDto: PatchBookDto) {
-    const book = await this.booksRepo.findOneBy({ id })
-    if (!book) throw new NotFoundException(`Book with ID: ${id} not found`)
+    const book = await this.findOneById(id)
 
     book.title = patchBookDto.title ?? book.title
     book.author = patchBookDto.author ?? book.author
@@ -69,7 +101,7 @@ export class BooksService {
     book.pages = patchBookDto.pages ?? book.pages
 
     if (patchBookDto.categoryIds) {
-      const categories = await this.categoriesService.findMultipleById(
+      const categories = await this.categoriesService.findMultipleByIds(
         patchBookDto.categoryIds,
       )
       book.categories = categories
@@ -80,8 +112,7 @@ export class BooksService {
   }
 
   async update(id: Book["id"], updateBookDto: UpdateBookDto) {
-    const book = await this.booksRepo.findOneBy({ id })
-    if (!book) throw new NotFoundException(`Book with ID: ${id} not found`)
+    const book = await this.findOneById(id)
 
     book.title = updateBookDto.title
     book.author = updateBookDto.author
@@ -91,7 +122,7 @@ export class BooksService {
     book.pages = updateBookDto.pages
 
     if (updateBookDto.categoryIds) {
-      const categories = await this.categoriesService.findMultipleById(
+      const categories = await this.categoriesService.findMultipleByIds(
         updateBookDto.categoryIds,
       )
 
@@ -107,11 +138,7 @@ export class BooksService {
   }
 
   async remove(id: Book["id"]) {
-    const book = await this.booksRepo.findOne({
-      where: { id },
-      relations: { categories: true, owner: true },
-    })
-    if (!book) throw new NotFoundException(`Book with ID: ${id} not found`)
+    const book = await this.findOneById(id)
 
     await this.booksRepo.remove(book)
     return book

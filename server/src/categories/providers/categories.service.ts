@@ -6,7 +6,6 @@ import { CreateCategoryDto } from "../dtos/create-category.dto"
 import { UsersService } from "src/users/providers/users.service"
 import { UpdateCategoryDto } from "../dtos/update-category.dto"
 import { PatchCategoryDto } from "../dtos/patch-category.dto"
-import { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
 
 @Injectable()
 export class CategoriesService {
@@ -16,26 +15,54 @@ export class CategoriesService {
     private readonly usersService: UsersService,
   ) {}
 
-  async findAll() {
-    return await this.categoriesRepo.find()
+  findAll() {
+    return this.categoriesRepo.find()
   }
 
-  async findOneById(id: Category["id"]) {
-    return await this.categoriesRepo.findOne({
+  async findOneById(id: number) {
+    const category = await this.categoriesRepo.findOne({
       where: { id },
     })
+
+    if (!category)
+      throw new NotFoundException(`Category with ID: ${id} was not found!`)
+
+    return category
   }
 
-  async findMultipleById(ids: Category["id"][]) {
-    return await this.categoriesRepo.find({
+  async findOneByIdAndOwnerId(id: number, ownerId: number) {
+    const category = await this.categoriesRepo.findOne({
+      where: { id, owner: { id: ownerId } },
+    })
+
+    if (!category)
+      throw new NotFoundException(
+        `Category with ID: ${id} & owner ID: ${ownerId} was not found!`,
+      )
+
+    return category
+  }
+
+  findMultipleByIds(ids: number[]) {
+    return this.categoriesRepo.find({
       where: { id: In(ids) },
     })
   }
 
-  async create(createCategoryDto: CreateCategoryDto, user: ActiveUserData) {
-    const owner = await this.usersService.findOneById(user.sub)
-    if (!owner) throw new NotFoundException(`No owner found: ${user.sub}`)
+  findMultipleByOwnerId(ownerId: number) {
+    return this.categoriesRepo.find({
+      where: { owner: { id: ownerId } },
+    })
+  }
 
+  findMultipleByIdsAndOwnerId(ids: number[], ownerId: number) {
+    return this.categoriesRepo.find({
+      where: { id: In(ids), owner: { id: ownerId } },
+    })
+  }
+
+  async create(createCategoryDto: CreateCategoryDto, userId: number) {
+    const owner = await this.usersService.findOneById(userId)
     const newCategory = this.categoriesRepo.create({
       ...createCategoryDto,
       owner,
@@ -46,9 +73,7 @@ export class CategoriesService {
   }
 
   async patch(id: Category["id"], patchCategoryDto: PatchCategoryDto) {
-    const category = await this.categoriesRepo.findOneBy({ id })
-    if (!category)
-      throw new NotFoundException(`Category with ID: ${id} not found!`)
+    const category = await this.findOneById(id)
 
     category.description = patchCategoryDto.description ?? category.description
     category.title = patchCategoryDto.title ?? category.title
@@ -59,9 +84,7 @@ export class CategoriesService {
   }
 
   async update(id: Category["id"], updateCategoryDto: UpdateCategoryDto) {
-    const category = await this.categoriesRepo.findOneBy({ id })
-    if (!category)
-      throw new NotFoundException(`Category with ID: ${id} not found!`)
+    const category = await this.findOneById(id)
 
     category.description = updateCategoryDto.description
     category.title = updateCategoryDto.title
@@ -72,13 +95,7 @@ export class CategoriesService {
   }
 
   async remove(id: Category["id"]) {
-    const category = await this.categoriesRepo.findOne({
-      where: { id },
-      relations: { books: true, owner: true },
-    })
-    if (!category)
-      throw new NotFoundException(`Category with ID: ${id} not found`)
-
+    const category = await this.findOneById(id)
     await this.categoriesRepo.remove(category)
     return category
   }

@@ -5,16 +5,12 @@ export interface Paginated<T> {
     totalItems: number
     currentPage: number
     totalPages: number
-    isFirstPage: boolean
-    isLastPage: boolean
-    hasNextPage: boolean
-    hasPreviousPage: boolean
   }
-  links: {
-    first: string
-    last: string
-    current: string
-    next: string
-    previous: string
-  }
+  // links: {
+  //   first: string
+  //   last: string
+  //   current: string
+  //   next: string
+  //   previous: string
+  // }
 }

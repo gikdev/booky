@@ -67,18 +67,36 @@ export function BookForm({
     onSubmit: async ({ value }) => {
       if (typeof userId !== "number") return
 
-      const body = {
-        ...value,
-        ownerId: userId,
-      }
-
       if (mode === "create")
-        createBook({ body }, { onSuccess: () => form.reset() })
+        createBook(
+          {
+            body: {
+              author: value.author,
+              title: value.title,
+              categoryIds:
+                value.categoryIds.length === 0 ? undefined : value.categoryIds,
+              color: value.color,
+              description: value.description || undefined,
+              language: value.language,
+              pages: value.pages || undefined,
+            },
+          },
+          { onSuccess: () => form.reset() },
+        )
       if (mode === "edit" && typeof bookId === "number") {
         updateBook(
           {
             path: { id: bookId },
-            body,
+            body: {
+              author: value.author,
+              title: value.title,
+              categoryIds:
+                value.categoryIds.length === 0 ? undefined : value.categoryIds,
+              color: value.color,
+              description: value.description || undefined,
+              language: value.language,
+              pages: value.pages || undefined,
+            },
           },
           { onSuccess: () => form.reset() },
         )

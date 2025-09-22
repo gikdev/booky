@@ -16,6 +16,7 @@ import {
 } from "#/components/PaginationControls"
 import { btn } from "#/forms/skins"
 import { t } from "#/i18n"
+import { PaginationHelper } from "#/shared/api/PaginationHelper"
 import { contentContainer, page as pageSkin } from "#/shared/skins"
 import { AppBottomTabs } from "../-AppBottomTabs"
 import { NavBar } from "../-Navbar"
@@ -66,17 +67,19 @@ function RouteComponent() {
             <BooksList books={data.data} className={booksListSectionStyle} />
           ))}
 
+        {/* TODO: Make a PowerfulPaginationControls which uses PaginationHelper */}
+
         {isSuccess && (
           <PaginationControls
             currentPage={page}
             disabled={isPlaceholderData}
-            isFirstPage={data.meta.isFirstPage}
+            isFirstPage={new PaginationHelper(data.meta).isFirstPage}
             onFirstBtnClick={() => setPage(1)}
-            hasPreviousPage={data.meta.hasPreviousPage}
+            hasPreviousPage={new PaginationHelper(data.meta).hasPreviousPage}
             onPreviousBtnClick={() => setPage(p => p - 1)}
-            hasNextPage={data.meta.hasNextPage}
+            hasNextPage={new PaginationHelper(data.meta).hasNextPage}
             onNextBtnClick={() => setPage(p => p + 1)}
-            isLastPage={data.meta.isLastPage}
+            isLastPage={new PaginationHelper(data.meta).isLastPage}
             onLastBtnClick={() => setPage(data.meta.totalPages)}
           />
         )}

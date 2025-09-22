@@ -5,5 +5,5 @@ import { UserResponseDto } from "./user-response.dto"
 export class UserWithProfileResponseDto extends UserResponseDto {
   @Expose()
   @Type(() => ProfileResponseDto)
-  profile?: ProfileResponseDto | null
+  profile: ProfileResponseDto | null
 }
