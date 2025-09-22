@@ -27,20 +27,25 @@ export class AuthGuard implements CanActivate {
     const authType = this.getAuthType(ctx)
 
     if (authType === "none") return true
-    if (authType === "bearer") await this.handleBearerAuth(ctx)
+    if (authType === "bearer") return await this.handleBearerAuth(ctx)
 
     throw new UnauthorizedException(`Unsupported auth type: ${authType}`)
+  }
+
+  private getAuthType(ctx: ExecutionContext): AuthType {
+    const authType: AuthType =
+      this.reflector.getAllAndOverride<AuthType>(AUTH_TYPE_KEY, [
+        ctx.getHandler(),
+        ctx.getClass(),
+      ]) ?? "bearer"
+
+    return authType
   }
 
   private async handleBearerAuth(ctx: ExecutionContext) {
     const token = this.getToken(ctx)
     await this.setPayloadUp(ctx, token)
     return true
-  }
-
-  private getRequest(ctx: ExecutionContext) {
-    const req = ctx.switchToHttp().getRequest<AuthenticatedRequest>()
-    return req
   }
 
   private getToken(ctx: ExecutionContext) {
@@ -53,14 +58,9 @@ export class AuthGuard implements CanActivate {
     return token
   }
 
-  private getAuthType(ctx: ExecutionContext): AuthType {
-    const authType: AuthType =
-      this.reflector.getAllAndOverride<AuthType>(AUTH_TYPE_KEY, [
-        ctx.getHandler(),
-        ctx.getClass(),
-      ]) ?? "bearer"
-
-    return authType
+  private getRequest(ctx: ExecutionContext) {
+    const req = ctx.switchToHttp().getRequest<AuthenticatedRequest>()
+    return req
   }
 
   private async setPayloadUp(ctx: ExecutionContext, token: string) {

@@ -13,13 +13,14 @@ import { CategoriesService } from "./providers/categories.service"
 import { plainToInstance } from "class-transformer"
 import { CategoryResponseDto } from "./dtos/category-response.dto"
 import { CreateCategoryDto } from "./dtos/create-category.dto"
-import { ApiOperation } from "@nestjs/swagger"
+import { ApiBearerAuth, ApiOperation } from "@nestjs/swagger"
 import { UpdateCategoryDto } from "./dtos/update-category.dto"
 import { PatchCategoryDto } from "./dtos/patch-category.dto"
 import { ActiveUser } from "src/auth/decorators/active-user.decorator"
 import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
 
 @Controller("categories")
+@ApiBearerAuth("bearer")
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 

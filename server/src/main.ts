@@ -27,6 +27,17 @@ async function bootstrap() {
     .setDescription("This is the backend API of the 'Booky' app.")
     .addServer("http://localhost:3000/api")
     .setVersion("1.0")
+    .addBearerAuth(
+      {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        name: "JWT",
+        description: "Enter JWT token",
+        in: "header",
+      },
+      "bearer", // 🔑 This name matches @ApiBearerAuth() in controller
+    )
     .build()
   const doc = SwaggerModule.createDocument(app, config)
 
@@ -38,8 +49,15 @@ async function bootstrap() {
     "/api/reference",
     apiReference({
       content: doc,
+      authentication: {
+        preferredSecurityScheme: "bearer",
+      },
       theme: "deepSpace",
-      layout: "classic",
+      layout: "modern",
+      defaultHttpClient: {
+        targetKey: "js",
+        clientKey: "fetch",
+      },
     }),
   )
 

@@ -11,9 +11,10 @@ import { ProfilesService } from "./providers/profiles.service"
 import { plainToInstance } from "class-transformer"
 import { ProfileResponseDto } from "./dtos/profile-response.dto"
 import { UpdateProfileDto } from "./dtos/update-profile.dto"
-import { ApiOperation } from "@nestjs/swagger"
+import { ApiBearerAuth, ApiOperation } from "@nestjs/swagger"
 
 @Controller("profiles")
+@ApiBearerAuth("bearer")
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 

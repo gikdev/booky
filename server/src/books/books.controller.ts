@@ -11,7 +11,7 @@ import {
   Query,
 } from "@nestjs/common"
 import { BooksService } from "./providers/books.service"
-import { ApiOperation } from "@nestjs/swagger"
+import { ApiBearerAuth, ApiOperation } from "@nestjs/swagger"
 import { CreateBookDto } from "./dtos/create-book.dto"
 import { plainToInstance } from "class-transformer"
 import { BookResponseDto } from "./dtos/book-response.dto"
@@ -23,6 +23,7 @@ import { ActiveUser } from "src/auth/decorators/active-user.decorator"
 import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
 
 @Controller("books")
+@ApiBearerAuth("bearer")
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 

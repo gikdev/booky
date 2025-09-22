@@ -5,7 +5,7 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from "@nestjs/common"
-import { SignInDto } from "../dtos/signin.dto"
+import { SignInDto } from "../dtos/sign-in.dto"
 import { UsersService } from "src/users/providers/users.service"
 import { HashingProvider } from "./hashing.provider"
 import { GenerateTokensProvider } from "./generate-tokens.provider"
