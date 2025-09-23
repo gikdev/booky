@@ -8,8 +8,7 @@ import { DEFAULT_PAGINATION_LIMIT, DEFAULT_PAGINATION_PAGE } from "../constants"
 
 @Injectable()
 export class PaginationProvider {
-  constructor() // @Inject(REQUEST)
-  // private readonly request: Request,
+  constructor() // private readonly request: Request, // @Inject(REQUEST)
   {}
 
   async paginateQuery<T extends ObjectLiteral>(
