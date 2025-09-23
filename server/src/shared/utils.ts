@@ -1,12 +1,7 @@
-import { ClassTransformOptions, plainToInstance } from "class-transformer"
+import { ClassTransformOptions } from "class-transformer"
 
-export function toDto<T, V>(
-  cls: new (...args: any[]) => T,
-  plain: V,
+export function getDefaultClassTransformOptions(
   options?: ClassTransformOptions,
-): T {
-  return plainToInstance(cls, plain, {
-    excludeExtraneousValues: true,
-    ...options,
-  })
+) {
+  return { excludeExtraneousValues: true, ...options }
 }

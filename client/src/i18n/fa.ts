@@ -71,6 +71,9 @@ export const fa = defineLang({
   noBooksSectionTitle: ss("فعلا کتابی نداری!"),
   noBooksSectionDescription:
     "هنوز کتابی نداری که بهت نمایش بدیم. برای شروع یه دونه کتاب جدید اضافه کن!",
+  noCategoriesSectionTitle: ss("فعلا دسته‌بندی‌ای نداری!"),
+  noCategoriesSectionDescription:
+    "هنوز دسته‌بندی‌ای نداری که بهت نمایش بدیم. برای شروع یه دسته‌بندی جدید اضافه کن!",
   unAuthorizedErrorMsg: ss(
     "دسترسی نامعتبر هست، لطفا از حساب خارج شده و دوباره وارد شوید",
   ),

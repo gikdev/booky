@@ -86,6 +86,8 @@ interface LanguageConfig {
   unAuthorizedErrorMsg: SuperString
   noBooksSectionTitle: SuperString
   noBooksSectionDescription: string
+  noCategoriesSectionTitle: SuperString
+  noCategoriesSectionDescription: string
   btns: {
     cancel: SuperString
     create: SuperString

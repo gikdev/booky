@@ -6,7 +6,7 @@ export class PaginationQueryDto {
   @IsPositive()
   @Max(100)
   @Type(() => Number)
-  limit?: number
+  per_page?: number
 
   @IsOptional()
   @IsPositive()

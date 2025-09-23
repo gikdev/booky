@@ -11,7 +11,8 @@ import { ProfilesService } from "./providers/profiles.service"
 import { ProfileResponseDto } from "./dtos/profile-response.dto"
 import { UpdateProfileDto } from "./dtos/update-profile.dto"
 import { ApiBearerAuth, ApiOperation } from "@nestjs/swagger"
-import { toDto } from "src/shared/utils"
+import { plainToInstance } from "class-transformer"
+import { getDefaultClassTransformOptions } from "src/shared/utils"
 
 @Controller("profiles")
 @ApiBearerAuth("bearer")
@@ -22,7 +23,11 @@ export class ProfilesController {
   @Post()
   async createProfile(@Body() createProfileDto: CreateProfileDto) {
     const profile = await this.profilesService.create(createProfileDto)
-    return toDto(ProfileResponseDto, profile)
+    return plainToInstance(
+      ProfileResponseDto,
+      profile,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Update profile by ID" })
@@ -32,6 +37,10 @@ export class ProfilesController {
     @Body() updateProfileDto: UpdateProfileDto,
   ) {
     const profile = await this.profilesService.updateById(id, updateProfileDto)
-    return toDto(ProfileResponseDto, profile)
+    return plainToInstance(
+      ProfileResponseDto,
+      profile,
+      getDefaultClassTransformOptions(),
+    )
   }
 }

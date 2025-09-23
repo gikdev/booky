@@ -4,6 +4,7 @@ import {
   CaretLineRightIcon,
   CaretRightIcon,
 } from "@phosphor-icons/react"
+import { t } from "#/i18n"
 import { cva } from "#/shared/cx.config"
 import { convertToPersianDigitsIfPersian } from "#/shared/helpers"
 
@@ -38,14 +39,14 @@ export function PaginationControls({
   hasPreviousPage,
 }: PaginationControlsProps) {
   return (
-    <div className="flex w-full h-12 border-t border-gray-30" dir="ltr">
+    <div className="flex w-full h-12 border-t border-gray-30">
       <button
         type="button"
         onClick={onFirstBtnClick}
         disabled={isFirstPage || disabled}
         className={paginateBtn()}
       >
-        <CaretLineLeftIcon size={24} />
+        <CaretLineLeftIcon size={24} mirrored={t.configIconMirror} />
       </button>
 
       <button
@@ -54,7 +55,7 @@ export function PaginationControls({
         disabled={!hasPreviousPage || disabled}
         className={paginateBtn()}
       >
-        <CaretLeftIcon size={24} />
+        <CaretLeftIcon size={24} mirrored={t.configIconMirror} />
       </button>
 
       <p className="h-full flex-1 flex items-center justify-center text-gray-90 font-bold">
@@ -67,7 +68,7 @@ export function PaginationControls({
         disabled={!hasNextPage || disabled}
         className={paginateBtn()}
       >
-        <CaretRightIcon size={24} />
+        <CaretRightIcon size={24} mirrored={t.configIconMirror} />
       </button>
 
       <button
@@ -76,7 +77,7 @@ export function PaginationControls({
         disabled={isLastPage || disabled}
         className={paginateBtn()}
       >
-        <CaretLineRightIcon size={24} />
+        <CaretLineRightIcon size={24} mirrored={t.configIconMirror} />
       </button>
     </div>
   )

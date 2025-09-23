@@ -13,7 +13,8 @@ import { ApiBearerAuth, ApiOperation, ApiParam } from "@nestjs/swagger"
 import { User } from "./user.entity"
 import { ActiveUser } from "src/auth/decorators/active-user.decorator"
 import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
-import { toDto } from "src/shared/utils"
+import { plainToInstance } from "class-transformer"
+import { getDefaultClassTransformOptions } from "src/shared/utils"
 
 @Controller("users")
 @ApiBearerAuth("bearer")
@@ -25,7 +26,11 @@ export class UsersController {
   async getUsers() {
     const users = await this.usersService.findAll()
 
-    return toDto(UserWithProfileResponseDto, users)
+    return plainToInstance(
+      UserWithProfileResponseDto,
+      users,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Get the current user" })
@@ -33,7 +38,11 @@ export class UsersController {
   async getCurrentUser(@ActiveUser() userData: ActiveUserData) {
     const user = await this.usersService.findOneById(userData.sub)
 
-    return toDto(UserWithProfileResponseDto, user)
+    return plainToInstance(
+      UserWithProfileResponseDto,
+      user,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Get user by ID" })
@@ -42,7 +51,11 @@ export class UsersController {
   async getUserById(@Param("id", ParseIntPipe) id: User["id"]) {
     const user = await this.usersService.findOneById(id)
 
-    return toDto(UserWithProfileResponseDto, user)
+    return plainToInstance(
+      UserWithProfileResponseDto,
+      user,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Create a user" })
@@ -50,6 +63,10 @@ export class UsersController {
   async createUser(@Body() createUserDto: CreateUserDto) {
     const newUser = await this.usersService.create(createUserDto)
 
-    return toDto(UserWithProfileResponseDto, newUser)
+    return plainToInstance(
+      UserWithProfileResponseDto,
+      newUser,
+      getDefaultClassTransformOptions(),
+    )
   }
 }

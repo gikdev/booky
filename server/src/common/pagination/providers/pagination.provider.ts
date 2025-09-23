@@ -4,24 +4,30 @@ import { FindOptionsWhere, ObjectLiteral, Repository } from "typeorm"
 // import type { Request } from "express"
 // import { REQUEST } from "@nestjs/core"
 import { Paginated } from "../interfaces/paginated.interface"
-import { DEFAULT_PAGINATION_LIMIT, DEFAULT_PAGINATION_PAGE } from "../constants"
+import {
+  DEFAULT_PAGINATION_PER_PAGE,
+  DEFAULT_PAGINATION_PAGE,
+} from "../constants"
 
 @Injectable()
 export class PaginationProvider {
-  constructor() // private readonly request: Request, // @Inject(REQUEST)
-  {}
+  // @Inject(REQUEST)
+  // private readonly request: Request,
+  // constructor() {}
 
   async paginateQuery<T extends ObjectLiteral>(
     paginationQueryDto: PaginationQueryDto,
     repo: Repository<T>,
     where?: FindOptionsWhere<T>,
   ): Promise<Paginated<T>> {
-    const { limit = DEFAULT_PAGINATION_LIMIT, page = DEFAULT_PAGINATION_PAGE } =
-      paginationQueryDto
+    const {
+      per_page = DEFAULT_PAGINATION_PER_PAGE,
+      page = DEFAULT_PAGINATION_PAGE,
+    } = paginationQueryDto
 
     const items = await repo.find({
-      take: limit,
-      skip: (page - 1) * limit,
+      take: per_page,
+      skip: (page - 1) * per_page,
       where,
     })
 
@@ -30,12 +36,12 @@ export class PaginationProvider {
 
     // Calculating page number
     const totalItems = await repo.count({ where })
-    const totalPages = Math.ceil(totalItems / limit)
+    const totalPages = Math.ceil(totalItems / per_page)
 
     const finalResponse: Paginated<T> = {
       data: items,
       meta: {
-        itemsPerPage: limit,
+        itemsPerPage: per_page,
         totalItems,
         currentPage: page,
         totalPages,

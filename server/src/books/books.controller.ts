@@ -20,7 +20,8 @@ import { BooksQueryDto } from "./dtos/books-query.dto"
 import { BooksResponseDto } from "./dtos/books-response.dto"
 import { ActiveUser } from "src/auth/decorators/active-user.decorator"
 import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
-import { toDto } from "src/shared/utils"
+import { plainToInstance } from "class-transformer"
+import { getDefaultClassTransformOptions } from "src/shared/utils"
 
 @Controller("books")
 @ApiBearerAuth("bearer")
@@ -38,7 +39,11 @@ export class BooksController {
       user.sub,
     )
 
-    return toDto(BooksResponseDto, allBooks)
+    return plainToInstance(
+      BooksResponseDto,
+      allBooks,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Get your book by ID" })
@@ -49,7 +54,11 @@ export class BooksController {
   ) {
     const book = await this.booksService.findOneByIdAndOwnerId(id, user.sub)
 
-    return toDto(BookResponseDto, book)
+    return plainToInstance(
+      BookResponseDto,
+      book,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Create a book for yourself" })
@@ -60,7 +69,11 @@ export class BooksController {
   ) {
     const newBook = await this.booksService.create(createBookDto, user)
 
-    return toDto(BookResponseDto, newBook)
+    return plainToInstance(
+      BookResponseDto,
+      newBook,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Update book by ID" })
@@ -71,7 +84,11 @@ export class BooksController {
   ) {
     const editedBook = await this.booksService.update(id, updateBookDto)
 
-    return toDto(BookResponseDto, editedBook)
+    return plainToInstance(
+      BookResponseDto,
+      editedBook,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Patch book by ID" })
@@ -82,7 +99,11 @@ export class BooksController {
   ) {
     const patchedBook = await this.booksService.patch(id, patchBookDto)
 
-    return toDto(BookResponseDto, patchedBook)
+    return plainToInstance(
+      BookResponseDto,
+      patchedBook,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Delete book by ID" })
@@ -90,6 +111,10 @@ export class BooksController {
   async removeBookById(@Param("id", ParseIntPipe) id: number) {
     const removedBook = await this.booksService.remove(id)
 
-    return toDto(BookResponseDto, removedBook)
+    return plainToInstance(
+      BookResponseDto,
+      removedBook,
+      getDefaultClassTransformOptions(),
+    )
   }
 }

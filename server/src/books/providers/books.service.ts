@@ -24,7 +24,7 @@ export class BooksService {
 
   async findAll(booksQueryDto: BooksQueryDto): Promise<Paginated<Book>> {
     const items = await this.paginationProvider.paginateQuery(
-      { limit: booksQueryDto.limit, page: booksQueryDto.page },
+      { per_page: booksQueryDto.per_page, page: booksQueryDto.page },
       this.booksRepo,
     )
 
@@ -36,7 +36,7 @@ export class BooksService {
     ownerId: number,
   ): Promise<Paginated<Book>> {
     const items = await this.paginationProvider.paginateQuery(
-      { limit: booksQueryDto.limit, page: booksQueryDto.page },
+      { per_page: booksQueryDto.per_page, page: booksQueryDto.page },
       this.booksRepo,
       { owner: { id: ownerId } },
     )

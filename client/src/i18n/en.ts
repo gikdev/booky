@@ -74,6 +74,9 @@ export const en = defineLang({
   noBooksSectionTitle: ss("no books for now!"),
   noBooksSectionDescription:
     "You currently do NOT have any books for us to show. To start, add a new book.",
+  noCategoriesSectionTitle: ss("no categories for now!"),
+  noCategoriesSectionDescription:
+    "You currently do NOT have any categories for us to show. To start, add a new category.",
   btns: {
     cancel: ss("cancel"),
     create: ss("create"),

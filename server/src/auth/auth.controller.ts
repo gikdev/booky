@@ -7,7 +7,8 @@ import { RefreshTokenDto } from "./dtos/refresh-token.dto"
 import { TokensResponseDto } from "./dtos/tokens-response.dto"
 import { UserAuthResponseDto } from "./dtos/user-auth-response.dto"
 import { CreateUserDto } from "src/users/dtos/create-user.dto"
-import { toDto } from "src/shared/utils"
+import { plainToInstance } from "class-transformer"
+import { getDefaultClassTransformOptions } from "src/shared/utils"
 
 @Controller("auth")
 @Auth("none")
@@ -20,7 +21,11 @@ export class AuthController {
   async signUp(@Body() createUserDto: CreateUserDto) {
     const result = await this.authService.signUp(createUserDto)
 
-    return toDto(UserAuthResponseDto, result)
+    return plainToInstance(
+      UserAuthResponseDto,
+      result,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Sign a user in" })
@@ -29,7 +34,11 @@ export class AuthController {
   async signIn(@Body() signInDto: SignInDto) {
     const result = await this.authService.signIn(signInDto)
 
-    return toDto(UserAuthResponseDto, result)
+    return plainToInstance(
+      UserAuthResponseDto,
+      result,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Refresh some tokens" })
@@ -38,6 +47,10 @@ export class AuthController {
   async refreshTokens(@Body() refreshTokenDto: RefreshTokenDto) {
     const result = await this.authService.refreshTokens(refreshTokenDto)
 
-    return toDto(TokensResponseDto, result)
+    return plainToInstance(
+      TokensResponseDto,
+      result,
+      getDefaultClassTransformOptions(),
+    )
   }
 }

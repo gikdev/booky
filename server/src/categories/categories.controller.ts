@@ -17,7 +17,8 @@ import { UpdateCategoryDto } from "./dtos/update-category.dto"
 import { PatchCategoryDto } from "./dtos/patch-category.dto"
 import { ActiveUser } from "src/auth/decorators/active-user.decorator"
 import type { ActiveUserData } from "src/auth/interfaces/active-user-data.interface"
-import { toDto } from "src/shared/utils"
+import { plainToInstance } from "class-transformer"
+import { getDefaultClassTransformOptions } from "src/shared/utils"
 
 @Controller("categories")
 @ApiBearerAuth("bearer")
@@ -31,7 +32,11 @@ export class CategoriesController {
       user.sub,
     )
 
-    return toDto(CategoryResponseDto, allCategories)
+    return plainToInstance(
+      CategoryResponseDto,
+      allCategories,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Get your category by ID" })
@@ -44,7 +49,11 @@ export class CategoriesController {
       id,
       user.sub,
     )
-    return toDto(CategoryResponseDto, category)
+    return plainToInstance(
+      CategoryResponseDto,
+      category,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Create a category for yourself" })
@@ -57,7 +66,11 @@ export class CategoriesController {
       createCategoryDto,
       user.sub,
     )
-    return toDto(CategoryResponseDto, newCategory)
+    return plainToInstance(
+      CategoryResponseDto,
+      newCategory,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Update category by ID" })
@@ -70,7 +83,11 @@ export class CategoriesController {
       id,
       updateCategoryDto,
     )
-    return toDto(CategoryResponseDto, updatedCategory)
+    return plainToInstance(
+      CategoryResponseDto,
+      updatedCategory,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Patch category by ID" })
@@ -83,13 +100,21 @@ export class CategoriesController {
       id,
       patchCategoryDto,
     )
-    return toDto(CategoryResponseDto, patchedCategory)
+    return plainToInstance(
+      CategoryResponseDto,
+      patchedCategory,
+      getDefaultClassTransformOptions(),
+    )
   }
 
   @ApiOperation({ summary: "Delete category by ID" })
   @Delete("/:id")
   async removeCategoryById(@Param("id", ParseIntPipe) id: number) {
     const removedCategory = await this.categoriesService.remove(id)
-    return toDto(CategoryResponseDto, removedCategory)
+    return plainToInstance(
+      CategoryResponseDto,
+      removedCategory,
+      getDefaultClassTransformOptions(),
+    )
   }
 }

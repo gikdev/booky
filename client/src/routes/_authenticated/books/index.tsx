@@ -25,7 +25,7 @@ export const Route = createFileRoute("/_authenticated/books/")({
   component: RouteComponent,
 })
 
-const limit = 10
+const per_page = 15
 
 function useBooks(page: number, prefetchNextPage = false) {
   const queryClient = useQueryClient()
@@ -33,12 +33,14 @@ function useBooks(page: number, prefetchNextPage = false) {
   useEffect(() => {
     if (!prefetchNextPage) return
     queryClient.prefetchQuery(
-      booksControllerGetAllBooksOptions({ query: { limit, page: page + 1 } }),
+      booksControllerGetAllBooksOptions({
+        query: { per_page, page: page + 1 },
+      }),
     )
   }, [queryClient, page, prefetchNextPage])
 
   return useQuery({
-    ...booksControllerGetAllBooksOptions({ query: { limit, page } }),
+    ...booksControllerGetAllBooksOptions({ query: { per_page, page } }),
     placeholderData: previousData => previousData,
   })
 }
