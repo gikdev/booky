@@ -19,7 +19,7 @@ import {
 } from "../-shared"
 import { CategoryPickerField } from "./CategoryPickerField"
 
-const onSuccess = () => toast.success(t.doneSuccessfully.sentence())
+const onSuccess = () => toast.success(t.c.sentence(t.doneSuccessfully))
 const onError = (err: unknown) => toast.error(parseError(err))
 
 const useCreateBookMutation = () =>
@@ -109,7 +109,7 @@ export function BookForm({
       <form.AppField name="title">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.name()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.name))}
           />
         )}
       </form.AppField>
@@ -117,7 +117,7 @@ export function BookForm({
       <form.AppField name="author">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.author()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.author))}
           />
         )}
       </form.AppField>
@@ -126,7 +126,7 @@ export function BookForm({
         {field => (
           <field.SimpleSelect
             dir={t.configDir}
-            label={t.fieldLabel.required(t.language()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.language))}
             items={languageOptions}
           />
         )}
@@ -135,7 +135,7 @@ export function BookForm({
       <form.AppField name="pages">
         {field => (
           <field.SimpleNumber
-            label={t.fieldLabel.required(t.numberOfPages()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.numberOfPages))}
           />
         )}
       </form.AppField>
@@ -144,7 +144,7 @@ export function BookForm({
         {field => (
           <field.Colors
             colors={colors}
-            label={t.fieldLabel.required(t.color()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.color))}
           />
         )}
       </form.AppField>
@@ -162,16 +162,14 @@ export function BookForm({
         {field => (
           <field.SimpleText
             isMultiline
-            label={t.fieldLabel.optional(t.description()).sentence()}
+            label={t.c.sentence(t.fieldLabel.optional(t.description))}
           />
         )}
       </form.AppField>
 
       <form.AppForm>
         <form.Btn
-          title={
-            mode === "create" ? t.btns.create.capital() : t.btns.edit.capital()
-          }
+          title={t.c.capital(mode === "create" ? t.btns.create : t.btns.edit)}
           iconStart={<FloppyDiskBackIcon weight="fill" />}
           className={btn({
             intent: "brand",

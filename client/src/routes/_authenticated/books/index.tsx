@@ -59,7 +59,7 @@ function RouteComponent() {
 
   return (
     <div className={pageSkin()}>
-      <NavBar title={t.books.capital()} slotEnd={<NewBookBtn />} />
+      <NavBar title={t.c.capital(t.books)} slotEnd={<NewBookBtn />} />
 
       <div className={mainSectionStyle}>
         {isSuccess &&
@@ -158,7 +158,7 @@ const NoBooksSection = () => (
     <div className="flex flex-col items-center p-4 gap-4 text-center">
       <BooksIcon size={160} weight="duotone" className="text-brand-50" />
       <p className="font-bold text-gray-90 text-2xl">
-        {t.noBooksSectionTitle.capital()}
+        {t.c.capital(t.noBooksSectionTitle)}
       </p>
       <p>{t.noBooksSectionDescription}</p>
     </div>

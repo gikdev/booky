@@ -7,111 +7,107 @@ function sentenceCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-/** Creates a SuperString */
-export function ss(str: string) {
-  const fn = () => str
-  fn.capital = () => capitalCase(str)
-  fn.sentence = () => sentenceCase(str)
-  return fn
+const casings = {
+  capital: capitalCase,
+  sentence: sentenceCase,
 }
 
-type SuperString = ReturnType<typeof ss>
+interface FinalLanguageObject extends LanguageConfig {
+  c: typeof casings
+}
 
-export function defineLang(langConfig: LanguageConfig) {
-  return langConfig
+export function defineLang(langConfig: LanguageConfig): FinalLanguageObject {
+  return { ...langConfig, c: casings }
 }
 
 interface LanguageConfig {
-  aboutApp: SuperString
-  aboutDeveloper: SuperString
-  appIntroDescription: SuperString
-  appTagline: SuperString
-  areYouSure: SuperString
-  author: SuperString
-  authWelcomeDescription: SuperString
-  authWelcomeTitle: SuperString
-  bio: SuperString
-  birthdate: SuperString
-  bookManagementApp: SuperString
-  books: SuperString
-  categories: SuperString
-  category: SuperString
-  choose: SuperString
-  color: SuperString
+  aboutApp: string
+  aboutDeveloper: string
+  appIntroDescription: string
+  appTagline: string
+  areYouSure: string
+  author: string
+  authWelcomeDescription: string
+  authWelcomeTitle: string
+  bio: string
+  birthdate: string
+  bookManagementApp: string
+  books: string
+  categories: string
+  category: string
+  choose: string
+  color: string
   configDir: "ltr" | "rtl"
   configIconMirror: boolean
   configListItemSeparator: string
-  correct: SuperString
-  darkTheme: SuperString
-  deleteBook: SuperString
-  description: SuperString
-  details: SuperString
-  developerIntro: SuperString
-  developerName: SuperString
-  doneSuccessfully: SuperString
-  editBook: SuperString
-  email: SuperString
-  fieldIsRequired: SuperString
-  firstName: SuperString
-  goalOfApp: SuperString
-  language: SuperString
-  lastName: SuperString
-  loading: SuperString
-  login: SuperString
-  manageCategories: SuperString
-  name: SuperString
-  newBook: SuperString
-  newCategory: SuperString
-  nPages: (n: number) => SuperString
-  numberOfPages: SuperString
-  optional: SuperString
-  password: SuperString
-  passwordRepeat: SuperString
-  passwordsDoNotMatch: SuperString
-  pleaseTryAgain: SuperString
-  profile: SuperString
-  reading: SuperString
-  register: SuperString
-  residencePlace: SuperString
-  settings: SuperString
-  shouldBeValidEmail: SuperString
-  start: SuperString
-  thisActionIsIrreversible: SuperString
-  title: SuperString
-  usedTechnologies: SuperString
-  validatingMsg: SuperString
-  version: SuperString
-  visitDeveloperWebsite: SuperString
-  generalErrorMsg: SuperString
-  unAuthorizedErrorMsg: SuperString
-  noBooksSectionTitle: SuperString
+  correct: string
+  darkTheme: string
+  deleteBook: string
+  description: string
+  details: string
+  developerIntro: string
+  developerName: string
+  doneSuccessfully: string
+  editBook: string
+  email: string
+  fieldIsRequired: string
+  firstName: string
+  goalOfApp: string
+  language: string
+  lastName: string
+  loading: string
+  login: string
+  manageCategories: string
+  name: string
+  newBook: string
+  newCategory: string
+  nPages: (n: number) => string
+  numberOfPages: string
+  optional: string
+  password: string
+  passwordRepeat: string
+  passwordsDoNotMatch: string
+  pleaseTryAgain: string
+  profile: string
+  reading: string
+  register: string
+  residencePlace: string
+  settings: string
+  shouldBeValidEmail: string
+  start: string
+  thisActionIsIrreversible: string
+  title: string
+  usedTechnologies: string
+  validatingMsg: string
+  version: string
+  visitDeveloperWebsite: string
+  generalErrorMsg: string
+  unAuthorizedErrorMsg: string
+  noBooksSectionTitle: string
   noBooksSectionDescription: string
-  noCategoriesSectionTitle: SuperString
+  noCategoriesSectionTitle: string
   noCategoriesSectionDescription: string
   btns: {
-    cancel: SuperString
-    create: SuperString
-    edit: SuperString
-    close: SuperString
-    delete: SuperString
-    ok: SuperString
+    cancel: string
+    create: string
+    edit: string
+    close: string
+    delete: string
+    ok: string
   }
   languagesName: {
-    fa: SuperString
-    en: SuperString
-    ar: SuperString
-    jp: SuperString
-    fr: SuperString
+    fa: string
+    en: string
+    ar: string
+    jp: string
+    fr: string
   }
   settingsPage: {
-    languageChangeWarning: SuperString
+    languageChangeWarning: string
   }
-  thingShouldBeAtLeastNCharacters: (
-    thing: string,
-    n: number | string,
-  ) => SuperString
+  thingShouldBeAtLeastNCharacters: (thing: string, n: number | string) => string
   fieldLabel: {
-    required: (label: string) => SuperString
-    optional: (label: string) => SuperString
+    required: (label: string) => string
+    optional: (label: string) => string
   }
 }

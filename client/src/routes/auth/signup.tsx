@@ -16,19 +16,16 @@ export const Route = createFileRoute("/auth/signup")({
 
 const SignupFormSchema = z
   .object({
-    firstName: z.string().min(1, t.fieldIsRequired.sentence()),
+    firstName: z.string().min(1, t.c.sentence(t.fieldIsRequired)),
     lastName: z.string(),
-    email: z.email(t.shouldBeValidEmail.sentence()),
+    email: z.email(t.c.sentence(t.shouldBeValidEmail)),
     password: z
       .string()
-      .min(8, t.thingShouldBeAtLeastNCharacters(t.password(), 8).sentence()),
-    passwordRepeat: z.string().min(1, t.fieldIsRequired.sentence()),
-    location: z.string(),
-    birthdate: z.date().nullable(),
-    bio: z.string(),
+      .min(8, t.c.sentence(t.thingShouldBeAtLeastNCharacters(t.password, 8))),
+    passwordRepeat: z.string().min(1, t.c.sentence(t.fieldIsRequired)),
   })
   .refine(val => val.password === val.passwordRepeat, {
-    error: t.passwordsDoNotMatch.sentence(),
+    error: t.c.sentence(t.passwordsDoNotMatch),
     path: ["passwordRepeat"],
   })
 
@@ -40,9 +37,6 @@ const defaultValues: SignupFormValues = {
   firstName: "",
   lastName: "",
   passwordRepeat: "",
-  location: "",
-  bio: "",
-  birthdate: null,
 }
 
 function RouteComponent() {
@@ -56,7 +50,7 @@ function RouteComponent() {
         refreshToken: data.tokens.refreshToken,
         userId: data.user.id,
       })
-      toast.success(t.doneSuccessfully.sentence())
+      toast.success(t.c.sentence(t.doneSuccessfully))
       router.history.push("/books")
     },
     onError(err) {
@@ -76,13 +70,6 @@ function RouteComponent() {
           firstName: value.firstName,
           password: value.password,
           lastName: value.lastName || undefined,
-          profile: {
-            bio: value.bio || undefined,
-            birthdate: value.birthdate
-              ? value.birthdate.toISOString()
-              : undefined,
-            location: value.location || undefined,
-          },
         },
       })
     },
@@ -93,7 +80,7 @@ function RouteComponent() {
       <form.AppField name="firstName">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.firstName()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.firstName))}
           />
         )}
       </form.AppField>
@@ -101,7 +88,7 @@ function RouteComponent() {
       <form.AppField name="lastName">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.optional(t.lastName()).sentence()}
+            label={t.c.sentence(t.fieldLabel.optional(t.lastName))}
           />
         )}
       </form.AppField>
@@ -109,7 +96,7 @@ function RouteComponent() {
       <form.AppField name="email">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.email()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.email))}
             type="email"
           />
         )}
@@ -118,7 +105,7 @@ function RouteComponent() {
       <form.AppField name="password">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.password()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.password))}
             type="password"
           />
         )}
@@ -127,41 +114,15 @@ function RouteComponent() {
       <form.AppField name="passwordRepeat">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.passwordRepeat()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.passwordRepeat))}
             type="password"
-          />
-        )}
-      </form.AppField>
-
-      <form.AppField name="location">
-        {field => (
-          <field.SimpleText
-            label={t.fieldLabel.optional(t.residencePlace()).sentence()}
-          />
-        )}
-      </form.AppField>
-
-      <form.AppField name="birthdate">
-        {field => (
-          <field.SimpleDate
-            required={false}
-            label={t.fieldLabel.optional(t.birthdate()).sentence()}
-          />
-        )}
-      </form.AppField>
-
-      <form.AppField name="bio">
-        {field => (
-          <field.SimpleText
-            label={t.fieldLabel.optional(t.bio()).sentence()}
-            isMultiline
           />
         )}
       </form.AppField>
 
       <form.AppForm>
         <form.Btn
-          title={t.register.capital()}
+          title={t.c.capital(t.register)}
           iconEnd={<UserPlusIcon weight="fill" />}
           className={btn({
             size: "md",

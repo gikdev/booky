@@ -9,7 +9,7 @@ export function BookDetailsNavBar() {
   return (
     <NavBar
       slotStart={<GoBackBtn />}
-      title={t.details.capital()}
+      title={t.c.capital(t.details)}
       slotEnd={<MoreOptionsBtn />}
     />
   )

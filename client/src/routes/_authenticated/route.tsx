@@ -73,17 +73,6 @@ function RefreshTokenManager() {
 async function refreshTokenInterceptor(res: Response, req: Request) {
   if (res.status !== 401) return res
 
-  let textResponse: unknown
-
-  try {
-    textResponse = await res.clone().text()
-  } catch {
-    return res
-  }
-
-  if (typeof textResponse !== "string") return res
-  if (!textResponse.includes("[[TOKEN_EXPIRED]]")) return res
-
   try {
     const refreshToken = useAuthStore.getState().refreshToken
 

@@ -20,7 +20,7 @@ interface BtnProps {
 }
 
 export function Btn({
-  title = t.btns.ok(),
+  title = t.btns.ok,
   isIconOnly = false,
   iconStart,
   IconStart,
@@ -28,7 +28,7 @@ export function Btn({
   iconEnd,
   className,
   LoadingIcon = CircleNotchIcon,
-  loadingTitle = t.loading.sentence(),
+  loadingTitle = t.c.sentence(t.loading),
   btnType = "button",
   onClick,
   testId,

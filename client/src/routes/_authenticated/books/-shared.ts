@@ -3,17 +3,17 @@ import type { BookResponseDto } from "#/api-client"
 import { t } from "#/i18n"
 
 export const BookFormSchema = z.object({
-  title: z.string().min(1, t.fieldIsRequired.sentence()),
-  author: z.string().min(1, t.fieldIsRequired.sentence()),
+  title: z.string().min(1, t.c.sentence(t.fieldIsRequired)),
+  author: z.string().min(1, t.c.sentence(t.fieldIsRequired)),
   description: z.string(),
   color: z
     .string()
-    .min(6, t.fieldIsRequired.sentence())
-    .max(6, t.fieldIsRequired.sentence()),
+    .min(6, t.c.sentence(t.fieldIsRequired))
+    .max(6, t.c.sentence(t.fieldIsRequired)),
   language: z
     .string()
-    .min(2, t.fieldIsRequired.sentence())
-    .max(2, t.fieldIsRequired.sentence()),
+    .min(2, t.c.sentence(t.fieldIsRequired))
+    .max(2, t.c.sentence(t.fieldIsRequired)),
   pages: z.number(),
   categoryIds: z.number().array(),
 })

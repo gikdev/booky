@@ -13,14 +13,14 @@ export function AppBottomTabs() {
       {
         id: "books",
         Icon: BooksIcon,
-        title: t.books.capital(),
+        title: t.c.capital(t.books),
         url: "/books" satisfies FileRouteTypes["to"],
         isSelected: pathname === "/books",
       },
       {
         id: "reading",
         Icon: BookOpenIcon,
-        title: t.reading.capital(),
+        title: t.c.capital(t.reading),
         url: "/books" satisfies FileRouteTypes["to"],
         isSelected: pathname === "/reading",
         disabled: true,
@@ -28,7 +28,7 @@ export function AppBottomTabs() {
       {
         id: "profile",
         Icon: UserCircleIcon,
-        title: t.profile.capital(),
+        title: t.c.capital(t.profile),
         url: "/profile" satisfies FileRouteTypes["to"],
         isSelected: pathname === "/profile",
       },

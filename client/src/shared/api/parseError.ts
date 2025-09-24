@@ -14,7 +14,7 @@ export function parseError(error: unknown, msg?: string): string {
         if ("title" in parsed && typeof parsed.title === "string")
           return parsed.title
         if ("status" in parsed && typeof parsed.status === "number") {
-          if (parsed.status === 401) return t.unAuthorizedErrorMsg()
+          if (parsed.status === 401) return t.unAuthorizedErrorMsg
         }
       }
     } catch {
@@ -31,9 +31,9 @@ export function parseError(error: unknown, msg?: string): string {
     if ("name" in error && typeof error.name === "string") return error.name
     if ("title" in error && typeof error.title === "string") return error.title
     if ("status" in error && typeof error.status === "number") {
-      if (error.status === 401) return t.unAuthorizedErrorMsg()
+      if (error.status === 401) return t.unAuthorizedErrorMsg
     }
   }
 
-  return msg || t.generalErrorMsg.sentence()
+  return msg || t.c.sentence(t.generalErrorMsg)
 }

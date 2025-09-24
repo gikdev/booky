@@ -1,11 +1,11 @@
 import { t, useI18nStore } from "#/i18n"
 
 export function getLanguageByCode(langCode: string) {
-  if (langCode === "fa") return t.languagesName.fa.capital()
-  if (langCode === "en") return t.languagesName.en.capital()
-  if (langCode === "ar") return t.languagesName.ar.capital()
-  if (langCode === "jp") return t.languagesName.jp.capital()
-  if (langCode === "fr") return t.languagesName.fr.capital()
+  if (langCode === "fa") return t.c.capital(t.languagesName.fa)
+  if (langCode === "en") return t.c.capital(t.languagesName.en)
+  if (langCode === "ar") return t.c.capital(t.languagesName.ar)
+  if (langCode === "jp") return t.c.capital(t.languagesName.jp)
+  if (langCode === "fr") return t.c.capital(t.languagesName.fr)
   return langCode
 }
 

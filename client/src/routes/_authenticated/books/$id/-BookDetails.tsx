@@ -61,7 +61,7 @@ const PagesTag = ({ pages }: { pages: BookResponseDto["pages"] }) => (
   <div className={tag({ hasIcon: true })}>
     <FileIcon />
     <span>
-      {convertToPersianDigitsIfPersian(t.nPages(pages ?? 0).sentence())}
+      {convertToPersianDigitsIfPersian(t.c.capital(t.nPages(pages ?? 0)))}
     </span>
   </div>
 )

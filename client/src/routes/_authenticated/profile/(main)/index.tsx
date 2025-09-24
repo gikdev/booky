@@ -20,7 +20,7 @@ export const Route = createFileRoute("/_authenticated/profile/(main)/")({
 function RouteComponent() {
   return (
     <div className={page()}>
-      <NavBar title={t.profile.capital()} />
+      <NavBar title={t.c.capital(t.profile)} />
 
       <div className={contentContainer()}>
         <ProfileDetails />
@@ -30,7 +30,7 @@ function RouteComponent() {
 
           <button type="button" className={iconItem()}>
             <UserCircleIcon />
-            <span>{t.profile.capital()}</span>
+            <span>{t.c.capital(t.profile)}</span>
             <CaretRightIcon mirrored={t.configIconMirror} />
           </button>
 
@@ -50,7 +50,7 @@ function RouteComponent() {
 const ManageCategoriesItem = () => (
   <Link to="/profile/categories" className={iconItem()}>
     <TagIcon />
-    <span>{t.manageCategories.capital()}</span>
+    <span>{t.c.capital(t.manageCategories)}</span>
     <CaretRightIcon mirrored={t.configIconMirror} />
   </Link>
 )
@@ -58,7 +58,7 @@ const ManageCategoriesItem = () => (
 const SettingsItem = () => (
   <Link to="/profile/settings" className={iconItem()}>
     <GearIcon />
-    <span>{t.settings.capital()}</span>
+    <span>{t.c.capital(t.settings)}</span>
     <CaretRightIcon mirrored={t.configIconMirror} />
   </Link>
 )

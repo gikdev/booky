@@ -15,8 +15,8 @@ export const Route = createFileRoute("/auth/login")({
 })
 
 const LoginFormSchema = z.object({
-  email: z.email(t.shouldBeValidEmail.sentence()),
-  password: z.string().min(1, t.fieldIsRequired.sentence()),
+  email: z.email(t.c.sentence(t.shouldBeValidEmail)),
+  password: z.string().min(1, t.c.sentence(t.fieldIsRequired)),
 })
 type LoginFormValues = z.infer<typeof LoginFormSchema>
 
@@ -37,7 +37,7 @@ function RouteComponent() {
         refreshToken: data.tokens.refreshToken,
         userId: data.user.id,
       })
-      toast.success(t.doneSuccessfully.sentence())
+      toast.success(t.c.sentence(t.doneSuccessfully))
       router.history.push("/books")
     },
   })
@@ -62,7 +62,7 @@ function RouteComponent() {
       <form.AppField name="email">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.email()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.email))}
             type="email"
           />
         )}
@@ -71,7 +71,7 @@ function RouteComponent() {
       <form.AppField name="password">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.password()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.password))}
             type="password"
           />
         )}
@@ -79,7 +79,7 @@ function RouteComponent() {
 
       <form.AppForm>
         <form.Btn
-          title={t.login.capital()}
+          title={t.c.capital(t.login)}
           iconEnd={<SignInIcon weight="fill" mirrored={t.configIconMirror} />}
           className={btn({
             size: "md",

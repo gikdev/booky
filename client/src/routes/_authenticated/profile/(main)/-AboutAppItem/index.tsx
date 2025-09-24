@@ -20,24 +20,24 @@ export function AboutAppItem() {
 const ItemBtn = ({ onClick }: { onClick: () => void }) => (
   <button type="button" className={iconItem()} onClick={onClick}>
     <InfoIcon />
-    <span>{t.aboutApp.capital()}</span>
+    <span>{t.c.capital(t.aboutApp)}</span>
     <CaretRightIcon mirrored={t.configIconMirror} />
   </button>
 )
 
 const AboutAppSheet = ({ onClose }: { onClose: () => void }) => (
   <Sheet onClose={onClose} className="flex flex-col gap-4 p-4 items-center">
-    <p>{t.aboutApp.capital()}</p>
+    <p>{t.c.capital(t.aboutApp)}</p>
 
     <div className="flex flex-col gap-2 items-center text-center">
       <img src="/images/logo-full.png" alt="" className="max-w-max" />
-      <p>{t.bookManagementApp.capital()}</p>
-      <p className="text-xs">{t.goalOfApp.sentence()}</p>
-      <p className="text-xs">{t.version.sentence()}: v1</p>
+      <p>{t.c.capital(t.bookManagementApp)}</p>
+      <p className="text-xs">{t.c.sentence(t.goalOfApp)}</p>
+      <p className="text-xs">{t.c.sentence(t.version)}: v1</p>
     </div>
 
     <div className="flex flex-col gap-2 items-center w-full">
-      <p>{t.usedTechnologies.sentence()}:</p>
+      <p>{t.c.sentence(t.usedTechnologies)}:</p>
 
       <TechsGrid />
     </div>
@@ -47,7 +47,7 @@ const AboutAppSheet = ({ onClose }: { onClose: () => void }) => (
       onClick={onClose}
       className={btn({ className: "w-full" })}
     >
-      {t.btns.close.capital()}
+      {t.c.capital(t.btns.close)}
     </button>
   </Sheet>
 )

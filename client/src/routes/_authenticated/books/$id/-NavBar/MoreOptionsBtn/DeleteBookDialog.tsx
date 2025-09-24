@@ -22,7 +22,7 @@ function useRemoveBookByIdMutation() {
   return useMutation({
     ...booksControllerRemoveBookByIdMutation(),
     onSuccess: () => {
-      toast.success(t.doneSuccessfully.sentence())
+      toast.success(t.c.sentence(t.doneSuccessfully))
       navigate({ to: "/books" })
     },
     onError,
@@ -45,9 +45,9 @@ export function DeleteBookDialog({ bookId, onClose }: DeleteBookDialogProps) {
       <div className="flex flex-col gap-6 p-6 rounded-lg border-2 border-gray-30 bg-gray-10 max-w-120 w-full z-[3]">
         <div className="flex flex-col gap-4">
           <p className="font-bold text-gray-90 text-xl">
-            {t.areYouSure.sentence()}
+            {t.c.sentence(t.areYouSure)}
           </p>
-          <p className="">{t.thisActionIsIrreversible.sentence()}</p>
+          <p className="">{t.c.sentence(t.thisActionIsIrreversible)}</p>
         </div>
 
         <div className="flex gap-4 justify-end">
@@ -58,7 +58,7 @@ export function DeleteBookDialog({ bookId, onClose }: DeleteBookDialogProps) {
               mode: "text",
             })}
           >
-            {t.btns.cancel.capital()}
+            {t.c.capital(t.btns.cancel)}
           </button>
 
           <button
@@ -69,7 +69,7 @@ export function DeleteBookDialog({ bookId, onClose }: DeleteBookDialogProps) {
               mode: "contained",
             })}
           >
-            {t.btns.delete.capital()}
+            {t.c.capital(t.btns.delete)}
           </button>
         </div>
       </div>

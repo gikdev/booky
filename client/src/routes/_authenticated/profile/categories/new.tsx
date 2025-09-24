@@ -13,7 +13,7 @@ export const Route = createFileRoute("/_authenticated/profile/categories/new")({
 function RouteComponent() {
   return (
     <div className={page()}>
-      <NavBar title={t.newCategory.capital()} slotStart={<GoBackBtn />} />
+      <NavBar title={t.c.capital(t.newCategory)} slotStart={<GoBackBtn />} />
 
       <CategoryForm mode="create" />
     </div>

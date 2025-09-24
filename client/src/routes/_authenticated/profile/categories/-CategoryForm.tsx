@@ -17,7 +17,7 @@ import {
   defaultValues as defaultDefaultValues,
 } from "./-shared"
 
-const onSuccess = () => toast.success(t.doneSuccessfully.sentence())
+const onSuccess = () => toast.success(t.c.sentence(t.doneSuccessfully))
 const onError = (err: unknown) => toast.error(parseError(err))
 
 const useCreateCategoryMutation = () =>
@@ -89,7 +89,7 @@ export function CategoryForm({
       <form.AppField name="title">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.required(t.name()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.name))}
           />
         )}
       </form.AppField>
@@ -97,7 +97,7 @@ export function CategoryForm({
       <form.AppField name="color">
         {field => (
           <field.Colors
-            label={t.fieldLabel.required(t.color()).sentence()}
+            label={t.c.sentence(t.fieldLabel.required(t.color))}
             colors={colors}
           />
         )}
@@ -106,7 +106,7 @@ export function CategoryForm({
       <form.AppField name="description">
         {field => (
           <field.SimpleText
-            label={t.fieldLabel.optional(t.description()).sentence()}
+            label={t.c.sentence(t.fieldLabel.optional(t.description))}
             isMultiline
           />
         )}
@@ -114,9 +114,7 @@ export function CategoryForm({
 
       <form.AppForm>
         <form.Btn
-          title={
-            mode === "create" ? t.btns.create.capital() : t.btns.edit.capital()
-          }
+          title={t.c.capital(mode === "create" ? t.btns.create : t.btns.edit)}
           iconStart={<FloppyDiskBackIcon weight="fill" />}
           className={btn({
             intent: "brand",

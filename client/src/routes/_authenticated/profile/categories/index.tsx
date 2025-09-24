@@ -30,7 +30,7 @@ function RouteComponent() {
 
   return (
     <div className={page({ className: "relative" })}>
-      <NavBar title={t.categories.capital()} slotStart={<GoBackBtn />} />
+      <NavBar title={t.c.capital(t.categories)} slotStart={<GoBackBtn />} />
 
       {isPending && <LoadingSection />}
 
@@ -72,7 +72,7 @@ const NewCategoryBtn = () => (
 const NoCategories = () => (
   <NoXYZSection
     Icon={SquaresFourIcon}
-    title={t.noCategoriesSectionTitle.capital()}
+    title={t.c.capital(t.noCategoriesSectionTitle)}
     description={t.noCategoriesSectionDescription}
   />
 )

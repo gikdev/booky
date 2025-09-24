@@ -9,14 +9,14 @@ export function FieldInfo({ field }: { field: AnyFieldApi }) {
   const showError = !isValid
 
   const errorMsg = field.state.meta.errors
-    .map(e => parseError(e, t.generalErrorMsg.sentence()))
+    .map(e => parseError(e, t.c.sentence(t.generalErrorMsg)))
     .join(`${t.configListItemSeparator} `)
 
   if (isValidating)
     return (
       <p className={smallMsg({ intent: "neutral" })}>
         <CircleNotchIcon className="inline me-1 animate-spin" />
-        <span>{t.validatingMsg.sentence()}</span>
+        <span>{t.c.sentence(t.validatingMsg)}</span>
       </p>
     )
 
@@ -31,7 +31,7 @@ export function FieldInfo({ field }: { field: AnyFieldApi }) {
   return (
     <p className={smallMsg({ intent: "success" })}>
       <CheckIcon className="inline me-1" />
-      <span>{t.correct.sentence()}</span>
+      <span>{t.c.sentence(t.correct)}</span>
     </p>
   )
 }

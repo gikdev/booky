@@ -23,10 +23,10 @@ function RouteComponent() {
       <img src="/images/logo-full.png" alt="" className="w-max" />
 
       <h1 className="text-4xl leading-normal text-gray-90 font-bold">
-        {t.appTagline.capital()}
+        {t.c.capital(t.appTagline)}
       </h1>
 
-      <p className="">{t.appIntroDescription()}</p>
+      <p className="">{t.appIntroDescription}</p>
 
       <Link
         to="/auth/login"
@@ -36,7 +36,7 @@ function RouteComponent() {
           className: "w-full justify-between",
         })}
       >
-        <span>{t.start.capital()}</span>
+        <span>{t.c.capital(t.start)}</span>
         <ArrowRightIcon weight="fill" mirrored={t.configIconMirror} />
       </Link>
     </div>

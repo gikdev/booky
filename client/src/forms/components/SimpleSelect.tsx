@@ -34,7 +34,7 @@ export function SimpleSelect({
         onBlur={field.handleBlur}
         onChange={e => field.handleChange(e.target.value)}
       >
-        <option disabled>{t.choose.capital()}</option>
+        <option disabled>{t.c.capital(t.choose)}</option>
 
         {items.map(i => (
           <option key={i.id} value={i.value}>

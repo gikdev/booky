@@ -13,7 +13,7 @@ export const Route = createFileRoute("/_authenticated/books/new")({
 function RouteComponent() {
   return (
     <div className={page()}>
-      <NavBar slotStart={<GoBackBtn />} title={t.newBook.capital()} />
+      <NavBar slotStart={<GoBackBtn />} title={t.c.capital(t.newBook)} />
 
       <BookForm mode="create" />
     </div>

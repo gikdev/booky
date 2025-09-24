@@ -21,7 +21,7 @@ export const Route = createFileRoute("/_authenticated/profile/settings/")({
 function RouteComponent() {
   return (
     <div className={page()}>
-      <NavBar title={t.settings.sentence()} slotStart={<GoBackBtn />} />
+      <NavBar title={t.c.sentence(t.settings)} slotStart={<GoBackBtn />} />
 
       <div className={contentContainer({ className: "gap-6 p-4" })}>
         <ThemeToggleField />
@@ -53,7 +53,7 @@ function ThemeToggleField() {
       className="flex items-center justify-between cursor-pointer min-h-14"
       onClick={toggleTheme}
     >
-      <span>{t.darkTheme.sentence()}:</span>
+      <span>{t.c.sentence(t.darkTheme)}:</span>
 
       <Switch selected={theme === "dark"} />
     </button>
@@ -77,20 +77,20 @@ function SelectLanguageField() {
 
   return (
     <label className={fieldWithLabelContainer()}>
-      <p>{t.language()}:</p>
+      <p>{t.c.sentence(t.language)}:</p>
 
       <select
         className={inputField()}
         value={currentLang}
         onChange={handleChange}
       >
-        <option value="fa">{t.languagesName.fa.capital()}</option>
-        <option value="en">{t.languagesName.en.capital()}</option>
+        <option value="fa">{t.c.capital(t.languagesName.fa)}</option>
+        <option value="en">{t.c.capital(t.languagesName.en)}</option>
       </select>
 
       <p className={smallMsg({ intent: "warning" })}>
         <WarningIcon size={16} className="inline-block me-1" />
-        <span>{t.settingsPage.languageChangeWarning.sentence()}</span>
+        <span>{t.c.sentence(t.settingsPage.languageChangeWarning)}</span>
       </p>
     </label>
   )

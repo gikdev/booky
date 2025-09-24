@@ -20,9 +20,9 @@ function RouteComponent() {
 
       <div className="flex flex-col gap-2 text-center">
         <h1 className="font-bold text-gray-90 text-2xl">
-          {t.authWelcomeTitle.capital()}
+          {t.c.capital(t.authWelcomeTitle)}
         </h1>
-        <p>{t.authWelcomeDescription.sentence()}</p>
+        <p>{t.c.sentence(t.authWelcomeDescription)}</p>
       </div>
 
       <AuthTabs />
@@ -40,14 +40,14 @@ function AuthTabs() {
       {
         id: "login",
         Icon: SignInIcon,
-        title: t.login.capital(),
+        title: t.c.capital(t.login),
         isActive: pathname === "/auth/login",
         onClick: () => navigate({ to: "/auth/login" }),
       },
       {
         id: "signup",
         Icon: UserPlusIcon,
-        title: t.register.capital(),
+        title: t.c.capital(t.register),
         isActive: pathname === "/auth/signup",
         onClick: () => navigate({ to: "/auth/signup" }),
       },

@@ -76,7 +76,7 @@ function EditBookItem() {
   return (
     <Link className={floatingMenuItem()} to="/books/$id/edit" params={{ id }}>
       <PencilSimpleIcon />
-      <span>{t.editBook.sentence()}</span>
+      <span>{t.c.sentence(t.editBook)}</span>
     </Link>
   )
 }
@@ -94,7 +94,7 @@ function DeleteBookItem() {
         onClick={() => setOpen(true)}
       >
         <TrashIcon />
-        <span>{t.deleteBook.sentence()}</span>
+        <span>{t.c.sentence(t.deleteBook)}</span>
       </button>
 
       {isOpen && (

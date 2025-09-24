@@ -19,7 +19,7 @@ export function AboutDeveloperItem() {
 const ItemBtn = ({ onClick }: { onClick: () => void }) => (
   <button type="button" className={iconItem()} onClick={onClick}>
     <InfoIcon />
-    <span>{t.aboutDeveloper.capital()}</span>
+    <span>{t.c.capital(t.aboutDeveloper)}</span>
     <CaretRightIcon mirrored={t.configIconMirror} />
   </button>
 )
@@ -29,13 +29,13 @@ const AboutDeveloperSheet = ({ onClose }: { onClose: () => void }) => (
     onClose={onClose}
     className="flex flex-col gap-4 p-4 items-center text-center"
   >
-    <p>{t.aboutDeveloper.capital()}</p>
+    <p>{t.c.capital(t.aboutDeveloper)}</p>
 
     <p className="text-3xl font-bold text-gray-90">
-      {t.developerName.capital()}
+      {t.c.capital(t.developerName)}
     </p>
 
-    <p>{t.developerIntro()}</p>
+    <p>{t.developerIntro}</p>
 
     <a
       target="_blank"
@@ -47,7 +47,7 @@ const AboutDeveloperSheet = ({ onClose }: { onClose: () => void }) => (
         className: "w-full justify-between",
       })}
     >
-      <span>{t.visitDeveloperWebsite.capital()}</span>
+      <span>{t.c.capital(t.visitDeveloperWebsite)}</span>
       <GlobeIcon weight="fill" />
     </a>
 
@@ -56,7 +56,7 @@ const AboutDeveloperSheet = ({ onClose }: { onClose: () => void }) => (
       onClick={onClose}
       className={btn({ className: "w-full" })}
     >
-      {t.btns.close.capital()}
+      {t.c.capital(t.btns.close)}
     </button>
   </Sheet>
 )

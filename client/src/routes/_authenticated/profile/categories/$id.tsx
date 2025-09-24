@@ -22,7 +22,7 @@ function RouteComponent() {
   return (
     <div className={page()}>
       <NavBar
-        title={`${t.category.sentence()}: ${category?.title || "..."}`}
+        title={`${t.c.sentence(t.category)}: ${category?.title || "..."}`}
         slotStart={<GoBackBtn />}
       />
 

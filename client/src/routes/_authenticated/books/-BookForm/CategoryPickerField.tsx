@@ -27,7 +27,7 @@ export function CategoryPickerField({
 
   return (
     <div className={fieldWithLabelContainer()}>
-      <p>{t.fieldLabel.optional(t.categories()).sentence()}</p>
+      <p>{t.c.sentence(t.fieldLabel.optional(t.categories))}</p>
 
       <button
         type="button"
@@ -38,12 +38,12 @@ export function CategoryPickerField({
         {status === "pending" ? (
           <>
             <CircleNotchIcon className="animate-spin" />
-            <span>{t.loading.sentence()}...</span>
+            <span>{t.c.sentence(t.loading)}...</span>
           </>
         ) : (
           <>
             <EyedropperIcon />
-            <span>{t.choose.capital()}</span>
+            <span>{t.c.capital(t.choose)}</span>
           </>
         )}
       </button>
@@ -112,7 +112,7 @@ function CategoryPickerSheet({
             className: "w-full",
           })}
         >
-          {t.btns.ok()}
+          {t.btns.ok}
         </button>
       </div>
     </Sheet>

@@ -21,7 +21,7 @@ function RouteComponent() {
 
   return (
     <div className={page()}>
-      <NavBar slotStart={<GoBackBtn />} title={t.editBook.capital()} />
+      <NavBar slotStart={<GoBackBtn />} title={t.c.capital(t.editBook)} />
 
       <BookForm mode="edit" bookId={bookId} defaultValues={book} />
     </div>
