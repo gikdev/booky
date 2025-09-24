@@ -1,6 +1,6 @@
 import { useFieldContext } from "../shared"
 import { fieldWithLabelContainer, inputField } from "../skins"
-import { FieldInfo } from "./FieldInfo"
+import { FieldInfo } from "./core/FieldInfo"
 
 interface SimpleNumberProps {
   label: string

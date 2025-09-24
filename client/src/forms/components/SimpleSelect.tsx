@@ -1,7 +1,7 @@
 import { t } from "#/i18n"
 import { useFieldContext } from "../shared"
 import { fieldWithLabelContainer, inputField } from "../skins"
-import { FieldInfo } from "./FieldInfo"
+import { FieldInfo } from "./core/FieldInfo"
 
 export interface SelectItem {
   id: string

@@ -1,7 +1,7 @@
 import { cx } from "#/shared/cx.config"
 import { useFieldContext } from "../shared"
 import { fieldWithLabelContainer } from "../skins"
-import { FieldInfo } from "./FieldInfo"
+import { FieldInfo } from "./core/FieldInfo"
 
 interface ColorsProps {
   label: string
