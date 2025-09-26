@@ -1,37 +1,22 @@
-import { CheckIcon, CircleNotchIcon, XIcon } from "@phosphor-icons/react"
 import type { AnyFieldApi } from "@tanstack/react-form"
 import { t } from "#/i18n"
 import { parseError } from "#/shared/api"
-import { smallMsg } from "../../skins"
+import { FieldMsg } from "./FieldMsg"
 
 export function FieldInfo({ field }: { field: AnyFieldApi }) {
-  const { isValid, isValidating } = field.state.meta
+  const { isValid, isValidating, isDirty } = field.state.meta
   const showError = !isValid
 
   const errorMsg = field.state.meta.errors
     .map(e => parseError(e, t.c.sentence(t.generalErrorMsg)))
     .join(`${t.configListItemSeparator} `)
 
+  if (!isDirty) return null
+
   if (isValidating)
-    return (
-      <p className={smallMsg({ intent: "neutral" })}>
-        <CircleNotchIcon className="inline me-1 animate-spin" />
-        <span>{t.c.sentence(t.validatingMsg)}</span>
-      </p>
-    )
+    return <FieldMsg intent="neutral">{t.c.sentence(t.validatingMsg)}</FieldMsg>
 
-  if (showError)
-    return (
-      <p className={smallMsg({ intent: "error" })}>
-        <XIcon className="inline me-1" />
-        <span>{errorMsg}</span>
-      </p>
-    )
+  if (showError) return <FieldMsg intent="danger">{errorMsg}</FieldMsg>
 
-  return (
-    <p className={smallMsg({ intent: "success" })}>
-      <CheckIcon className="inline me-1" />
-      <span>{t.c.sentence(t.correct)}</span>
-    </p>
-  )
+  return <FieldMsg intent="success">{t.c.sentence(t.correct)}</FieldMsg>
 }

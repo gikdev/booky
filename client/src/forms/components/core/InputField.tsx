@@ -1,27 +1,35 @@
 import { type Icon, WarningCircleIcon } from "@phosphor-icons/react"
-import { type ChangeEventHandler, useState } from "react"
+import { useState } from "react"
 import { cva } from "#/shared/cx.config"
 
 interface InputFieldProps {
   value: string
-  onChange: ChangeEventHandler<HTMLInputElement>
+  onChange: (value: string) => void
+  onBlur?: () => void
   label: string
   placeholder?: string
   readOnly?: boolean
   hasError?: boolean
   LeadingIcon?: Icon
   TrailingIcon?: Icon
+  inputType?: "date" | "password" | "text" | "email" | "number"
+  dir?: "auto" | "ltr" | "rtl"
+  isMultiline?: boolean
 }
 
 export function InputField({
   onChange,
   value,
   hasError = false,
+  inputType = "text",
   label,
   readOnly = false,
   placeholder = "",
   LeadingIcon,
   TrailingIcon,
+  dir = "rtl",
+  onBlur,
+  isMultiline = false,
 }: InputFieldProps) {
   const [isFocused, setFocused] = useState(false)
 
@@ -47,16 +55,36 @@ export function InputField({
       >
         {LeadingIcon && <LeadingIcon className="shrink-0 grow-0" size={24} />}
 
-        <input
-          dir="rtl"
-          className={input()}
-          placeholder={isFocused ? placeholder : ""}
-          value={value}
-          readOnly={readOnly}
-          onChange={onChange}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-        />
+        {isMultiline ? (
+          <textarea
+            dir={dir}
+            className={input({ isMultiline })}
+            placeholder={isFocused ? placeholder : ""}
+            value={value}
+            readOnly={readOnly}
+            onChange={e => onChange(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => {
+              setFocused(false)
+              onBlur?.()
+            }}
+          />
+        ) : (
+          <input
+            dir={dir}
+            className={input()}
+            placeholder={isFocused ? placeholder : ""}
+            value={value}
+            readOnly={readOnly}
+            type={inputType}
+            onChange={e => onChange(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => {
+              setFocused(false)
+              onBlur?.()
+            }}
+          />
+        )}
 
         {hasError && (
           <WarningCircleIcon
@@ -166,4 +194,13 @@ const input = cva({
     text-gray-90 transition-all placeholder:text-gray-60
     outline-none flex-1 shrink-1 min-w-4
   `,
+  variants: {
+    isMultiline: {
+      false: null,
+      true: "resize-y",
+    },
+  },
+  defaultVariants: {
+    isMultiline: false,
+  },
 })

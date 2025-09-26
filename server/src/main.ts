@@ -53,7 +53,7 @@ async function bootstrap() {
         preferredSecurityScheme: "bearer",
       },
       theme: "deepSpace",
-      layout: "modern",
+      layout: "classic",
       defaultHttpClient: {
         targetKey: "js",
         clientKey: "fetch",

@@ -1,35 +1,47 @@
+import type { Icon } from "@phosphor-icons/react"
 import { useFieldContext } from "../shared"
-import { fieldWithLabelContainer, inputField } from "../skins"
 import { FieldInfo } from "./core/FieldInfo"
+import { InputField } from "./core/InputField"
 
 interface SimpleTextProps {
   label: string
-  dir?: "auto" | "ltr" | "rtl"
   type?: "email" | "text" | "password"
+  dir?: "auto" | "ltr" | "rtl"
   isMultiline?: boolean
+  LeadingIcon?: Icon
+  TrailingIcon?: Icon
+  readOnly?: boolean
+  placeholder?: string
 }
 export function SimpleText({
   label,
   dir = "auto",
   type = "text",
   isMultiline = false,
+  LeadingIcon,
+  TrailingIcon,
+  placeholder,
+  readOnly,
 }: SimpleTextProps) {
   const field = useFieldContext<string>()
-  const Tag = isMultiline ? "textarea" : "input"
+  const { isValid, isDirty } = field.state.meta
+  const hasError = !isValid && isDirty
 
   return (
-    <div className={fieldWithLabelContainer()}>
-      <label htmlFor={field.name}>{label}</label>
-
-      <Tag
-        id={field.name}
-        name={field.name}
-        type={type}
+    <div className="flex flex-col">
+      <InputField
+        label={label}
         dir={dir}
-        className={inputField({ isMultiline })}
-        value={field.state.value ?? ""}
+        isMultiline={isMultiline}
+        onChange={v => field.handleChange(v)}
+        value={field.state.value}
+        inputType={type}
+        hasError={hasError}
+        LeadingIcon={LeadingIcon}
         onBlur={field.handleBlur}
-        onChange={e => field.handleChange(e.target.value)}
+        TrailingIcon={TrailingIcon}
+        placeholder={placeholder}
+        readOnly={readOnly}
       />
 
       <FieldInfo field={field} />
