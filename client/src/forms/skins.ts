@@ -14,7 +14,6 @@ export const btn = cva({
   variants: {
     mode: {
       contained: `
-        font-bold
         text-gray-10
         disabled:text-gray-40
         disabled:bg-gray-60 

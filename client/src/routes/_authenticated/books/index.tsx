@@ -10,16 +10,15 @@ import {
   type BookResponseDto,
   booksControllerGetAllBooksOptions,
 } from "#/api-client"
-import {
-  LoadingPaginationControls,
-  PaginationControls,
-} from "#/components/PaginationControls"
-import { btn } from "#/forms/skins"
+import { PaginationControls } from "#/components/PaginationControls"
 import { t } from "#/i18n"
 import { PaginationHelper } from "#/shared/api/PaginationHelper"
 import { contentContainer, page as pageSkin } from "#/shared/skins"
 import { AppBottomTabs } from "../-AppBottomTabs"
 import { NavBar } from "../-Navbar"
+import { btn } from "#/forms/skins"
+import { ErrorCard } from "#/components/ErrorCard"
+import { NoXYZSection } from "#/components/sections/NoXYZSection"
 
 export const Route = createFileRoute("/_authenticated/books/")({
   component: RouteComponent,
@@ -47,63 +46,129 @@ function useBooks(page: number, prefetchNextPage = false) {
 
 function RouteComponent() {
   const [page, setPage] = useState(1)
-  const { data, isSuccess, isPending, isPlaceholderData } = useBooks(page)
-
-  const mainSectionStyle = contentContainer({
-    className: isPlaceholderData && "opacity-50",
-  })
+  const {
+    data,
+    isSuccess,
+    isPending,
+    isPlaceholderData,
+    isError,
+    error,
+    refetch,
+  } = useBooks(page)
 
   const booksListSectionStyle = contentContainer({
-    className: isPlaceholderData && "animate-pulse",
+    className: [isPlaceholderData && "animate-pulse"],
   })
 
   return (
     <div className={pageSkin()}>
-      <NavBar title={t.c.capital(t.books)} slotEnd={<NewBookBtn />} />
+      <NavBar title={t.c.capital(t.books)} />
 
-      <div className={mainSectionStyle}>
-        {isSuccess &&
-          (data.meta.totalItems === 0 ? (
-            <NoBooksSection />
-          ) : (
-            <BooksList books={data.data} className={booksListSectionStyle} />
-          ))}
+      <div
+        className={contentContainer({
+          className: [
+            "relative",
+            isPlaceholderData && "opacity-50",
+            isError && "bg-danger-10",
+          ],
+        })}
+      >
+        {isPending && (
+          <div className={booksListSectionStyle}>
+            <LoadingBookItem />
+            <LoadingBookItem />
+            <LoadingBookItem />
+            <LoadingBookItem />
+            <LoadingBookItem />
+          </div>
+        )}
 
-        {/* TODO: Make a PowerfulPaginationControls which uses PaginationHelper */}
+        {isSuccess && data.meta.totalItems !== 0 && (
+          <div className={booksListSectionStyle}>
+            {data.data.map(b => (
+              <BookItem
+                key={b.id}
+                bookId={b.id}
+                title={b.title}
+                color={b.color}
+              />
+            ))}
+          </div>
+        )}
 
-        {isSuccess && (
-          <PaginationControls
-            currentPage={page}
-            disabled={isPlaceholderData}
-            isFirstPage={new PaginationHelper(data.meta).isFirstPage}
-            onFirstBtnClick={() => setPage(1)}
-            hasPreviousPage={new PaginationHelper(data.meta).hasPreviousPage}
-            onPreviousBtnClick={() => setPage(p => p - 1)}
-            hasNextPage={new PaginationHelper(data.meta).hasNextPage}
-            onNextBtnClick={() => setPage(p => p + 1)}
-            isLastPage={new PaginationHelper(data.meta).isLastPage}
-            onLastBtnClick={() => setPage(data.meta.totalPages)}
+        {isSuccess && data.meta.totalItems === 0 && (
+          <NoXYZSection
+            Icon={BooksIcon}
+            title={t.c.capital(t.noBooksSectionTitle)}
+            description={t.noBooksSectionDescription}
           />
         )}
 
-        {isPending && <LoadingPaginationControls />}
+        {isError && (
+          <div
+            className={contentContainer({
+              className: "items-center justify-center",
+            })}
+          >
+            <ErrorCard error={error} handleRetry={() => refetch()} />
+          </div>
+        )}
+
+        <NewCategoryBtn />
       </div>
+
+      {isSuccess && data.meta.totalItems !== 0 && (
+        <PaginationControls
+          currentPage={page}
+          disabled={isPlaceholderData}
+          isFirstPage={new PaginationHelper(data.meta).isFirstPage}
+          onFirstBtnClick={() => setPage(1)}
+          hasPreviousPage={new PaginationHelper(data.meta).hasPreviousPage}
+          onPreviousBtnClick={() => setPage(p => p - 1)}
+          hasNextPage={new PaginationHelper(data.meta).hasNextPage}
+          onNextBtnClick={() => setPage(p => p + 1)}
+          isLastPage={new PaginationHelper(data.meta).isLastPage}
+          onLastBtnClick={() => setPage(data.meta.totalPages)}
+        />
+      )}
 
       <AppBottomTabs />
     </div>
   )
 }
 
-interface BooksListProps {
-  className: string
-  books: BookResponseDto[]
-}
+const NewCategoryBtn = () => (
+  <Link
+    to="/books/new"
+    className={btn({
+      intent: "brand",
+      mode: "contained",
+      isIcon: true,
+      className: "absolute bottom-4 left-4",
+    })}
+  >
+    <PlusCircleIcon weight="fill" />
+  </Link>
+)
 
-const BooksList = ({ books, className }: BooksListProps) => (
-  <div className={className}>
-    {books.map(b => (
-      <BookItem key={b.id} bookId={b.id} title={b.title} color={b.color} />
-    ))}
+const LoadingBookItem = () => (
+  <div
+    className="
+      py-2 px-4 gap-4 flex justify-center
+      items-center min-h-14 bg-gray-10
+      animate-pulse text-gray-60
+    "
+  >
+    <div
+      className="
+        flex justify-center items-center
+        rounded-lg h-10 w-10 font-bold bg-gray-30
+      "
+    />
+
+    <div className="me-auto rounded-sm bg-gray-30 h-4 w-24" />
+
+    <CaretRightIcon size={24} mirrored={t.configIconMirror} />
   </div>
 )
 
@@ -141,26 +206,3 @@ function BookItem({ title, color, bookId }: BookItemProps) {
     </Link>
   )
 }
-
-const NewBookBtn = () => (
-  <Link
-    to="/books/new"
-    className={btn({ isIcon: true, size: "sm", mode: "text" })}
-  >
-    <PlusCircleIcon />
-  </Link>
-)
-
-const NoBooksSection = () => (
-  <div
-    className={contentContainer({ className: "items-center justify-center" })}
-  >
-    <div className="flex flex-col items-center p-4 gap-4 text-center">
-      <BooksIcon size={160} weight="duotone" className="text-brand-50" />
-      <p className="font-bold text-gray-90 text-2xl">
-        {t.c.capital(t.noBooksSectionTitle)}
-      </p>
-      <p>{t.noBooksSectionDescription}</p>
-    </div>
-  </div>
-)

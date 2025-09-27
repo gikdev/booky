@@ -34,7 +34,7 @@ export function InputField({
   const [isFocused, setFocused] = useState(false)
 
   return (
-    <label className="relative flex items-end h-16 group transition-all w-full">
+    <label className="relative flex items-end min-h-16 pt-2 group transition-all w-full">
       <p
         className={labelStyle({
           isFocused,
@@ -104,9 +104,8 @@ export function InputField({
 
 const labelStyle = cva({
   base: `
-    cursor-text
+    cursor-text start-4 leading-none
     absolute bg-gray-10 transition-all
-    start-4 leading-none
     text-xs px-1 py-0.5 top-0
   `,
   variants: {
@@ -159,7 +158,7 @@ const labelStyle = cva({
 
 const inputContainer = cva({
   base: `
-    h-14 w-full
+    min-h-14 w-full
     transition-all
     border-2
     flex items-center
