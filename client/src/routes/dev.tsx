@@ -31,7 +31,7 @@ function RouteComponent() {
           <InputField
             label="نام"
             LeadingIcon={leadingIcon || undefined}
-            onChange={e => setName(e.target.value)}
+            onChange={v => setName(v)}
             value={name}
             hasError={hasError}
             placeholder="مثلا: اصغر"
